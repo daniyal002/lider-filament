@@ -1,6 +1,7 @@
 export interface IRegistrationRequest {
   username: string,
   password: string,
+  replayPassword?:string,
   login: string,
   email: string,
   phone: string,

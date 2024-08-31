@@ -14,6 +14,7 @@ export default function InstallBootstrap() {
         import("bootstrap/dist/js/bootstrap.bundle.js")
     },[])
   return (
-    <></>
+    <>
+    </>
   )
 }

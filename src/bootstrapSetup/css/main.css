@@ -1843,7 +1843,7 @@ a:hover {
 	color: #909295;
 }
 
-#nav > ul > li.dark .mt-dropmenu a:hover {
+#nav > ul > li.dark .mt-dropmenu a:hover {	
 	color: #ff6060;
 }
 
@@ -1851,8 +1851,8 @@ a:hover {
 	top: 24px;
 	z-index: 5;
 	opacity: 0;
-	left: -9999px;
-	right: -9999px;
+	left: 0px;
+	right: 0px;
 	padding: 30px 0 0;
 	visibility: hidden;
 	position: absolute;
