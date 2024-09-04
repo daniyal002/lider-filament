@@ -34,7 +34,7 @@ axiosWidthAuth.interceptors.response.use(
             if (!refreshToken) {
                 removeAccessTokenFromStorage();
                 removeRefreshTokenFromStorage();
-                return window.location.replace("/login");
+                return window.location.replace("/auth/login");
             }
 
             try {
@@ -50,7 +50,7 @@ axiosWidthAuth.interceptors.response.use(
                 console.error("Error during token refresh:", refreshError);
                 removeAccessTokenFromStorage();
                 removeRefreshTokenFromStorage();
-                return window.location.replace("/login");
+                return window.location.replace("/auth/login");
             }
         }
 

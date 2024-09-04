@@ -1,7 +1,7 @@
-import { ICategory } from "./category";
+import { ICategoryRequset } from "./category";
 
 export interface IProductRequest {
-  product_id?:number
+  product_id?: number;
   product_name: string;
   product_price: number;
   product_size: string;
@@ -12,12 +12,25 @@ export interface IProductRequest {
 }
 
 export interface IProductResponse {
-    product_id?:number
-    product_name: string;
-    product_price: number;
-    product_size: string;
-    product_weight: number;
-    product_color: string;
-    note: string;
-    category: ICategory;
-  }
+  limit: number;
+  skip: number;
+  totel: number;
+  detail:IProductResponseDetail[]
+  
+}
+
+
+export interface IProductResponseDetail{
+  product_id?: number;
+  product_name: string;
+  product_price: number;
+  product_size: string;
+  product_weight: number;
+  product_color: string;
+  note: string;
+  product_category: ICategoryRequset;
+}
+
+export interface IProductByIdResponse{
+  detail:IProductResponseDetail
+}
