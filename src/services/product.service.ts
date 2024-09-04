@@ -8,6 +8,9 @@ export const productService = {
     },
 
     async getProductById (id:string){
+        if(id==="undefined"){
+            return null
+        }
         const response = await axiosWidthAuth.get<IProductByIdResponse>(`product/read_product_by_id?product_id=${id}`)
         return response.data
     },
