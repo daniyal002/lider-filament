@@ -36,7 +36,7 @@ export const useCreateProductMutation = () => {
 
   const { mutate } = useMutation({
     mutationKey: ["createProduct"],
-    mutationFn: (data: IProductRequest) => productService.addProduct(data),
+    mutationFn: (formData: FormData) => productService.addProduct(formData),
     onSuccess: (newProduct) => {
       queryClient.setQueryData(["Products"], (oldData: IProductResponse | undefined) => {
         if (!oldData?.detail) return { ...oldData, detail: [newProduct.detail] };
@@ -54,19 +54,21 @@ export const useCreateProductMutation = () => {
   return { mutate };
 };
 
+
 export const useUpdateProductMutation = () => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationKey: ["updateProduct"],
-    mutationFn: (data: IProductRequest) => productService.updateProduct(data),
+    mutationFn: ({formData,product_id}:{formData:FormData,product_id:string}) => productService.updateProduct(product_id,formData),
     onSuccess: (updatedProduct,variables) => {
+      console.log(updatedProduct)
       queryClient.setQueryData(["Products"], (oldData: IProductResponse | undefined) => {
         if (!oldData?.detail) return oldData;
         return {
           ...oldData,
           detail: oldData.detail.map((product) =>
-            product.product_id === variables.product_id ? variables : product
+            product.product_id === updatedProduct.detail.product_id ? updatedProduct.detail : product
           ),
         };
       });
@@ -101,6 +103,55 @@ export const useDeleteProductMutation = () => {
     },
     onError(error: AxiosError<IErrorResponse>) {
       console.log(error?.response?.data?.detail);
+    },
+  });
+
+  return { mutate };
+};
+
+
+export const useProductFeaturedData = () => {
+  const {
+    data: productFeaturedData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["ProductFeatured"],
+    queryFn: () => productService.getProductFeatured(),
+  });
+  return { productFeaturedData, isLoading, error };
+};
+
+export const useAddProductFeaturedMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ["addProductFeatured"],
+    mutationFn: (product_id:number) => productService.addProductFeatured(product_id),
+    onSuccess: () => {
+      // Invalidating the query to refetch the data
+      queryClient.invalidateQueries({queryKey:['ProductFeatured']});
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      console.error(error?.response?.data?.detail);
+    },
+  });
+
+  return { mutate };
+};
+
+export const useDeleteProductFeaturedMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ["deleteProductFeatured"],
+    mutationFn: (product_id:number) => productService.deleteProductFeatured(product_id),
+    onSuccess: () => {
+      // Invalidating the query to refetch the data
+      queryClient.invalidateQueries({queryKey:['ProductFeatured']});
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      console.error(error?.response?.data?.detail);
     },
   });
 

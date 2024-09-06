@@ -1,3 +1,4 @@
+import { useCategoryData } from "@/hook/categoryHook";
 import { useDeleteProductMutation } from "@/hook/productHook";
 import { IProductResponse } from "@/interface/product";
 import Image from "next/image";
@@ -5,12 +6,17 @@ import React from "react";
 
 interface Props {
   productData: IProductResponse;
-  setProductId:any
-  setProductType:any
+  setProductId: any;
+  setProductType: any;
 }
 
-export default function ProductGrid({ productData,setProductId,setProductType }: Props) {
-    const {mutate:deleteProductMutation} = useDeleteProductMutation()
+export default function ProductGrid({
+  productData,
+  setProductId,
+  setProductType,
+}: Props) {
+  const { mutate: deleteProductMutation } = useDeleteProductMutation();
+  const { categoryData } = useCategoryData();
 
   return (
     <>
@@ -21,68 +27,18 @@ export default function ProductGrid({ productData,setProductId,setProductType }:
             className="col-xs-12 col-sm-4 col-md-3 wow fadeInLeft"
             data-wow-delay="0.4s"
           >
-            <section className="shop-widget filter-widget bg-grey">
-              <h2>FILTER</h2>
-
-              <span className="sub-title">Filter by Price</span>
-              <div className="price-range">
-                <div className="range-slider">
-                  <span className="dot"></span>
-                  <span className="dot dot2"></span>
-                </div>
-                <span className="price">
-                  Price &nbsp; $ 10 &nbsp; - &nbsp; $ 599
-                </span>
-                <a href="#" className="filter-btn">
-                  Filter
-                </a>
-              </div>
-            </section>
+           
             <section className="shop-widget">
-              <h2>CATEGORIES</h2>
+              <h2>Категории</h2>
               <ul className="list-unstyled category-list">
-                <li>
-                  <a href="#">
-                    <span className="name">CHAIRS</span>
-                    <span className="num">12</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">SOFAS</span>
-                    <span className="num">24</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">ARMCHAIRS</span>
-                    <span className="num">9</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">BEDROOM</span>
-                    <span className="num">2</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">LIGHTING</span>
-                    <span className="num">17</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">KITCHEN</span>
-                    <span className="num">10</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span className="name">ACCESSORIES</span>
-                    <span className="num">23</span>
-                  </a>
-                </li>
+                {categoryData?.detail.map((category) => (
+                  <li key={category.category_id}>
+                    <a href="#">
+                      <span className="name">{category.category_name}</span>
+                      <span className="num">{category.product_count}</span>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </section>
           </aside>
@@ -96,7 +52,10 @@ export default function ProductGrid({ productData,setProductId,setProductType }:
                   className="drop-link"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
-                  onClick={()=> {setProductType("Создать");setProductId(undefined)}}
+                  onClick={() => {
+                    setProductType("Создать");
+                    setProductId(undefined);
+                  }}
                 >
                   Добавить товар
                 </button>
@@ -105,15 +64,26 @@ export default function ProductGrid({ productData,setProductId,setProductType }:
             <ul className="mt-productlisthold list-inline">
               {productData &&
                 productData?.detail.map((product) => (
-                  <li>
+                  <li key={product.product_id}>
                     <div className="mt-product1 large">
                       <div className="box">
                         <div className="b1">
                           <div className="b2">
                             <a href="product-detail.html">
-                              <img
-                                src="http://placehold.it/275x290"
-                                alt="image description"
+                              <Image
+                                loader={() =>
+                                  `http://192.168.30.153:8001/${
+                                    product?.product_images &&
+                                    product?.product_images[0]?.image_patch
+                                  }`
+                                }
+                                src={`http://192.168.30.153:8001/${
+                                  product?.product_images &&
+                                  product?.product_images[0]?.image_patch
+                                }`}
+                                alt={String(product.product_id)}
+                                width={275}
+                                height={290}
                               />
                             </a>
                             <ul className="mt-stars">
@@ -133,15 +103,28 @@ export default function ProductGrid({ productData,setProductId,setProductType }:
                             <ul className="links">
                               <li>
                                 <button
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                onClick={() => {setProductType("Изменить");setProductId(product.product_id)}}
-                                style={{cursor:"pointer"}}>
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal"
+                                  onClick={() => {
+                                    setProductType("Изменить");
+                                    setProductId(product.product_id);
+                                  }}
+                                  style={{ cursor: "pointer" }}
+                                >
                                   <span>Редактировать</span>
                                 </button>
                               </li>
                               <li>
-                                <a onClick={() => deleteProductMutation({...product, category_id:product.product_category.category_id})} style={{cursor:"pointer"}}>
+                                <a
+                                  onClick={() =>
+                                    deleteProductMutation({
+                                      ...product,
+                                      category_id:
+                                        product.product_category.category_id,
+                                    })
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                >
                                   <Image
                                     src={"/trash.svg"}
                                     alt="Direct Image"

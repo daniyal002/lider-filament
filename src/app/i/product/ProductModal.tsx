@@ -1,36 +1,81 @@
-import { useCreateProductMutation, useProductDataById, useUpdateProductMutation } from "@/hook/productHook";
+import {
+  useCreateProductMutation,
+  useProductDataById,
+  useUpdateProductMutation,
+} from "@/hook/productHook";
 import { IProductRequest, IProductResponseDetail } from "@/interface/product";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "./ProductModal.scss";
+import { useCategoryData } from "@/hook/categoryHook";
 
 interface Props {
   productId: number;
-  setProductId:any,
-  type:"Создать" | "Изменить",
+  setProductId: any;
+  type: "Создать" | "Изменить";
 }
 
-export default function ProductModal({productId,setProductId,type}:Props) {
+export default function ProductModal({ productId, setProductId, type }: Props) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<IProductRequest>({ mode: "onChange" });
-  const { mutate:createProductMutation } = useCreateProductMutation();
-  const {mutate:updateProductMutation} = useUpdateProductMutation()
-  const {productByIdData} = useProductDataById(String(productId))
+  const { mutate: createProductMutation } = useCreateProductMutation();
+  const { mutate: updateProductMutation } = useUpdateProductMutation();
+  const { productByIdData } = useProductDataById(String(productId));
+  const { categoryData } = useCategoryData();
 
   const onSubmit: SubmitHandler<IProductRequest> = (data) => {
-    const newProduct: IProductRequest = { ...data, category_id: 1 };
-    type === "Создать" ? createProductMutation(newProduct): updateProductMutation(newProduct);
+    const formData = new FormData();
+  
+
+    // Преобразование объекта в строку JSON и добавление в formData
+    const productCreate = JSON.stringify({
+      product_name: data.product_name,
+      product_price: data.product_price,
+      product_size: data.product_size,
+      product_weight: data.product_weight,
+      product_color: data.product_color,
+      note: data.note,
+      category_id: data.category_id,
+    });
+
+    const productUpdate = JSON.stringify({
+      product_name: data.product_name,
+      product_price: data.product_price,
+      product_size: data.product_size,
+      product_weight: data.product_weight,
+      product_color: data.product_color,
+      note: data.note,
+      category_id: data.category_id,
+    });
+    type === "Создать" ? formData.append('product_create', productCreate) : formData.append('product_update', productUpdate)  
+  
+    // Добавление файлов (изображений)
+    if (data.images) {
+      Array.from(data.images).forEach((file) => {
+        formData.append('images', file);
+      });
+    }
+  
+    console.log(formData.getAll("images")); // Проверка наличия файлов
+  
+    // Передача именно FormData
+    if (type === "Создать") {
+      createProductMutation(formData as any); // Приведение к типу any для обхода типизации
+    } else {
+      updateProductMutation({product_id:String(productId),formData});
+    }
     setProductId(undefined);
     reset();
   };
+  
 
   useEffect(() => {
-    if (productId === undefined && type === 'Создать') {
-        reset()
+    if (productId === undefined && type === "Создать") {
+      reset();
       reset({
         product_name: undefined,
         product_color: undefined,
@@ -38,11 +83,12 @@ export default function ProductModal({productId,setProductId,type}:Props) {
         product_size: undefined,
         product_weight: undefined,
         category_id: undefined,
+        images: undefined,
         note: undefined,
       });
     } else if (productId) {
       reset({
-        product_id:productId,
+        product_id: productId,
         product_name: productByIdData?.detail.product_name,
         product_color: productByIdData?.detail.product_color,
         product_price: productByIdData?.detail.product_price,
@@ -67,14 +113,17 @@ export default function ProductModal({productId,setProductId,type}:Props) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Создание товара
+                {type} товар
               </h5>
               <button
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                onClick={() => {setProductId(undefined);reset()}}
+                onClick={() => {
+                  setProductId(undefined);
+                  reset();
+                }}
               ></button>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -226,20 +275,68 @@ export default function ProductModal({productId,setProductId,type}:Props) {
                       </p>
                     )}
                   </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">Выберите категорию</label>
+                    <select
+                      className="input"
+                      aria-label="Default select example"
+                      {...register("category_id", {
+                        required: { message: "Выберите категрию", value: true },
+                      })}
+                    >
+                      {categoryData &&
+                        categoryData.detail.map((category) => (
+                          <option value={category.category_id}>
+                            {category.category_name}
+                          </option>
+                        ))}
+                    </select>
+                    {errors.product_color && (
+                      <p
+                        style={{
+                          color: "#c93e3e",
+                          paddingLeft: "3px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {errors.product_color.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">
+                      Выберите изображение для товара
+                    </label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      id="formFileMultiple"
+                      multiple
+                      {...register("images")}
+                    />
+                  </div>
                 </div>
               </div>
-
               <div className="modal-footer">
                 <button
                   type="button"
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  onClick={() => {setProductId(undefined);reset()}}
+                  onClick={() => {
+                    setProductId(undefined);
+                    reset();
+                  }}
                 >
                   Закрыть
                 </button>
-                <button type="submit" className="btn-type1" data-bs-dismiss="modal">
-                  Добавить товар
+                <button
+                  type="submit"
+                  className="btn-type1"
+                  data-bs-dismiss="modal"
+                >
+                  {type} товар
                 </button>
               </div>
             </form>
