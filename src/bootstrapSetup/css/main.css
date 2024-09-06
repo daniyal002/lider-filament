@@ -8281,6 +8281,22 @@ a:hover {
 	text-decoration: none;
 }
 
+.mt-pagination ul button {
+	color: #bababa;
+	display: block;
+	padding: 5px 10px;
+	background: #f6f6f6;
+	-webkit-transition: all ease .5s;
+	transition: all ease .5s;
+}
+
+.mt-pagination ul button:hover {
+	color: #fff;
+	background: #ff6060;
+	text-decoration: none;
+}
+
+
 /*------------------------------------------------------------------
 42. product post / .product-post
 -------------------------------------------------------------------*/

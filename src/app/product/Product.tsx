@@ -167,11 +167,6 @@ export default function Product() {
                               </button>
                             )}
                           </li>
-                          <li>
-                            <a href="#">
-                              <i className="icomoon icon-exchange"></i>
-                            </a>
-                          </li>
                         </ul>
                       </div>
                     </div>
