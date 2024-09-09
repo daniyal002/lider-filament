@@ -2,6 +2,7 @@ import { useCategoryData } from "@/hook/categoryHook";
 import { useDeleteProductMutation } from "@/hook/productHook";
 import { IProductResponse } from "@/interface/product";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -69,7 +70,7 @@ export default function ProductGrid({
                       <div className="box">
                         <div className="b1">
                           <div className="b2">
-                            <a href="product-detail.html">
+                        <Link href={`/product/${product.product_id}`}>
                               <Image
                                 loader={() =>
                                   `http://192.168.30.153:8001/${
@@ -85,7 +86,7 @@ export default function ProductGrid({
                                 width={275}
                                 height={290}
                               />
-                            </a>
+                            </Link>
                             <ul className="mt-stars">
                               <li>
                                 <i className="fa fa-star"></i>

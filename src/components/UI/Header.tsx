@@ -24,7 +24,7 @@ export default function Header() {
         <div className="container">
             <div className="row">
                 <div className="col-xs-12">
-                    <div className="mt-logo"><a href="#"><img src="images/mt-logo.png" alt="schon"/></a></div>
+                    <div className="mt-logo"><a href="#"><img src="" alt="schon"/></a></div>
                     <div className="mt-sh-cart">
                         <span className="icon-handbag"></span>
                         <strong>SHOPPING CART</strong>

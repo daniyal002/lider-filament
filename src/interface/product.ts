@@ -11,6 +11,8 @@ export interface IProductRequest {
   category_id: number;
   images?: FileList;
   product_images?: IProductImages[]
+  featured_count?:number
+
 }
 
 export interface IProductResponse {
@@ -31,6 +33,7 @@ export interface IProductResponseDetail {
   product_category: ICategoryRequset;
   images?: FileList;
   product_images?: IProductImages[]
+  featured_count?:number
 }
 
 export interface IProductByIdResponse {

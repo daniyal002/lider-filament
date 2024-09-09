@@ -30,6 +30,7 @@ export default function ProductFeature() {
   const paginatedProducts = productFeaturedData?.detail.slice(startIndex, endIndex);
 
   // Количество страниц
+  // @ts-ignore
   const totalPages = Math.ceil(productFeaturedData?.detail?.length / limit);
 
   // Обработчик смены страницы

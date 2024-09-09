@@ -1,5 +1,6 @@
 "use client";
 
+import { baseURL } from "@/api/interseptors";
 import { useCategoryData } from "@/hook/categoryHook";
 import {
   useAddProductFeaturedMutation,
@@ -8,6 +9,7 @@ import {
   useProductFeaturedData,
 } from "@/hook/productHook";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Product() {
@@ -107,15 +109,15 @@ export default function Product() {
                   <div className="box">
                     <div className="b1">
                       <div className="b2">
-                        <a href="product-detail.html">
+                        <Link href={`/product/${product.product_id}`}>
                           <Image
                             loader={() =>
-                              `http://192.168.30.153:8001/${
+                              `${baseURL}/${
                                 product?.product_images &&
                                 product?.product_images[0]?.image_patch
                               }`
                             }
-                            src={`http://192.168.30.153:8001/${
+                            src={`${baseURL}/${
                               product?.product_images &&
                               product?.product_images[0]?.image_patch
                             }`}
@@ -123,7 +125,7 @@ export default function Product() {
                             width={275}
                             height={290}
                           />
-                        </a>
+                        </Link>
 
                         <ul className="links">
                           <li>

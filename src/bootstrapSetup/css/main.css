@@ -7094,7 +7094,7 @@ a:hover {
 .mt-product-detial {
 	overflow: hidden;
 	padding: 0 0 25px;
-	background: #f6f6f6;
+	background: #04040c;
 }
 
 .mt-product-detial .slider {
@@ -7212,7 +7212,7 @@ a:hover {
 	letter-spacing: 5px;
 	word-spacing: -4px;
 	margin: 0 0 15px;
-	color: #000;
+	color: #fff;
 }
 
 .mt-product-detial .breadcrumbs {
@@ -7329,7 +7329,7 @@ a:hover {
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
 	letter-spacing: -1px;
-	color: #000;
+	color: #551A8B;
 }
 
 .mt-product-detial .text-holder .price del {
@@ -7392,12 +7392,13 @@ a:hover {
 	border-radius: 25px;
 	-webkit-transition: all .25s linear;
 	transition: all .25s linear;
-	background: #ff8283;
+	background: #551A8B;
 	color: #fff;
 }
 
 .mt-product-detial .product-form button:hover {
-	background: #000;
+	background: #fff;
+	color: #551A8B;
 }
 
 .lightbox .mt-product-detial {
