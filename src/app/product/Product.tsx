@@ -1,6 +1,7 @@
 "use client";
 
 import { baseURL } from "@/api/interseptors";
+import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
 import {
   useAddProductFeaturedMutation,
@@ -20,6 +21,10 @@ export default function Product() {
   const { mutate: deleteProductFeaturedMutation } =
     useDeleteProductFeaturedMutation();
   const { productFeaturedData } = useProductFeaturedData();
+
+  const {mutate:createCartMutation} = useCreateCartMutation()
+
+  
 
   // State for price range filter
   const [minPrice, setMinPrice] = useState(10);
@@ -129,7 +134,7 @@ export default function Product() {
 
                         <ul className="links">
                           <li>
-                            <a href="#">
+                            <a onClick={() => createCartMutation({product_id:product.product_id as number,product_price:product.product_price,product_quantity:1})}>
                               <i className="icon-handbag"></i>
                               <span>Add to Cart</span>
                             </a>

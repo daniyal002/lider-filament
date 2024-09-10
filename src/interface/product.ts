@@ -18,7 +18,7 @@ export interface IProductRequest {
 export interface IProductResponse {
   limit: number;
   skip: number;
-  totel: number;
+  total: number;
   detail: IProductResponseDetail[];
 }
 

@@ -2336,7 +2336,7 @@ a:hover {
 }
 
 .mt-side-widget .cart-row .close:hover {
-	color: #000;
+	color: #fff;
 	text-decoration: none;
 }
 
@@ -2403,7 +2403,7 @@ a:hover {
 
 .mt-side-widget .mt-total-txt {
 	float: right;
-	color: #010101;
+	color: #fff;
 	font: 600 15px/20px "Source Sans Pro", sans-serif;
 }
 
@@ -2419,7 +2419,7 @@ a:hover {
 
 .mt-side-widget .btn-type3 {
 	padding: 5px 22px;
-	font: 14px/20px "Montserrat", sans-serif;
+	font: 600 14px/20px "Montserrat", sans-serif;
 }
 
 .or-divider {
@@ -2683,22 +2683,23 @@ a:hover {
 
 .btn-type3 {
 	outline: none;
-	color: #fff;
+	color: #551A8B;
 	padding: 9px 20px;
-	background: #000;
+	background: #fff;
 	border-radius: 21px;
 	vertical-align: top;
 	display: inline-block;
-	border: 1px solid #000;
+	border: 1px solid #551A8B;
 	text-transform: uppercase;
-	font: 300 14px/20px "Source Sans Pro", sans-serif;
+	font: 14px/20px "Source Sans Pro", sans-serif;
+	font-weight: bold;
 }
 
 .btn-type3:focus,
 .btn-type3:hover {
-	color: #000;
+	color: #fff;
 	background: transparent;
-	border: 1px solid #000;
+	border: 1px solid #551A8B;
 }
 
 .btn-type4 {

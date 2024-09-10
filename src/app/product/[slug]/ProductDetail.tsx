@@ -17,6 +17,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useState } from "react";
+import { useCreateCartMutation } from "@/hook/cartHook";
 
 interface Props {
   productId: string;
@@ -30,6 +32,9 @@ export default function ProductDetail({ productId }: Props) {
   const { mutate: deleteProductFeaturedMutation } =
     useDeleteProductFeaturedMutation();
   const { productFeaturedData } = useProductFeaturedData();
+  const {mutate:createCartMutation} = useCreateCartMutation()
+
+  const [quantity, setQuantity] = useState<number>(1)
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
       <div className="container">
@@ -110,10 +115,12 @@ export default function ProductDetail({ productId }: Props) {
                 <fieldset>
                   <div className="row-val">
                     <label>Количество</label>
-                    <input type="number" id="qty" placeholder="1" min={1} />
+                    <input type="number" id="qty" placeholder="1" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}/>
                   </div>
                   <div className="row-val">
-                    <button type="submit">В КОРЗИНУ</button>
+                    <button type="button" onClick={() => {
+                        createCartMutation({product_id:productByIdData?.detail.product_id as number,product_price:productByIdData?.detail.product_price as number,product_quantity:quantity})
+                    }}>В КОРЗИНУ</button>
                   </div>
                 </fieldset>
               </form>
