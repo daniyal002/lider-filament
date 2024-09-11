@@ -21,7 +21,7 @@ export const categoryService = {
     },
 
     async updateCategory(data:ICategoryRequset){
-        const response = await axiosWidthAuth.put<ICategoryByIdResponse>(`category/update_category?category_id=${data.category_id}`,data)
+        const response = await axiosWidthAuth.put<ICategoryByIdResponse>(`category/update_category`,data)
         return response.data
     },
 

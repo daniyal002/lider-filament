@@ -1,74 +1,63 @@
-import { useDeleteCategoryMutation } from "@/hook/categoryHook";
-import { useDeleteProductMutation } from "@/hook/productHook";
-import { ICategoryResponse } from "@/interface/category";
-import { IProductResponse } from "@/interface/product";
+import { useDeleteUserMutation } from "@/hook/userHook";
+import { IUserResponse } from "@/interface/user";
 import Image from "next/image";
 import React from "react";
 
 interface Props {
-  categoryData: ICategoryResponse;
-  setCategoryId: any;
-  setCategoryType: any;
+  userData: IUserResponse;
+  setUserId: any;
+  setUserType: any;
 }
 
-export default function CategoryGrid({
-  categoryData,
-  setCategoryId,
-  setCategoryType,
+export default function UserGrid({
+  userData,
+  setUserId,
+  setUserType,
 }: Props) {
-  const { mutate: deleteCategoryMutation } = useDeleteCategoryMutation();
+  const { mutate: deleteUserMutation } = useDeleteUserMutation();
 
   return (
     <>
       <div className="container">
         <div className="row">
           <div data-wow-delay="0.4s">
-            <header className="mt-shoplist-header">
-              <div className="btn-box">
-                <button
-                  className="drop-link"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  onClick={() => {
-                    setCategoryType("Создать");
-                    setCategoryId(undefined);
-                  }}
-                >
-                  Добавить Категорию
-                </button>
-              </div>
-            </header>
             <table className="table table-dark table-striped">
               <thead>
                 <tr>
                   <th scope="col">Id</th>
-                  <th scope="col">Название категории</th>
+                  <th scope="col">User name</th>
+                  <th scope="col">Логин</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Телефон</th>
                   <th scope="col">Действия</th>
                 </tr>
               </thead>
               <tbody>
-                {categoryData &&
-                  categoryData?.detail.map((category) => (
+                {userData &&
+                  userData?.detail.map((user) => (
                     <tr>
-                      <th scope="row">{category.category_id}</th>
-                      <td>{category.category_name}</td>
+                      <th scope="row">{user.user_id}</th>
+                      <td>{user.username}</td>
+                      <td>{user.login}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone}</td>
                       <td style={{display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                         <button
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal"
                           className="btn btn-outline-success"
                           onClick={() => {
-                            setCategoryType("Изменить");
-                            setCategoryId(category.category_id);
+                            setUserType("Изменить");
+                            setUserId(user.user_id);
                           }}
                         >
                           Редактировать
                         </button>
                         <button
                           onClick={() =>
-                            deleteCategoryMutation({
-                              ...category,
-                              category_id: category.category_id,
+                            deleteUserMutation({
+                              ...user,
+                              user_id: user.user_id,
                             })
                           }
                           className="btn btn-outline-danger"

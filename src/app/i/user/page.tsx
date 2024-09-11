@@ -1,8 +1,8 @@
 import React from 'react'
-import ProductAdmin from './CategoryAdmin'
+import UserAdmin from './UserAdmin'
 
 export default function page() {
   return (
-    <div><ProductAdmin/></div>
+    <div><UserAdmin/></div>
   )
 }

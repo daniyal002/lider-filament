@@ -1,0 +1,49 @@
+.promoContainer {
+    padding: 35px 35px 70px;
+    background: rgba(134, 155, 223, 0.14);
+    border: 2px solid rgba(83, 84, 136, 0.4);
+    border-radius: 10%;
+  }
+  
+  .promoContent {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: center;
+  }
+  
+  .promoImage {
+    width: 232px;
+    border-radius: 10%;
+  }
+  
+  .promoText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .promoTitle {
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 20px;
+    max-width: 300px;
+  }
+  
+  .promoLink {
+    font-size: 19px;
+    color: #a95bf3;
+    text-align: center;
+    font-weight: 300;
+    text-decoration: none;
+  }
+  
+
+  .promoDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

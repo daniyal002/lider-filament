@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: center;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0px 20px;
+  }
+  
+  .title {
+    font-size: 55px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .description {
+    font-size: 19px;
+    color: #fff;
+    font-weight: 300;
+    text-align: center;
+    line-height: 2;
+    margin-bottom: 24px;
+  }
+  
+  .promoContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    row-gap: 30px;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 425px) {
+    .title {
+      font-size: 35px;
+    }
+  }

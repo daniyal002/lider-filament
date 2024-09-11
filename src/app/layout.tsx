@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import InstallBootstrap from "@/components/InstallBootstrap";
 import QueryClientContextProvider from "./QueryClientContextProvider";
 import Header from "@/components/UI/Header";
+import Footer from "@/components/UI/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,8 +30,10 @@ export default function RootLayout({
         <InstallBootstrap />
         <body className={inter.className}>
           <Header />
-          
+          <main>
           {children}
+          </main>
+          <Footer/>
         </body>
       </QueryClientContextProvider>
     </html>

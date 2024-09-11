@@ -264,9 +264,7 @@ a:hover {
 	padding: 31px 0;
 }
 
-#mt-header.style3 #nav {
-	margin: 10px 0 0;
-}
+
 
 #mt-header.style4 .mt-bottom-bar {
 	padding: 18px 19px 19px 18px;
@@ -1454,7 +1452,6 @@ a:hover {
 
 .mt-bottom-bar .mt-icon-list li {
 	position: relative;
-	margin: 5px 0 0 15px;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -1590,7 +1587,6 @@ a:hover {
 	width: 180px;
 	float: right;
 	color: #000;
-	margin: 0 0 0 31px;
 	position: relative;
 	letter-spacing: 1px;
 	padding: 2px 0 0 42px;
@@ -1733,7 +1729,7 @@ a:hover {
 
 #nav {
 	float: right;
-	margin: 12px 0 0;
+	/* margin: 12px 0 0; */
 	text-transform: uppercase;
 	font: 14px/20px "Montserrat", sans-serif;
 }
@@ -1748,7 +1744,6 @@ a:hover {
 #nav > ul > li {
 	position: relative;
 	vertical-align: top;
-	margin: 0 36px 0 7px;
 	display: inline-block;
 }
 
@@ -1769,7 +1764,6 @@ a:hover {
 
 #nav > ul > li.drop {
 	position: static;
-	margin: 0 29px 0 0;
 }
 
 #nav > ul > li.drop > a:after {
@@ -2931,7 +2925,8 @@ a:hover {
 }
 
 #mt-footer .dark {
-	background: #f6f6f6;
+	background: rgba(134, 155, 223, 0.14)!important;
+	border: 2px solid rgba(83, 84, 136, 0.4);
 	position: relative;
 }
 
@@ -3136,7 +3131,7 @@ a:hover {
 
 #mt-footer .footer-area p a {
 	font-weight: 700;
-	color: #000;
+	color: #551A8B;
 	-webkit-transition: all .4s linear;
 	transition: all .4s linear;
 }

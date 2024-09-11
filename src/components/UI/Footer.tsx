@@ -1,0 +1,64 @@
+import React from 'react'
+
+export default function Footer() {
+  return (
+    <footer id="mt-footer" className="style8 wow fadeInUp" data-wow-delay="0.4s">
+				<div className="footer-holder dark">
+					<div className="container-fluid">
+						<div className="row">
+							<div className="col-xs-12 col-sm-4">
+								<div className="f-widget-about">
+									<div className="logo">
+										<a href="index.html"><img src="./icon/logo.svg" alt="Schon"/></a>
+									</div>
+									<ul className="list-unstyled address-list">
+										<li><address>Connaugt Road Central Suite 18B, 148 <br/>New Yankee</address></li>
+										<li><a href="tel:15553332211">+1 (555) 333 22 11</a></li>
+										<li><a href="mailto:&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;">&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;</a></li>
+									</ul>
+									<ul className="list-unstyled social-network">
+										<li><a href="#"><i className="bi bi-telegram"></i></a></li>
+										<li><a href="#"><i className="fa fa-whatsapp"></i></a></li>
+									</ul>
+								</div>
+							</div>
+							<nav className="col-xs-12 col-sm-8">
+								<div className="nav-widget-1">
+									<h3 className="f-widget-heading">Маркетплейс</h3>
+									<ul className="list-unstyled f-widget-nav">
+										<li><a href="#">Продукты</a></li>
+										<li><a href="#">Категории</a></li>
+									</ul>
+								</div>
+								<div className="nav-widget-1">
+									<h3 className="f-widget-heading">Информация</h3>
+									<ul className="list-unstyled f-widget-nav">
+										<li><a href="#">Акции</a></li>
+										<li><a href="#">Сотрудничество</a></li>
+										<li><a href="#">Информация об оплате</a></li>
+										<li><a href="#">Методы оплаты</a></li>
+									</ul>
+								</div>
+								<div className="nav-widget-1">
+									<h3 className="f-widget-heading">Компания</h3>
+									<ul className="list-unstyled f-widget-nav">
+										<li><a href="#">О компании</a></li>
+										<li><a href="#">Контакты</a></li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div className="footer-area">
+					<div className="container-fluid">
+						<div className="row">
+							<div className="col-xs-12 text-center">
+								<p>© <a href="index.html">Лидер-В</a> - все права защищены</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+  )
+}

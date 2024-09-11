@@ -1,3 +1,6 @@
+'use client'
+
+import Image from 'next/image'
 import React from 'react'
 
 export default function Header() {
@@ -23,25 +26,20 @@ export default function Header() {
     <div className="mt-bottom-bar">
         <div className="container">
             <div className="row">
-                <div className="col-xs-12">
-                    <div className="mt-logo"><a href="#"><img src="" alt="schon"/></a></div>
-                    <div className="mt-sh-cart">
-                        <span className="icon-handbag"></span>
-                        <strong>SHOPPING CART</strong>
-                        <span>3 items &nbsp;$74.00</span>
-                    </div>
-                    <ul className="mt-icon-list">
-                        <li className="hidden-lg hidden-md">
-                            <a href="#" className="bar-opener mobile-toggle">
-                                <span className="bar"></span>
-                                <span className="bar small"></span>
-                                <span className="bar"></span>
-                            </a>
-                        </li>
-                        <li><a href="#" className="icon-magnifier"></a></li>
-                    </ul>
+                <div className="col-xs-12" style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap:"50px"
+                }}>
+                    <div className="mt-logo"><a href="#"><Image loader={() => './icon/logo.svg'} src="./icon/logo.svg" alt="schon" width={40} height={40}/></a></div>
+                    
                     <nav id="nav">
-                        <ul>
+                        <ul style={{
+                             display: "flex",
+                             gap:"15px"
+                        }}>
                             <li>
                                 <a className="drop-link" href="homepage1.html">HOME <i className="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
                                 <div className="s-drop">
@@ -250,6 +248,21 @@ export default function Header() {
                             </li>
                         </ul>
                     </nav>
+                    <ul className="mt-icon-list">
+                        <li className="hidden-lg hidden-md">
+                            <a href="#" className="bar-opener mobile-toggle">
+                                <span className="bar"></span>
+                                <span className="bar small"></span>
+                                <span className="bar"></span>
+                            </a>
+                        </li>
+                        <li><a href="#" className="icon-magnifier"></a></li>
+                    </ul>
+                    <div className="mt-sh-cart">
+                        <span className="icon-handbag"></span>
+                        <strong>SHOPPING CART</strong>
+                        <span>3 items &nbsp;$74.00</span>
+                    </div>
                 </div>
             </div>
         </div>
