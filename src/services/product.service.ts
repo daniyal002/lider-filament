@@ -61,6 +61,21 @@ export const productService = {
   async deleteProductFeatured(product_id:number){
     const response = await axiosWidthAuth.delete<string>(`product/delete_product_from_featured?product_id=${product_id}`)
     return response.data
-  }
+  },
+
+  async getProductTop(){
+    const response = await axiosWidthAuth.get<IProductResponse>("product/read_top_products")
+    return response.data
+  },
+
+  async addProductTop(product_id:number){
+    const response = await axiosWidthAuth.post<string>("product/add_product_on_top",{product_id:product_id})
+    return response.data
+  },
+
+  async deleteProductTop(product_id:number){
+    const response = await axiosWidthAuth.delete<string>(`product/delete_product_from_top?product_id=${product_id}`)
+    return response.data
+  },
 
 };

@@ -30,7 +30,7 @@ export default function RootLayout({
         <InstallBootstrap />
         <body className={inter.className}>
           <Header />
-          <main>
+          <main className="main">  
           {children}
           </main>
           <Footer/>

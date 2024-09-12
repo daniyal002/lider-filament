@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function Footer() {
@@ -9,7 +10,7 @@ export default function Footer() {
 							<div className="col-xs-12 col-sm-4">
 								<div className="f-widget-about">
 									<div className="logo">
-										<a href="index.html"><img src="./icon/logo.svg" alt="Schon"/></a>
+										<a href="index.html"><img src="/icon/logo.svg" alt="Schon"/></a>
 									</div>
 									<ul className="list-unstyled address-list">
 										<li><address>Connaugt Road Central Suite 18B, 148 <br/>New Yankee</address></li>
@@ -17,8 +18,8 @@ export default function Footer() {
 										<li><a href="mailto:&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;">&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;</a></li>
 									</ul>
 									<ul className="list-unstyled social-network">
-										<li><a href="#"><i className="bi bi-telegram"></i></a></li>
-										<li><a href="#"><i className="fa fa-whatsapp"></i></a></li>
+										<li><a href="#"><i className="bi bi-telegram" style={{fontSize:"19px"}}></i></a></li>
+										<li><a href="#"><i className="fa fa-whatsapp" style={{fontSize:"19px"}}></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -26,24 +27,26 @@ export default function Footer() {
 								<div className="nav-widget-1">
 									<h3 className="f-widget-heading">Маркетплейс</h3>
 									<ul className="list-unstyled f-widget-nav">
-										<li><a href="#">Продукты</a></li>
+										<li><Link href="/product">Продукты</Link></li>
 										<li><a href="#">Категории</a></li>
 									</ul>
 								</div>
 								<div className="nav-widget-1">
 									<h3 className="f-widget-heading">Информация</h3>
 									<ul className="list-unstyled f-widget-nav">
-										<li><a href="#">Акции</a></li>
-										<li><a href="#">Сотрудничество</a></li>
-										<li><a href="#">Информация об оплате</a></li>
-										<li><a href="#">Методы оплаты</a></li>
+										<li><Link href="/share">Акции</Link></li>
+										<li><Link href="/cooperation">Сотрудничество</Link></li>
+										<li><Link href="/payment-info/order-description">Информация об оплате</Link></li>
+										<li><Link href="/payment-info/return-description">Информация о возврате</Link></li>
+										<li><Link href="/payment-method/payment-method-individual">Методы оплаты для физ. лиц</Link></li>
+										<li><Link href="/payment-method/payment-method-business">Методы оплаты для юр. лиц</Link></li>
 									</ul>
 								</div>
 								<div className="nav-widget-1">
 									<h3 className="f-widget-heading">Компания</h3>
 									<ul className="list-unstyled f-widget-nav">
-										<li><a href="#">О компании</a></li>
-										<li><a href="#">Контакты</a></li>
+										<li><Link href="/about-company">О компании</Link></li>
+										<li><Link href="/contact">Контакты</Link></li>
 									</ul>
 								</div>
 							</nav>

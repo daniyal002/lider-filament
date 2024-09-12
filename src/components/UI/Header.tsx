@@ -33,7 +33,7 @@ export default function Header() {
                     justifyContent: "center",
                     gap:"50px"
                 }}>
-                    <div className="mt-logo"><a href="#"><Image loader={() => './icon/logo.svg'} src="./icon/logo.svg" alt="schon" width={40} height={40}/></a></div>
+                    <div className="mt-logo"><a href="#"><Image loader={() => '/icon/logo.svg'} src="/icon/logo.svg" alt="schon" width={40} height={40}/></a></div>
                     
                     <nav id="nav">
                         <ul style={{

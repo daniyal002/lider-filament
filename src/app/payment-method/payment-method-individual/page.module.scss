@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .onlinePayment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(134, 155, 223, 0.14);
+    border: 2px solid rgba(83, 84, 136, 0.4);
+    padding: 10px;
+    border-radius: 14px;
+    max-width: 450px;
+  }
+  
+  .title {
+    font-size: 30px;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    color: #bfbfbf;
+  }
+  
+  .paymentMethods {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .imageWrapper {
+    width: 30%;
+  }
+  
+  .sbpImage {
+    width: 90%;
+  }
+  
+  .methodDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+  }
+  
+  .methodBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .iconTextBlock {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .methodTitle {
+    font-size: 19px;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .methodDescription {
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  @media (max-width: 600px) {
+    .paymentMethods {
+      flex-direction: column;
+    }
+  
+    .imageWrapper,
+    .methodDetails {
+      width: 100%;
+    }
+  }
+  

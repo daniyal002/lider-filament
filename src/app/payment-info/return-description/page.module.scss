@@ -1,0 +1,25 @@
+.header{
+    font-weight: bold;
+    background: linear-gradient(180deg, #9CD0FF, #A95BF3, #9CD0FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 45px;
+}
+
+.header2{
+    color: #fff;
+    font-size:19px;
+}
+
+.list{
+    margin-top: 20px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.listItem{
+    font-size: 16px;
+    color: #fff;
+}

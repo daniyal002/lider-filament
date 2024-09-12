@@ -11,7 +11,7 @@ export default function PopularCategory() {
     <div className={style.container}>
         {isLoading ? (
             <div className={style.spinner}>
-            <img src="./icon/loop_black_48dp.svg" alt="" />
+            <img src="/icon/loop_black_48dp.svg" alt="" />
             </div>
         ) : (
             <div className={style.popularProducts}>

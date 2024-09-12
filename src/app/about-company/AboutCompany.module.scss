@@ -1,0 +1,125 @@
+.container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 133px 20px;
+  }
+  
+  .header {
+    font-size: 55px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+  }
+  
+  .banner {
+    width: 100%;
+    max-width: 1296px;
+    margin-bottom: 30px;
+  }
+  
+  .promoSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 100px;
+  }
+  
+  .promoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+    width: 50%;
+
+    h2{
+    line-height: 1.5;
+    color: #fff;
+    font-size: 55px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    }
+
+    p,li{
+    color: #F0F0F0;
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 2;
+    margin-bottom: 8px;
+    }
+
+    ul{
+        list-style: none;
+        padding: 0;
+    }
+
+    span{
+        color: rgb(169, 91, 243);
+    }
+  }
+  
+  .promoItemBanner {
+    background-image: url('../../../public/img/banner-lg2.jpg');
+    padding: 76px 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .link, .button, .buttonOutline {
+    font-size: 19px;
+    padding: 17px 50px;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .link {
+    background: linear-gradient( #6847F5, #A95BF3);
+          color: #f2f2f2;
+          border: none;
+          padding: 17px 50px;
+          font-size: 19px;
+          font-weight: 500;
+          transition: 0.5s;
+          text-decoration: none;
+          &:hover {
+            transition: 0.5s;
+            background: linear-gradient(#A95BF3,#6847F5);
+          color: #f2f2f2;
+
+          }
+          text-align: center;
+  }
+  
+  .button {
+    background-color: #6847F5;
+  }
+  
+  .buttonOutline {
+    border: 2px solid white;
+  }
+  
+  .requisitesSection {
+    margin-top: 50px;
+  }
+  
+  .requisitesTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(134, 155, 223, 0.14)!important;
+    padding:16px;
+  }
+  
+  .requisitesTable td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    padding:16px;
+    color: #dddddd;
+  }
+  
+  .requisites h2 {
+    font-size: 45px;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  

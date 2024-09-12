@@ -1,14 +1,14 @@
 'use client'
 import { baseURL } from '@/api/interseptors'
 import { useCreateCartMutation } from '@/hook/cartHook'
-import { useAddProductFeaturedMutation, useDeleteProductFeaturedMutation, useProductData, useProductFeaturedData } from '@/hook/productHook'
+import { useAddProductFeaturedMutation, useDeleteProductFeaturedMutation, useProductData, useProductFeaturedData, useProductTopData } from '@/hook/productHook'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import style from './PopularProducts.module.scss'
 
 export default function PopularProducts() {
-    const {productData,isLoading} = useProductData("0","5")
+    const {productTopData,isLoading} = useProductTopData()
     const {productFeaturedData} = useProductFeaturedData()
     const {mutate:createCartMutation} = useCreateCartMutation()
     const {mutate:addProductFeaturedMutation} = useAddProductFeaturedMutation()
@@ -19,11 +19,11 @@ export default function PopularProducts() {
     <div className={style.container}>
         {isLoading ? (
             <div className={style.spinner}>
-            <img src="./icon/loop_black_48dp.svg" alt="" />
+            <img src="/icon/loop_black_48dp.svg" alt="" />
             </div>
         ) : (
             <div className={style.popularProducts}>
-                {productData?.detail.map(product => (
+                {productTopData?.detail.map(product => (
                     <div className="mt-product1 large" key={product.product_id}>
                     <div className="box">
                       <div className="b1">

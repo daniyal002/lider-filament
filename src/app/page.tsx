@@ -48,9 +48,9 @@ export default function Home() {
       <SubscribeUpdate/>
       </div>
 
-      <div className={style.containerSecondScrenn}>
+      {/* <div className={style.containerSecondScrenn}>
         <Share/>
-      </div>
+      </div> */}
     </>
   );
 }

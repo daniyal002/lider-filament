@@ -1,5 +1,5 @@
 import { useCategoryData } from "@/hook/categoryHook";
-import { useDeleteProductMutation } from "@/hook/productHook";
+import { useAddProductTopMutation, useDeleteProductMutation, useDeleteProductTopMutation, useProductTopData } from "@/hook/productHook";
 import { IProductResponse } from "@/interface/product";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +17,9 @@ export default function ProductGrid({
   setProductType,
 }: Props) {
   const { mutate: deleteProductMutation } = useDeleteProductMutation();
+  const { mutate: addProductTopMutation } = useAddProductTopMutation();
+  const { mutate: deleteProductTopMutation } = useDeleteProductTopMutation();
+  const {productTopData} = useProductTopData()
   const { categoryData } = useCategoryData();
 
   return (
@@ -134,6 +137,40 @@ export default function ProductGrid({
                                   />
                                 </a>
                               </li>
+                              {productTopData?.detail.find(top => top.product_id === product.product_id) ? (
+                                <li>
+                                <a
+                                  onClick={() =>
+                                    deleteProductTopMutation(product.product_id as number)
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  <Image
+                                    src={"/icon/arrow-up-circle-fill.svg"}
+                                    alt="Direct Image"
+                                    width={23.78}
+                                    height={20}
+                                  />
+                                </a>
+                              </li>
+                              ) : (
+                                <li>
+                                <a
+                                  onClick={() =>
+                                    addProductTopMutation(product.product_id as number)
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  <Image
+                                    src={"/icon/arrow-up-circle.svg"}
+                                    alt="Direct Image"
+                                    width={23.78}
+                                    height={20}
+                                  />
+                                </a>
+                              </li>
+                              )}
+                              
                             </ul>
                           </div>
                         </div>

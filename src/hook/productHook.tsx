@@ -157,3 +157,53 @@ export const useDeleteProductFeaturedMutation = () => {
 
   return { mutate };
 };
+
+/// top
+
+export const useProductTopData = () => {
+  const {
+    data: productTopData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["ProductTop"],
+    queryFn: () => productService.getProductTop(),
+  });
+  return { productTopData, isLoading, error };
+};
+
+export const useAddProductTopMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ["addProductTop"],
+    mutationFn: (product_id:number) => productService.addProductTop(product_id),
+    onSuccess: () => {
+      // Invalidating the query to refetch the data
+      queryClient.invalidateQueries({queryKey:['ProductTop']});
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      console.error(error?.response?.data?.detail);
+    },
+  });
+
+  return { mutate };
+};
+
+export const useDeleteProductTopMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ["deleteProductTop"],
+    mutationFn: (product_id:number) => productService.deleteProductTop(product_id),
+    onSuccess: () => {
+      // Invalidating the query to refetch the data
+      queryClient.invalidateQueries({queryKey:['ProductTop']});
+    },
+    onError: (error: AxiosError<IErrorResponse>) => {
+      console.error(error?.response?.data?.detail);
+    },
+  });
+
+  return { mutate };
+};

@@ -1,0 +1,147 @@
+.container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 133px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+  
+  .contactHeader {
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 45px;
+    background: linear-gradient(180deg, #9CD0FF, #A95BF3, #9CD0FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .contactBlocks {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .contactBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px;
+    background: rgba(134, 155, 223, 0.14);
+    border: 2px solid rgba(83, 84, 136, 0.4);
+    align-items: center;
+    border-radius: 14px;
+    width: 20%;
+    min-width: 290px;
+
+  }
+  
+  .icon {
+    width: 60px;
+  }
+  
+  .headerText {
+    font-size: 19px;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .text {
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .formTitle {
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    background: rgba(134, 155, 223, 0.14);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 40px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .input {
+    height: 50px;
+    padding: 15px;
+    color: #fff;
+    border: 2px solid #a95bf3;
+    border-radius: 10px;
+    background: rgba(134, 155, 223, 0.14);
+    font-size: 16px;
+  }
+  
+  .textareaContainer {
+    width: 100%;
+  }
+  
+  .textarea {
+    width: 100%;
+    outline: none;
+    border: 2px solid #a95bf3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    background: rgba(134, 155, 223, 0.14);
+    color: #fff;
+  }
+  
+  .formFooter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    @media (max-width:676px){
+    justify-content: center;
+    }
+  }
+  
+  .checkboxLabel {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  
+  .submitButton {
+    background: linear-gradient(#6847f5, #a95bf3);
+    color: #f2f2f2;
+    padding: 17px 50px;
+    font-size: 19px;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .submitButton:hover {
+    background: linear-gradient(#a95bf3, #6847f5);
+  }
+  

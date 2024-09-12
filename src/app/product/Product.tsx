@@ -80,7 +80,11 @@ export default function Product() {
             </div>
           </section>
           <section className="shop-widget">
-            <h2>Категории</h2>
+            <h2 style={{
+              background: "linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor:"transparent"
+            }}>Категории</h2>
             <ul className="list-unstyled category-list">
               {categoryData?.detail.map((category) => (
                 <li key={category.category_id}>
