@@ -6,10 +6,8 @@ import {
 } from "@/interface/product";
 
 export const productService = {
-  async getProduct(skip: string, limit: string) {
-    const response = await axiosWidthAuth.get<IProductResponse>(
-      `product/read_products?skip=${skip}&limit=${limit}`
-    );
+  async getProduct() {
+    const response = await axiosWidthAuth.get<IProductResponse>("product/read_products");
     return response.data;
   },
 
@@ -76,6 +74,7 @@ export const productService = {
   async deleteProductTop(product_id:number){
     const response = await axiosWidthAuth.delete<string>(`product/delete_product_from_top?product_id=${product_id}`)
     return response.data
-  },
+  }
+
 
 };

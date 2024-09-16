@@ -4,14 +4,14 @@ import axios, { AxiosError } from "axios";
 import { productService } from "@/services/product.service";
 import { IProductRequest, IProductResponse, IProductResponseDetail } from "@/interface/product";
 
-export const useProductData = (skip:string,limit:string) => {
+export const useProductData = () => {
   const {
     data: productData,
     isLoading,
     error,
   } = useQuery({
     queryKey: ["Products"],
-    queryFn: () => productService.getProduct(skip,limit),
+    queryFn: () => productService.getProduct(),
     // staleTime: Infinity,
   });
   return { productData, isLoading, error };

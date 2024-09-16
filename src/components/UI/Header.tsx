@@ -1,9 +1,12 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 export default function Header() {
+    const path = usePathname() 
   return (
     <header id="mt-header" className="style3">
     <div className="mt-top-bar">
@@ -40,229 +43,27 @@ export default function Header() {
                              display: "flex",
                              gap:"15px"
                         }}>
-                            <li>
-                                <a className="drop-link" href="homepage1.html">HOME <i className="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
-                                <div className="s-drop">
-                                    <ul>
-                                        <li><a href="homepage1.html">Homepage1</a></li>
-                                        <li><a href="homepage2.html">homepage2</a></li>
-                                        <li><a href="homepage3.html">homepage3</a></li>
-                                        <li><a href="homepage4.html">homepage4</a></li>
-                                        <li><a href="homepage5.html">Homepage5</a></li>
-                                        <li><a href="homepage6.html">homepage6</a></li>
-                                        <li><a href="homepage7.html">homepage7</a></li>
-                                        <li><a href="homepage8.html">homepage8</a></li>
-                                        <li><a href="homepage9.html">homepage9</a></li>
-                                    </ul>
-                                </div>
+                            <li style={{margin:"0"}}>
+                                <Link className="drop-link" href="/">ГЛАВНАЯ</Link>
                             </li>
-                            <li className="drop">
-                                <a href="#">PRODUCTS <i className="fa fa-angle-down" aria-hidden="true"></i></a>
-                                <div className="mt-dropmenu text-left">
-                                    <div className="mt-frame">
-                                        <div className="mt-f-box">
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="product-grid-view.html" className="mt-subopener">PRODUCTS</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="product-grid-view.html">Product Grid View</a></li>
-                                                            <li><a href="product-list-view.html">Product List View</a></li>
-                                                            <li><a href="product-detail.html">Product Detail</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">404 Pages</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="404-page.html">404 Page</a></li>
-                                                            <li><a href="404-page2.html">404 Page2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">About US</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="about-us.html">About</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">Contact US</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="contact-us.html">Contact</a></li>
-                                                            <li><a href="contact-us2.html">Contact 2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">Coming Soon</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                            <li><a href="coming-soon2.html">Coming Soon2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">KITCHEN FURNITURE</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="#">Kitchen Taps</a></li>
-                                                            <li><a href="#">Breakfast time</a></li>
-                                                            <li><a href="#">Cooking</a></li>
-                                                            <li><a href="#">Food Storage Boxes</a></li>
-                                                            <li><a href="#">Spice Jars</a></li>
-                                                            <li><a href="#">Napskins</a></li>
-                                                            <li><a href="#">Oven Gloves</a></li>
-                                                            <li><a href="#">Placemats</a></li>
-                                                            <li><a href="#">Cooking</a></li>
-                                                            <li><a href="#">Food Storage Boxes</a></li>
-                                                            <li><a href="#">Spice Jars</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3 promo">
-                                                <div className="mt-promobox">
-                                                    <a href="#"><img src="http://placehold.it/295x320" alt="promo banner" className="img-responsive"/></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span className="mt-mdropover"></span>
+                            <li className="drop-link" style={{margin:"0"}}>
+                                <Link href="/product">ПРОДУКТЫ</Link>
                             </li>
-                            <li className="drop">
-                                <a href="#">PAGES <i className="fa fa-angle-down" aria-hidden="true"></i></a>
-                                <div className="mt-dropmenu text-left">
-                                    <div className="mt-frame">
-                                        <div className="mt-f-box">
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="product-grid-view.html" className="mt-subopener">PRODUCTS</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="product-grid-view.html">Product Grid View</a></li>
-                                                            <li><a href="product-list-view.html">Product List View</a></li>
-                                                            <li><a href="product-detail.html">Product Detail</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">404 Pages</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="404-page.html">404 Page</a></li>
-                                                            <li><a href="404-page2.html">404 Page2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">About US</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="about-us.html">About</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">Contact US</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="contact-us.html">Contact</a></li>
-                                                            <li><a href="contact-us2.html">Contact 2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">Coming Soon</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                            <li><a href="coming-soon2.html">Coming Soon2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3">
-                                                <div className="sub-dropcont">
-                                                    <strong className="title"><a href="#" className="mt-subopener">KITCHEN FURNITURE</a></strong>
-                                                    <div className="sub-drop">
-                                                        <ul>
-                                                            <li><a href="#">Kitchen Taps</a></li>
-                                                            <li><a href="#">Breakfast time</a></li>
-                                                            <li><a href="#">Cooking</a></li>
-                                                            <li><a href="#">Food Storage Boxes</a></li>
-                                                            <li><a href="#">Spice Jars</a></li>
-                                                            <li><a href="#">Napskins</a></li>
-                                                            <li><a href="#">Oven Gloves</a></li>
-                                                            <li><a href="#">Placemats</a></li>
-                                                            <li><a href="#">Cooking</a></li>
-                                                            <li><a href="#">Food Storage Boxes</a></li>
-                                                            <li><a href="#">Spice Jars</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-col-3 promo">
-                                                <div className="mt-promobox">
-                                                    <a href="#"><img src="http://placehold.it/295x320" alt="promo banner" className="img-responsive"/></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span className="mt-mdropover"></span>
-                            </li>
-                            <li><a href="about-us.html">About</a></li>
-                            <li>
-                                <a className="drop-link" href="blog-right-sidebar.html">Blog <i className="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
-                                <div className="s-drop">
-                                    <ul>
-                                        <li><a href="blog-fullwidth-page.html">Blog Fullwidth Page</a></li>
-                                        <li><a href="blog-right-sidebar2.html">blog right sidebar2</a></li>
-                                        <li><a href="blog-postlist-3-masonry.html">blog postlist masonry</a></li>
-                                        <li><a href="blog-post-detail-sidebar.html">blog post detail sidebar</a></li>
-                                        <li><a href="blog-post-detail-full-width.html">blog post detail full width</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a className="drop-link" href="contact-us.html">Contact <i className="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
-                                <div className="s-drop">
-                                    <ul>
-                                        <li><a href="contact-us.html">Contact</a></li>
-                                        <li><a href="contact-us2.html">Contact 2</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                            <li style={{margin:"0"}}><Link href="/about-company">О КОМПАНИИ</Link></li>
+                           
+                            <li style={{margin:"0"}}><Link href="/about-company">КОНТАКТЫ</Link></li>
                         </ul>
                     </nav>
-                    <ul className="mt-icon-list">
-                        <li className="hidden-lg hidden-md">
-                            <a href="#" className="bar-opener mobile-toggle">
-                                <span className="bar"></span>
-                                <span className="bar small"></span>
-                                <span className="bar"></span>
-                            </a>
-                        </li>
-                        <li><a href="#" className="icon-magnifier"></a></li>
-                    </ul>
+                    
+                    <div style={{display:'flex', alignItems:'center',gap:"10px"}}>
+                        <Link href="/feature">{path === "/feature" ? (<i className="bi bi-heart-fill" style={{fontSize:"25px", color:"red", fontWeight:"700"}}></i>) : (<i className="bi bi-heart" style={{fontSize:"25px", color:"#000", fontWeight:"700"}}></i>)}</Link>
                     <div className="mt-sh-cart">
                         <span className="icon-handbag"></span>
-                        <strong>SHOPPING CART</strong>
+                        <strong>Корзина</strong>
                         <span>3 items &nbsp;$74.00</span>
                     </div>
+                    </div>
+
                 </div>
             </div>
         </div>
