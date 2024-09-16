@@ -177,6 +177,7 @@ export default function Product() {
               {categoryData?.detail.map((category) => (
                 <li key={category.category_id}>
                   <a
+                  style={{cursor:"pointer"}}
                     onClick={() => {
                       if (category.category_id === categoryId) {
                         setCategoryId(undefined);
@@ -228,6 +229,7 @@ export default function Product() {
                             <ul className="links">
                               <li>
                                 <a
+                                style={{cursor:"pointer"}}
                                   onClick={() =>
                                     createCartMutation({
                                       product_id: product.product_id as number,
@@ -237,7 +239,7 @@ export default function Product() {
                                   }
                                 >
                                   <i className="icon-handbag"></i>
-                                  <span> в корзину</span>
+                                  <span>В корзину</span>
                                 </a>
                               </li>
                               <li>

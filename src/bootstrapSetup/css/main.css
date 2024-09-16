@@ -1755,10 +1755,11 @@ a:hover {
 	color: #2e2e2e;
 	position: relative;
 	letter-spacing: 1px;
+	transition: 0.5s;
 }
 
 #nav > ul > li > a:hover {
-	color: #ff6060;
+	color: #551A8B;
 	text-decoration: none;
 }
 
@@ -3279,7 +3280,7 @@ a:hover {
 }
 
 #mt-footer .nav-widget-1 .f-widget-nav li a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 #mt-footer .f-widget-newsletter .holder {
@@ -5817,7 +5818,7 @@ a:hover {
 }
 
 .mt-product1 .title a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 .mt-product1 .price {
@@ -5922,7 +5923,7 @@ a:hover {
 }
 
 .mt-product1 .links a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 .mt-product1 .links .icon-heart,
@@ -8290,7 +8291,7 @@ a:hover {
 
 .mt-pagination ul button:hover {
 	color: #fff;
-	background: #ff6060;
+	background: #551A8B;
 	text-decoration: none;
 }
 
@@ -12079,7 +12080,7 @@ a:hover {
 }
 
 .shop-widget .category-list a:hover {
-	color: #ff8283;
+	color: #551A8B;
 }
 
 .shop-widget .price-range {

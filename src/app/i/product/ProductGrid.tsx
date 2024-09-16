@@ -164,7 +164,16 @@ export default function ProductGrid({
               <ul className="list-unstyled category-list">
                 {categoryData?.detail.map((category) => (
                   <li key={category.category_id}>
-                    <a href="#">
+                    <a 
+                  style={{cursor:"pointer"}}
+                  onClick={() => {
+                    if (category.category_id === categoryId) {
+                      setCategoryId(undefined);
+                    } else {
+                      setCategoryId(category.category_id);
+                    }
+                  }}
+                  >
                       <span className="name">{category.category_name}</span>
                       <span className="num">{category.product_count}</span>
                     </a>
@@ -219,20 +228,6 @@ export default function ProductGrid({
                                 height={290}
                               />
                             </Link>
-                            <ul className="mt-stars">
-                              <li>
-                                <i className="fa fa-star"></i>
-                              </li>
-                              <li>
-                                <i className="fa fa-star"></i>
-                              </li>
-                              <li>
-                                <i className="fa fa-star"></i>
-                              </li>
-                              <li>
-                                <i className="fa fa-star-o"></i>
-                              </li>
-                            </ul>
                             <ul className="links">
                               <li>
                                 <button
@@ -304,7 +299,12 @@ export default function ProductGrid({
                           </div>
                         </div>
                       </div>
-                      <div className="txt">
+                      <div 
+                      className="txt"
+                      style={{ textAlign: "left", padding: "0" }}>
+                        <strong className="title">
+                          {product?.product_category?.category_name}
+                        </strong>
                         <strong className="title">
                           <a href="product-detail.html">
                             {product.product_name}
