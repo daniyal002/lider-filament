@@ -2,7 +2,6 @@ import PopularProducts from "@/components/PopularProducts/PopularProducts";
 import style from "./page.module.scss";
 import PopularCategory from "@/components/PopularCategory/PopularCategory";
 import SubscribeUpdate from "@/components/SubscribeUpdate/SubscribeUpdate";
-import Share from "@/components/Share/Share";
 
 export default function Home() {
   return (
@@ -48,9 +47,6 @@ export default function Home() {
       <SubscribeUpdate/>
       </div>
 
-      {/* <div className={style.containerSecondScrenn}>
-        <Share/>
-      </div> */}
     </>
   );
 }

@@ -46,7 +46,7 @@ export const useLogout = () => {
         mutationKey:['logout'],
         mutationFn:() => authService.logout(),
         onSuccess(){
-            replace("/login")
+            replace("/auth/login")
         },
         onError(error:AxiosError<IErrorResponse>){
             alert(error)

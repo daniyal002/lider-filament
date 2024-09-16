@@ -1,9 +1,9 @@
 import { useCategoryData } from "@/hook/categoryHook";
 import { useAddProductTopMutation, useDeleteProductMutation, useDeleteProductTopMutation, useProductTopData } from "@/hook/productHook";
-import { IProductResponse } from "@/interface/product";
+import { IProductResponse, IProductResponseDetail } from "@/interface/product";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   productData: IProductResponse;
@@ -16,12 +16,67 @@ export default function ProductGrid({
   setProductId,
   setProductType,
 }: Props) {
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(6);
+  const [nameProduct, setNameProduct] = useState<string | undefined>(undefined);
+  const [minPrice, setMinPrice] = useState<number>();
+  const [maxPrice, setMaxPrice] = useState<number>();
+  const [categoryId, setCategoryId] = useState<number>();
+
+
   const { mutate: deleteProductMutation } = useDeleteProductMutation();
   const { mutate: addProductTopMutation } = useAddProductTopMutation();
   const { mutate: deleteProductTopMutation } = useDeleteProductTopMutation();
   const {productTopData} = useProductTopData()
   const { categoryData } = useCategoryData();
 
+  useEffect(() => {
+    if (productData) {
+      let filtered = productData.detail;
+  
+      if (nameProduct) {
+        filtered = filtered.filter((product) =>
+          product.product_name.toLowerCase().includes(nameProduct.toLowerCase())
+        );
+      }
+  
+      if (minPrice !== undefined) {
+        filtered = filtered.filter(
+          (product) => product.product_price >= minPrice
+        );
+      }
+  
+      if (maxPrice !== undefined) {
+        filtered = filtered.filter(
+          (product) => product.product_price <= maxPrice
+        );
+      }
+  
+      if (categoryId) {
+        filtered = filtered.filter(
+          (product) => product.product_category.category_id === categoryId
+        );
+      }
+  
+      setFilteredProducts(filtered); // Update the filtered products
+  
+      // Reset pagination to the first page after filtering
+      setSkip(0);
+    }
+  }, [productData, nameProduct, minPrice, maxPrice, categoryId]);
+
+  const [filteredProducts, setFilteredProducts] = useState<
+    IProductResponseDetail[]
+  >(productData?.detail as IProductResponseDetail[]); // State to hold filtered products
+  // Function to handle pagination
+  const handlePagination = (newSkip: number) => {
+    setSkip(newSkip);
+  };
+  const reset = () => {
+    setNameProduct(undefined)
+    setMinPrice(undefined)
+    setMaxPrice(undefined)
+  }
   return (
     <>
       <div className="container">
@@ -32,6 +87,78 @@ export default function ProductGrid({
             data-wow-delay="0.4s"
           >
            
+           <section
+            className="shop-widget filter-widget bg-grey"
+            style={{
+              background: "rgba(134, 155, 223, 0.14)",
+              border: "1px solid #efefef",
+              padding: "36px 38px 48px 30px",
+            }}
+          >
+            <h2
+              style={{
+                background:
+                  "linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Фильтр
+            </h2>
+
+            <div
+              className="search-range"
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              <span
+                className="sub-title"
+                style={{ margin: "0", color: "#fff" }}
+              >
+                Название товара
+              </span>
+              <input
+                type="text"
+                value={nameProduct || ""}
+                onChange={(e) => setNameProduct(e.target.value)}
+                className="form-control"
+                placeholder="Название товара"
+              />
+              <span
+                className="sub-title"
+                style={{ margin: "0", color: "#fff" }}
+              >
+                Цена
+              </span>
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
+                    setMinPrice(Number(value));
+                  }
+                }}
+                min="0"
+                className="form-control"
+                placeholder="От"
+              />
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
+                    setMaxPrice(Number(value));
+                  }
+                }}
+                max="10000"
+                className="form-control"
+                placeholder="До"
+              />
+            <button onClick={reset}>Сбросить Фильтр</button>
+
+            </div>
+          </section>
             <section className="shop-widget">
               <h2>Категории</h2>
               <ul className="list-unstyled category-list">
@@ -65,9 +192,11 @@ export default function ProductGrid({
                 </button>
               </div>
             </header>
+            {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
+              <>
             <ul className="mt-productlisthold list-inline">
-              {productData &&
-                productData?.detail.map((product) => (
+              {filteredProducts &&
+                filteredProducts.slice(skip, skip + limit).map((product) => (
                   <li key={product.product_id}>
                     <div className="mt-product1 large">
                       <div className="box">
@@ -191,21 +320,30 @@ export default function ProductGrid({
                 ))}
             </ul>
             <nav className="mt-pagination">
-              <ul className="list-inline">
-                <li>
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-              </ul>
-            </nav>
+                <ul className="list-inline">
+                  <li>
+                    {skip > 0 && (
+                      <button
+                        onClick={() => handlePagination(skip - limit)}
+                        disabled={skip <= 0}
+                      >
+                        Назад
+                      </button>
+                    )}
+                  </li>
+                  <li>
+                    {skip + limit < filteredProducts.length && ( // Only show if more products exist
+                      <button onClick={() => handlePagination(skip + limit)}>
+                        Вперед
+                      </button>
+                    )}
+                  </li>
+                </ul>
+              </nav>
+              </>
+              ) : (
+                <p>Нет продуктов</p>
+              )}
           </div>
         </div>
       </div>

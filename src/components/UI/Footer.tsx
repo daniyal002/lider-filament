@@ -10,7 +10,7 @@ export default function Footer() {
 							<div className="col-xs-12 col-sm-4">
 								<div className="f-widget-about">
 									<div className="logo">
-										<a href="index.html"><img src="/icon/logo.svg" alt="Schon"/></a>
+										<Link href="/"><img src="/icon/logo.svg" alt="Lider-V"/></Link>
 									</div>
 									<ul className="list-unstyled address-list">
 										<li><address>Connaugt Road Central Suite 18B, 148 <br/>New Yankee</address></li>
@@ -57,7 +57,7 @@ export default function Footer() {
 					<div className="container-fluid">
 						<div className="row">
 							<div className="col-xs-12 text-center">
-								<p>© <a href="index.html">Лидер-В</a> - все права защищены</p>
+								<p>© <Link href="/">Лидер-В</Link> - все права защищены</p>
 							</div>
 						</div>
 					</div>

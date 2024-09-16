@@ -76,6 +76,12 @@ export default function Product() {
     setSkip(newSkip);
   };
 
+  const reset = () => {
+    setNameProduct(undefined)
+    setMinPrice(undefined)
+    setMaxPrice(undefined)
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -127,21 +133,32 @@ export default function Product() {
                 Цена
               </span>
               <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
+                type="text"
+                value={minPrice || ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
+                    setMinPrice(Number(value));
+                  }
+                }}
                 min="0"
                 className="form-control"
                 placeholder="От"
               />
               <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                type="text"
+                value={maxPrice || ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
+                    setMaxPrice(Number(value));
+                  }
+                }}
                 max="10000"
                 className="form-control"
                 placeholder="До"
               />
+            <button onClick={reset}>Сбросить Фильтр</button>
             </div>
           </section>
 
