@@ -8,8 +8,6 @@ import {
 } from "@/hook/productHook";
 import Image from "next/image";
 import Link from "next/link";
-import "react-awesome-slider/dist/styles.css";
-import "react-awesome-slider/dist/custom-animations/cube-animation.css";
 import "./ProductDetail.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -65,8 +63,8 @@ export default function ProductDetail({ productId }: Props) {
                 className="mySwiper"
                 style={{ maxWidth: "500px" }}
               >
-                {productByIdData?.detail?.product_images.map((img) => (
-                  <SwiperSlide>
+                {productByIdData?.detail?.product_images.map((img,index) => (
+                  <SwiperSlide key={index}>
                      <span
                       style={{
                         display: "flex",

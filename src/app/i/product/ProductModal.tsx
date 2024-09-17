@@ -287,7 +287,7 @@ export default function ProductModal({ productId, setProductId, type }: Props) {
                     >
                       {categoryData &&
                         categoryData.detail.map((category) => (
-                          <option value={category.category_id}>
+                          <option value={category.category_id} key={category.category_id}>
                             {category.category_name}
                           </option>
                         ))}

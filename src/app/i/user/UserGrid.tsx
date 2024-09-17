@@ -35,7 +35,7 @@ export default function UserGrid({
               <tbody>
                 {userData &&
                   userData?.detail.map((user) => (
-                    <tr>
+                    <tr key={user.user_id}>
                       <th scope="row">{user.user_id}</th>
                       <td>{user.username}</td>
                       <td>{user.login}</td>

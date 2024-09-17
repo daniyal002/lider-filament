@@ -1,7 +1,5 @@
 import { useDeleteCategoryMutation } from "@/hook/categoryHook";
-import { useDeleteProductMutation } from "@/hook/productHook";
 import { ICategoryResponse } from "@/interface/category";
-import { IProductResponse } from "@/interface/product";
 import Image from "next/image";
 import React from "react";
 
@@ -49,7 +47,7 @@ export default function CategoryGrid({
               <tbody>
                 {categoryData &&
                   categoryData?.detail.map((category) => (
-                    <tr>
+                    <tr key={category.category_id}>
                       <th scope="row">{category.category_id}</th>
                       <td>{category.category_name}</td>
                       <td style={{display:"flex",alignItems:"center",flexWrap:"wrap"}}>

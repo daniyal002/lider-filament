@@ -16,7 +16,7 @@ export default function PopularCategory() {
         ) : (
             <div className={style.popularProducts}>
                 {categoryData?.detail.filter(category => category.product_count as number > 2 ).map(category => (
-                    <div className={style.categoryWrapper}>
+                    <div className={style.categoryWrapper} key={category.category_id}>
                       <p>{category.category_name}</p>
                     </div>
                 ))}
