@@ -110,6 +110,7 @@ export default function Registration() {
                         className="input"
                         {...register("replayPassword", {
                             required: { value: true, message: "Повторить пароль обязательно" },
+                            // @ts-ignore
                             validate:(value:string) => {if(watch('password') !== value ){return "Пароли не совпадают"}}
                           })}
                       />

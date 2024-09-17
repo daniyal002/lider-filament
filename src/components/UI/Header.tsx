@@ -14,6 +14,7 @@ export default function Header() {
   const getToken = getAccessToken();
   useEffect(() => {
     const decodeToken = decoder(getToken);
+    //@ts-ignore
     setUser(decodeToken.user);
   }, [getToken]);
   const path = usePathname();

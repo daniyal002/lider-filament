@@ -7,7 +7,7 @@ import { useProductData } from '@/hook/productHook'
 import { IProductResponse } from '@/interface/product'
 
 export default function ProductAdmin() {
-  const {productData} = useProductData("0","9")
+  const {productData} = useProductData()
   const [productId, setProductId] = useState<number>()
   const [productType, setProductType] = useState<"Создать" | "Изменить">("Создать")
 
