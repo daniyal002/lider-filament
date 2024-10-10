@@ -17,6 +17,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useState } from "react";
 import { useCreateCartMutation } from "@/hook/cartHook";
+import useLocalFavorites from "@/hook/localStorageHook";
+import { getAccessToken } from "@/services/auth-token.service";
 
 interface Props {
   productId: string;
@@ -33,6 +35,11 @@ export default function ProductDetail({ productId }: Props) {
   const {mutate:createCartMutation} = useCreateCartMutation()
 
   const [quantity, setQuantity] = useState<number>(1)
+
+  const { getLocalFavorites,addLocalFavorite,removeLocalFavorite } = useLocalFavorites();
+  const localFavorites = getLocalFavorites()
+  const accessToken = getAccessToken()
+
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
       <div className="container">
@@ -75,7 +82,7 @@ export default function ProductDetail({ productId }: Props) {
                     >
                       <i className="fa fa-heart" style={{ color: "red" }}></i>
                       {productByIdData?.detail.featured_count}
-                    </span> 
+                    </span>
                     <Image
                       loader={() => `${baseURL}/${img.image_patch}`}
                       src={`${baseURL}/${img.image_patch}`}
@@ -96,7 +103,7 @@ export default function ProductDetail({ productId }: Props) {
                   <i className="fa fa-angle-right"></i>
                 </li>
                 <li>{productByIdData?.detail.product_name}
-                
+
                 </li>
               </ul>
               <h2>{productByIdData?.detail.product_name}</h2>
@@ -151,10 +158,50 @@ export default function ProductDetail({ productId }: Props) {
                   </a>
                 </li>
                 <li>
+                  {accessToken ? (
+                     <a>
+                     {productFeaturedData?.detail.find(
+                       (productFeature) =>
+                         productFeature.product_id === Number(productId)
+                     ) ? (
+                       <button
+                         style={{
+                           border: "0",
+                           backgroundColor: "transparent",
+                           color: "red",
+                           display: "flex",
+                           gap: "10px",
+                           padding: "0",
+                         }}
+                         onClick={() =>
+                           deleteProductFeaturedMutation(Number(productId))
+                         }
+                       >
+                         <i className="bi bi-heart-fill"></i>
+                         УБРАТЬ ИЗ ИЗБРАННОГО
+                       </button>
+                     ) : (
+                       <button
+                         style={{
+                           border: "0",
+                           backgroundColor: "transparent",
+                           display: "flex",
+                           gap: "10px",
+                           padding: "0",
+                         }}
+                         onClick={() =>
+                           addProductFeaturedMutation(Number(productId))
+                         }
+                       >
+                         <i className="bi bi-heart-fill"></i>В ИЗБРАННОЕ
+                       </button>
+                     )}
+                   </a>
+                  ): (
                   <a>
-                    {productFeaturedData?.detail.find(
+                    {localFavorites?.find(
                       (productFeature) =>
-                        productFeature.product_id === Number(productId)
+                        productFeature === Number(productId)
                     ) ? (
                       <button
                         style={{
@@ -166,7 +213,7 @@ export default function ProductDetail({ productId }: Props) {
                           padding: "0",
                         }}
                         onClick={() =>
-                          deleteProductFeaturedMutation(Number(productId))
+                          removeLocalFavorite(Number(productId))
                         }
                       >
                         <i className="bi bi-heart-fill"></i>
@@ -182,13 +229,14 @@ export default function ProductDetail({ productId }: Props) {
                           padding: "0",
                         }}
                         onClick={() =>
-                          addProductFeaturedMutation(Number(productId))
+                          addLocalFavorite(Number(productId))
                         }
                       >
                         <i className="bi bi-heart-fill"></i>В ИЗБРАННОЕ
                       </button>
                     )}
                   </a>
+                  )}
                 </li>
               </ul>
             </div>
