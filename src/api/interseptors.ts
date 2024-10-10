@@ -3,8 +3,8 @@ import { authService } from '@/services/auth.service';
 import axios, { type CreateAxiosDefaults } from 'axios';
 import { errorCatch } from './error';
 
-export const baseURL = "http://192.168.30.153:8001"
-// export const baseURL = "http://62.217.176.113/api/"
+// export const baseURL = "http://192.168.30.153:8001"
+export const baseURL = "http://62.217.176.113/api/"
 const options: CreateAxiosDefaults = {
     baseURL: baseURL,
     headers: {

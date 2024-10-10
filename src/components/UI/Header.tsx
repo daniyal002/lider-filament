@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function Header() {
+  const pathname = usePathname()
   const [user, setUser] = useState<boolean>();
   const { mutate: logout } = useLogout();
   const getToken = getAccessToken();
@@ -25,17 +26,15 @@ export default function Header() {
           <div className="row">
             <div className="col-xs-12 col-sm-6 hidden-xs">
               <span className="tel active">
-                {" "}
-                <i className="fa fa-phone" aria-hidden="true"></i> +1 (555) 333
-                22 11
+                <i className="fa fa-phone" aria-hidden="true"></i> +7 (964) 004
+                48 53
               </span>
               <a className="tel" href="#">
-                {" "}
                 <i className="fa fa-envelope-o" aria-hidden="true"></i>{" "}
-                info@schon.chairs
+                vagid08@mail.ru
               </a>
             </div>
-            {getToken && (
+            {getToken ? (
               <div className="col-xs-12 col-sm-6 text-right">
                 <ul className="mt-top-list">
                   <li>
@@ -58,6 +57,21 @@ export default function Header() {
                   </li>
                 </ul>
               </div>
+            ):(
+              <div className="col-xs-12 col-sm-6 text-right">
+               <ul className="mt-top-list">
+               <li className={pathname === "/auth/login" ? "active" : ""}>
+                    <Link href='/auth/login' style={{ cursor: "pointer" }}>
+                      Вход
+                    </Link>
+                  </li>
+                  <li className={pathname === "/auth/registration" ? "active" : ""}>
+                    <Link href='/auth/registration' style={{ cursor: "pointer" }}>
+                      Регистрация
+                    </Link>
+                  </li>
+               </ul>
+              </div>
             )}
           </div>
         </div>
@@ -76,7 +90,7 @@ export default function Header() {
               }}
             >
               <div className="mt-logo">
-                <a href="#">
+                <Link href="/">
                   <Image
                     loader={() => "/icon/logo.svg"}
                     src="/icon/logo.svg"
@@ -84,7 +98,7 @@ export default function Header() {
                     width={40}
                     height={40}
                   />
-                </a>
+                </Link>
               </div>
 
               <nav id="nav">
