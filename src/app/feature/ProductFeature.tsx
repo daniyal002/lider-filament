@@ -1,18 +1,14 @@
-"use client";
+"use client"
 
-import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
 import useLocalFavorites from "@/hook/localStorageHook";
 import {
-  useDeleteProductFeaturedMutation,
   useProductData,
   useProductFeaturedData,
 } from "@/hook/productHook";
-import { IProductResponse, IProductResponseDetail } from "@/interface/product";
 import { getAccessToken } from "@/services/auth-token.service";
-import Image from "next/image";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import {  useState, useMemo, useCallback } from "react";
 import FilterSection from "./FilterSection";
 import CategorySection from "./CategorySection";
 import ProductList from "./ProductList";
