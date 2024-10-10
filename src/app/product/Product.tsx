@@ -1,6 +1,7 @@
 "use client";
 
 import { baseURL } from "@/api/interseptors";
+import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
 import {
@@ -9,7 +10,7 @@ import {
   useProductData,
   useProductFeaturedData,
 } from "@/hook/productHook";
-import { IProductResponseDetail } from "@/interface/product";
+import { IProductResponse, IProductResponseDetail } from "@/interface/product";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -36,33 +37,33 @@ export default function Product() {
   useEffect(() => {
     if (productData) {
       let filtered = productData.detail;
-  
+
       if (nameProduct) {
         filtered = filtered.filter((product) =>
           product.product_name.toLowerCase().includes(nameProduct.toLowerCase())
         );
       }
-  
+
       if (minPrice !== undefined) {
         filtered = filtered.filter(
           (product) => product.product_price >= minPrice
         );
       }
-  
+
       if (maxPrice !== undefined) {
         filtered = filtered.filter(
           (product) => product.product_price <= maxPrice
         );
       }
-  
+
       if (categoryId) {
         filtered = filtered.filter(
           (product) => product.product_category.category_id === categoryId
         );
       }
-  
+
       setFilteredProducts(filtered); // Update the filtered products
-  
+
       // Reset pagination to the first page after filtering
       setSkip(0);
     }
@@ -243,40 +244,7 @@ export default function Product() {
                                 </a>
                               </li>
                               <li>
-                                {productFeaturedData?.detail.find(
-                                  (productFeature) =>
-                                    productFeature.product_id ===
-                                    product.product_id
-                                ) ? (
-                                  <button
-                                    style={{
-                                      border: "0",
-                                      backgroundColor: "transparent",
-                                      color: "red",
-                                    }}
-                                    onClick={() =>
-                                      deleteProductFeaturedMutation(
-                                        product.product_id as number
-                                      )
-                                    }
-                                  >
-                                    <i className="bi bi-heart-fill"></i>
-                                  </button>
-                                ) : (
-                                  <button
-                                    style={{
-                                      border: "0",
-                                      backgroundColor: "transparent",
-                                    }}
-                                    onClick={() =>
-                                      addProductFeaturedMutation(
-                                        product.product_id as number
-                                      )
-                                    }
-                                  >
-                                    <i className="bi bi-heart-fill"></i>
-                                  </button>
-                                )}
+                               <FavoriteButton productId={product.product_id as number} productFeaturedData={productFeaturedData as IProductResponse} />
                               </li>
                             </ul>
                           </div>

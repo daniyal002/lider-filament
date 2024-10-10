@@ -3,6 +3,7 @@ import { IErrorResponse } from "@/interface/error";
 import axios, { AxiosError } from "axios";
 import { productService } from "@/services/product.service";
 import { IProductRequest, IProductResponse, IProductResponseDetail } from "@/interface/product";
+import { getAccessToken } from "@/services/auth-token.service";
 
 export const useProductData = () => {
   const {
@@ -27,7 +28,7 @@ export const useProductDataById = (id: string) => {
     queryFn: () => productService.getProductById(id),
     enabled: !!id, // Only run the query if id is truthy
   });
-  
+
   return { productByIdData, isLoading, error };
 };
 
@@ -78,7 +79,7 @@ export const useUpdateProductMutation = () => {
     },
   });
 
-  return { mutate };  
+  return { mutate };
 };
 
 export const useDeleteProductMutation = () => {
@@ -118,6 +119,7 @@ export const useProductFeaturedData = () => {
   } = useQuery({
     queryKey: ["ProductFeatured"],
     queryFn: () => productService.getProductFeatured(),
+    enabled: getAccessToken() ? true : false,
   });
   return { productFeaturedData, isLoading, error };
 };

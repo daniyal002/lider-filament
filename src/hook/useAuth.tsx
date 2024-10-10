@@ -4,6 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from 'axios';
 import { IErrorResponse } from "@/interface/error";
 import { useRouter } from "next/navigation";
+import useLocalFavorites from "./localStorageHook";
+import { useAddProductFeaturedMutation } from "./productHook";
 
 
 export const useRegistration = () => {
@@ -16,7 +18,7 @@ export const useRegistration = () => {
         },
         onError(error:AxiosError<IErrorResponse>){
             // alert(error)
-          }  
+          }
       })
 
       return {mutate,isSuccess,error}
@@ -24,20 +26,30 @@ export const useRegistration = () => {
 
 
 export const useLogin = () => {
-	const { replace } = useRouter()
-    const {mutate, isSuccess, error} = useMutation({
-        mutationKey:['login'],
-        mutationFn:(data:ILoginRequest) => authService.login(data),
-        onSuccess(){
-            replace("/")
-        },
-        onError(error:AxiosError<IErrorResponse>){
-            // alert(error)
-          }  
-      })
+    const { replace } = useRouter();
+    const { getLocalFavorites, removeLocalFavorite } = useLocalFavorites();
+    const { mutate: addProductFeaturedMutation } = useAddProductFeaturedMutation();
 
-      return {mutate,isSuccess,error}
-};
+    const { mutate, isSuccess, error } = useMutation({
+      mutationKey: ['login'],
+      mutationFn: (data: ILoginRequest) => authService.login(data),
+      onSuccess() {
+        const localFavorites = getLocalFavorites(); // Получение массива избранных элементов
+        // Используйте Promise.all для обработки всех мутаций и удаления избранного
+        localFavorites.forEach(favorite => {
+            addProductFeaturedMutation(favorite)
+            removeLocalFavorite(favorite)
+      })
+          replace("/");
+      },
+      onError(error: AxiosError<IErrorResponse>) {
+        // Обработка ошибки
+        console.error(error);
+      }
+    });
+
+    return { mutate, isSuccess, error };
+  };
 
 export const useLogout = () => {
     const { replace } = useRouter()
@@ -50,9 +62,8 @@ export const useLogout = () => {
         },
         onError(error:AxiosError<IErrorResponse>){
             alert(error)
-          }  
+          }
       })
 
       return {mutate,isSuccess,error}
 };
-
