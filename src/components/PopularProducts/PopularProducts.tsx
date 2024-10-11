@@ -50,7 +50,7 @@ export default function PopularProducts() {
                             <li>
                               <a onClick={() => createCartMutation({product_id:product.product_id as number,product_price:product.product_price,product_quantity:1})}>
                                 <i className="icon-handbag"></i>
-                                <span>Add to Cart</span>
+                                <span>В корзину</span>
                               </a>
                             </li>
                             <li>

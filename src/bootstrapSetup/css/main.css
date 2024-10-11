@@ -159,7 +159,7 @@
 
 /* // justify nav
 %justify {
- text-align: justify; 
+ text-align: justify;
  font-size: 1px;
  line-height: 0px;
  > * {
@@ -169,7 +169,7 @@
   font-size: $font-size-base;
   line-height: $line-height-base;
  }
- &:after { 
+ &:after {
   content: '';
   width: 100%;
   display: inline-block;
@@ -1589,7 +1589,7 @@ a:hover {
 	color: #000;
 	position: relative;
 	letter-spacing: 1px;
-	padding: 2px 0 0 42px;
+	/* padding: 0px 0 8px 42px; */
 	font: 11px/15px "Montserrat", sans-serif;
 }
 
@@ -1838,7 +1838,7 @@ a:hover {
 	color: #909295;
 }
 
-#nav > ul > li.dark .mt-dropmenu a:hover {	
+#nav > ul > li.dark .mt-dropmenu a:hover {
 	color: #ff6060;
 }
 
@@ -12639,4 +12639,3 @@ a:focus {
 .changer-active #style-changer {
 	margin: 0;
 }
-

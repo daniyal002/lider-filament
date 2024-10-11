@@ -27,8 +27,8 @@ export default function ProductList({ filteredProducts, skip, limit, createCartM
                         <div className="b2">
                           <a href="product-detail.html">
                             <Image
-                              loader={() => `${baseURL}${product?.product_images && product?.product_images[0]?.image_patch}`}
-                              src={`${baseURL}${product?.product_images && product?.product_images[0]?.image_patch}`}
+                              loader={() => `${baseURL}/${product?.product_images && product?.product_images[0]?.image_patch}`}
+                              src={`${baseURL}/${product?.product_images && product?.product_images[0]?.image_patch}`}
                               alt={String(product.product_id)}
                               width={275}
                               height={290}

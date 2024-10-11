@@ -215,7 +215,7 @@
 
 	.mt-bottom-bar .mt-sh-cart {
 		width: 160px;
-		margin: 0 0 0 15px;
+		margin: 0 0 0 0px;
 	}
 
 	.mt-bottom-bar .mt-nav-box {
@@ -1761,6 +1761,7 @@
 	.mt-bottom-bar .mt-sh-cart {
 		width: 42px;
 		height: 34px;
+		display: none;
 	}
 
 	.mt-bottom-bar .mt-sh-cart strong + span,
@@ -2790,4 +2791,3 @@
 		width: 100%;
 	}
 }
-
