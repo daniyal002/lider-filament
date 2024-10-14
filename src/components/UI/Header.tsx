@@ -122,7 +122,7 @@ export default function Header() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/about-company">
+                  <Link className="nav-link" href="/contact">
                     КОНТАКТЫ
                   </Link>
                 </li>

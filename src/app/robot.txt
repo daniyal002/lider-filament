@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /cart
+Disallow: /payment-info
+Disallow: /payment-method
+Disallow: /share
+Disallow: /profile
+
+Allow: /
+Allow: /about-company
+Allow: /contact
+Allow: /cooperationy
+Allow: /feature
+Allow: /product
+
+Sitemap: https://lider-filament.ru/sitemap.xml

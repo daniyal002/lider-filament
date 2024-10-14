@@ -7,14 +7,14 @@ import InstallBootstrap from "@/components/InstallBootstrap";
 import QueryClientContextProvider from "./QueryClientContextProvider";
 import Header from "@/components/UI/Header";
 import Footer from "@/components/UI/Footer";
+import { baseURL } from "@/api/interseptors";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Лидер-В",
   description: "ООО «Лидер-В» - производитель филамента для 3D печати",
-  metadataBase: new URL("http://192.168.30.153:8001"),
-
+  metadataBase: new URL(baseURL),
 };
 
 export default function RootLayout({
@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <meta name="google-site-verification" content="GGkAhooQQ8ZDpjP1rTj9umTxLNxawpq2BjV53QzrQZs" />
       </head>
       <QueryClientContextProvider>
         <InstallBootstrap />
