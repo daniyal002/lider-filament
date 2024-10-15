@@ -1,19 +1,19 @@
 import { baseURL } from "@/api/interseptors";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
-import { ICartRequset } from "@/interface/cart";
 import { IProductResponse, IProductResponseDetail } from "@/interface/product";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
   filteredProducts: IProductResponseDetail[];
   skip: number;
   limit: number;
-  createCartMutation: (data: ICartRequset) => void;
+  addCart: (product_id:number,product_price:number,product_quantity:number,product_image:string) => void;
   handlePagination: (newSkip: number) => void;
   productFeaturedData: IProductResponse | undefined;
 }
 
-export default function ProductList({ filteredProducts, skip, limit, createCartMutation, handlePagination, productFeaturedData }:Props) {
+export default function ProductList({ filteredProducts, skip, limit, addCart, handlePagination, productFeaturedData }:Props) {
     return (
       <div className="col-xs-12 col-sm-8 col-md-9 wow fadeInRight" data-wow-delay="0.4s">
         {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
@@ -25,7 +25,7 @@ export default function ProductList({ filteredProducts, skip, limit, createCartM
                     <div className="box">
                       <div className="b1">
                         <div className="b2">
-                          <a href="product-detail.html">
+                          <Link href={`product/${product.product_id}`}>
                             <Image
                               loader={() => `${baseURL}/${product?.product_images && product?.product_images[0]?.image_patch}`}
                               src={`${baseURL}/${product?.product_images && product?.product_images[0]?.image_patch}`}
@@ -33,11 +33,13 @@ export default function ProductList({ filteredProducts, skip, limit, createCartM
                               width={275}
                               height={290}
                             />
-                          </a>
+                          </Link>
 
                           <ul className="links">
                             <li>
-                              <a style={{ cursor: "pointer" }} onClick={() => createCartMutation({ product_id: product.product_id as number, product_price: product.product_price, product_quantity: 1 })}>
+                              <a style={{ cursor: "pointer" }} onClick={() => addCart( product.product_id as number, product.product_price,1,
+                              // @ts-ignore
+                                product?.product_images[0].image_patch)}>
                                 <i className="icon-handbag"></i>
                                 <span>В корзину</span>
                               </a>

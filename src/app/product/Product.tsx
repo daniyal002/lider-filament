@@ -4,6 +4,7 @@ import { baseURL } from "@/api/interseptors";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
+import useLocalCart from "@/hook/localStorageCartHook";
 import {
   useAddProductFeaturedMutation,
   useDeleteProductFeaturedMutation,
@@ -11,6 +12,7 @@ import {
   useProductFeaturedData,
 } from "@/hook/productHook";
 import { IProductResponse, IProductResponseDetail } from "@/interface/product";
+import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -26,12 +28,14 @@ export default function Product() {
   // Fetching products and categories
   const { productData } = useProductData();
   const { categoryData } = useCategoryData();
-  const { mutate: addProductFeaturedMutation } =
-    useAddProductFeaturedMutation();
-  const { mutate: deleteProductFeaturedMutation } =
-    useDeleteProductFeaturedMutation();
   const { productFeaturedData } = useProductFeaturedData();
   const { mutate: createCartMutation } = useCreateCartMutation();
+  const {addLocalCart} = useLocalCart()
+  const accessToken = getAccessToken()
+
+  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
+    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+  }
 
   // Filtering logic - runs when productData or filter conditions change
   useEffect(() => {
@@ -232,11 +236,13 @@ export default function Product() {
                                 <a
                                 style={{cursor:"pointer"}}
                                   onClick={() =>
-                                    createCartMutation({
-                                      product_id: product.product_id as number,
-                                      product_price: product.product_price,
-                                      product_quantity: 1,
-                                    })
+                                    addCart(
+                                       product.product_id as number,
+                                       product.product_price,
+                                       1,
+                                       // @ts-ignore
+                                       product.product_images[0].image_patch
+                                    )
                                   }
                                 >
                                   <i className="icon-handbag"></i>

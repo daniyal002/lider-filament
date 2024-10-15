@@ -2,7 +2,7 @@
 
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
-import useLocalFavorites from "@/hook/localStorageHook";
+import useLocalFavorites from "@/hook/localStorageFavoriteHook";
 import {
   useProductData,
   useProductFeaturedData,
@@ -13,6 +13,7 @@ import FilterSection from "./FilterSection";
 import CategorySection from "./CategorySection";
 import ProductList from "./ProductList";
 import { ICategoryResponse } from "@/interface/category";
+import useLocalCart from "@/hook/localStorageCartHook";
 
 export default function ProductFeature() {
   const [skip, setSkip] = useState(0);
@@ -29,6 +30,11 @@ export default function ProductFeature() {
   const { getLocalFavorites } = useLocalFavorites();
   const localFavorites = getLocalFavorites();
   const accessToken = getAccessToken();
+  const {addLocalCart} = useLocalCart()
+
+  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
+    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+  }
 
   const filteredProducts = useMemo(() => {
     let products = accessToken ? productFeaturedData?.detail : productData?.detail.filter(product => localFavorites.includes(product.product_id as number));
@@ -91,7 +97,7 @@ export default function ProductFeature() {
           filteredProducts={filteredProducts}
           skip={skip}
           limit={limit}
-          createCartMutation={createCartMutation}
+          addCart={addCart}
           handlePagination={handlePagination}
           productFeaturedData={productFeaturedData}
         />

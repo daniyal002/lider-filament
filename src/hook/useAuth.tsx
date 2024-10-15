@@ -4,8 +4,10 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from 'axios';
 import { IErrorResponse } from "@/interface/error";
 import { useRouter } from "next/navigation";
-import useLocalFavorites from "./localStorageHook";
+import useLocalFavorites from "./localStorageFavoriteHook";
 import { useAddProductFeaturedMutation } from "./productHook";
+import useLocalCart from "./localStorageCartHook";
+import { useCreateCartMutation } from "./cartHook";
 
 
 export const useRegistration = () => {
@@ -28,18 +30,25 @@ export const useRegistration = () => {
 export const useLogin = () => {
     const { replace } = useRouter();
     const { getLocalFavorites, removeLocalFavorite } = useLocalFavorites();
+    const {getLocalCart,removeLocalCart} = useLocalCart()
     const { mutate: addProductFeaturedMutation } = useAddProductFeaturedMutation();
+    const {mutate:createCartMutation} = useCreateCartMutation()
 
     const { mutate, isSuccess, error } = useMutation({
       mutationKey: ['login'],
       mutationFn: (data: ILoginRequest) => authService.login(data),
       onSuccess() {
         const localFavorites = getLocalFavorites(); // Получение массива избранных элементов
-        // Используйте Promise.all для обработки всех мутаций и удаления избранного
         localFavorites.forEach(favorite => {
             addProductFeaturedMutation(favorite)
             removeLocalFavorite(favorite)
       })
+
+      const localCart = getLocalCart()
+      localCart.forEach(cart => {
+        createCartMutation(cart)
+        removeLocalCart(cart.product_id)
+  })
           replace("/");
       },
       onError(error: AxiosError<IErrorResponse>) {

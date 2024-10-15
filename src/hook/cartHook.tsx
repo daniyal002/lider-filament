@@ -3,6 +3,7 @@ import { IErrorResponse } from "@/interface/error";
 import axios, { AxiosError } from "axios";
 import { cartService } from "@/services/cart.service";
 import { ICartRequset, ICartResponse } from "@/interface/cart";
+import { getAccessToken } from "@/services/auth-token.service";
 
 export const useCartData = () => {
   const {
@@ -13,6 +14,7 @@ export const useCartData = () => {
     queryKey: ["Carts"],
     queryFn: () => cartService.getCart(),
     staleTime: Infinity,
+    enabled: getAccessToken() ? true : false,
   });
   return { cartData, isLoading, error };
 };
@@ -26,6 +28,7 @@ export const useCartUserData = () => {
     queryKey: ["CartUsers"],
     queryFn: () => cartService.getCartUser(),
     staleTime: Infinity,
+    enabled: getAccessToken() ? true : false,
   });
   return { cartData, isLoading, error };
 };
@@ -76,7 +79,7 @@ export const useUpdateCartMutation = () => {
     },
   });
 
-  return { mutate };  
+  return { mutate };
 };
 
 export const useDeleteCartMutation = () => {

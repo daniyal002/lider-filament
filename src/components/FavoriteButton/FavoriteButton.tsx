@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAddProductFeaturedMutation, useDeleteProductFeaturedMutation } from '@/hook/productHook';
-import useLocalFavorites from '@/hook/localStorageHook';
+import useLocalFavorites from '@/hook/localStorageFavoriteHook';
 import { getAccessToken } from '@/services/auth-token.service';
 import { IProductResponse } from '@/interface/product';
 

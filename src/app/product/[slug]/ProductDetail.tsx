@@ -17,8 +17,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useState } from "react";
 import { useCreateCartMutation } from "@/hook/cartHook";
-import useLocalFavorites from "@/hook/localStorageHook";
+import useLocalFavorites from "@/hook/localStorageFavoriteHook";
 import { getAccessToken } from "@/services/auth-token.service";
+import useLocalCart from "@/hook/localStorageCartHook";
 
 interface Props {
   productId: string;
@@ -37,8 +38,13 @@ export default function ProductDetail({ productId }: Props) {
   const [quantity, setQuantity] = useState<number>(1)
 
   const { getLocalFavorites,addLocalFavorite,removeLocalFavorite } = useLocalFavorites();
+  const {addLocalCart} = useLocalCart()
   const localFavorites = getLocalFavorites()
   const accessToken = getAccessToken()
+
+  const addCart = (product_id:number,product_price:number,product_quantity:number = 1, product_image:string) => {
+    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+  }
 
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
@@ -124,7 +130,9 @@ export default function ProductDetail({ productId }: Props) {
                   </div>
                   <div className="row-val">
                     <button type="button" onClick={() => {
-                        createCartMutation({product_id:productByIdData?.detail.product_id as number,product_price:productByIdData?.detail.product_price as number,product_quantity:quantity})
+                        addCart(productByIdData?.detail.product_id as number,productByIdData?.detail.product_price as number,quantity,
+                          // @ts-ignore
+                          productByIdData?.detail.product_images[0].image_patch)
                     }}>В КОРЗИНУ</button>
                   </div>
                 </fieldset>
