@@ -12,6 +12,7 @@ function useLocalFavorites() {
     if (!currentFavorites.includes(productId)) {
       const updatedFavorites = [...currentFavorites, productId];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      window.dispatchEvent(new StorageEvent('storage', { key: "favorites", newValue: JSON.stringify(updatedFavorites) }));
     }
   };
 
@@ -19,6 +20,7 @@ function useLocalFavorites() {
     const currentFavorites = getLocalFavorites();
     const updatedFavorites = currentFavorites.filter((id) => id !== productId);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    window.dispatchEvent(new StorageEvent('storage', { key: "favorites", newValue: JSON.stringify(updatedFavorites) }));
   };
 
   return { getLocalFavorites, addLocalFavorite, removeLocalFavorite };

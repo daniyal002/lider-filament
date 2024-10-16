@@ -18,7 +18,6 @@ export default function Cart() {
   useEffect(() => {
     const handleStorageChange = () => {
       const updatedCart = getLocalCart();
-      console.log("Updated cart from localStorage:", updatedCart);
       setLocalCart(updatedCart || []);
     };
 

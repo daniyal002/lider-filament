@@ -8,7 +8,7 @@ import {
   useProductFeaturedData,
 } from "@/hook/productHook";
 import { getAccessToken } from "@/services/auth-token.service";
-import {  useState, useMemo, useCallback } from "react";
+import {  useState, useMemo, useCallback, useEffect } from "react";
 import FilterSection from "./FilterSection";
 import CategorySection from "./CategorySection";
 import ProductList from "./ProductList";
@@ -28,9 +28,23 @@ export default function ProductFeature() {
   const { productData } = useProductData();
   const { mutate: createCartMutation } = useCreateCartMutation();
   const { getLocalFavorites } = useLocalFavorites();
-  const localFavorites = getLocalFavorites();
+  const [localFavorites, setLocalFavorites] = useState(() => getLocalFavorites() || []);
+
   const accessToken = getAccessToken();
   const {addLocalCart} = useLocalCart()
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedFavorite = getLocalFavorites();
+      setLocalFavorites(updatedFavorite || []);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
     accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
