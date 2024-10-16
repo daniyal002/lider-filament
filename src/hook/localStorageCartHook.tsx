@@ -31,6 +31,7 @@ function useLocalCart() {
       }
       const updatedCart = [...currentCart.slice(0, existingProductIndex), updatedProduct, ...currentCart.slice(existingProductIndex + 1)];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
+      window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
     }
   };
 
@@ -38,6 +39,8 @@ function useLocalCart() {
     const currentCart = getLocalCart();
     const updatedCart = currentCart.filter((product) => product.product_id !== productId);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
+
   };
 
   return { getLocalCart, addLocalCart, removeLocalCart };

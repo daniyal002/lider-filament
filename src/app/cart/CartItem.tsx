@@ -11,7 +11,7 @@ interface Props {
   cartItem: ICartResponseDetail;
 }
 export default function CartItem({ cartItem }: Props) {
-  const [quantity, setQuantity] = useState<number>();
+  const [quantity, setQuantity] = useState<number>(cartItem.product_quantity);
   const { mutate: updateCartMutation } = useUpdateCartMutation();
   const { mutate: deleteCartMutation } = useDeleteCartMutation();
   const accessToken = getAccessToken();
@@ -88,8 +88,8 @@ export default function CartItem({ cartItem }: Props) {
               id="qty"
               placeholder="1"
               min={1}
-              value={quantity}
-              defaultValue={cartItem.product_quantity}
+              value={quantity || 1}
+              // defaultValue={cartItem.product_quantity}
               onChange={(e) => {
                 setQuantity(Number(e.target.value));
                 updateCart(

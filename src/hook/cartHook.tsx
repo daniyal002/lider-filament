@@ -40,14 +40,8 @@ export const useCreateCartMutation = () => {
   const { mutate } = useMutation({
     mutationKey: ["createCart"],
     mutationFn: (data: ICartRequset) => cartService.addCart(data),
-    onSuccess: (newCart) => {
-      queryClient.setQueryData(["CartUsers"], (oldData: ICartResponse | undefined) => {
-        if (!oldData?.detail) return { ...oldData, detail: [newCart.detail] };
-        return {
-          ...oldData,
-          detail: [...oldData.detail, newCart.detail],
-        };
-      });
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey:['CartUsers']})
     },
     onError: (error: AxiosError<IErrorResponse>) => {
       console.error(error?.response?.data?.detail);
