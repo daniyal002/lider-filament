@@ -1,0 +1,46 @@
+.shadowH:focus{
+    box-shadow: 0 0 0  0.25rem #6625a3;
+}
+
+.navbar{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    /* flex-wrap: nowrap; */
+}
+
+@media (max-width:991px) {
+    .mt-sh-cart{
+        display: none;
+    }
+}
+
+.secondHeader{
+    display: flex;
+    align-items: center;
+     gap: 10px;
+     width:200px;
+      justify-content:flex-end;
+}
+
+
+
+@media (max-width:424px) {
+    .navbar{
+        /* flex-direction:column; */
+    }
+    .secondHeader{
+        /* justify-content: center; */
+    }
+
+    .logo{
+    width: 150px;
+    }
+
+}
+
+@media (max-width:374px) {
+    .logo{
+        width:95px;
+    }
+}

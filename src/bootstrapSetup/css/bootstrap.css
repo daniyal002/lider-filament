@@ -774,7 +774,7 @@ img {
 vertical-align: middle; }
 .img-responsive {
 display: block;
-max-width: 100%;
+max-width: 80%;
 height: auto; }
 .img-rounded {
 border-radius: 6px; }

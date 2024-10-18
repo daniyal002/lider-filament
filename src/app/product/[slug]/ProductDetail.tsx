@@ -74,7 +74,7 @@ export default function ProductDetail({ productId }: Props) {
                 navigation={true}
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
-                style={{ maxWidth: "500px" }}
+                style={{ maxWidth: "400px" }}
               >
                 {productByIdData?.detail?.product_images.map((img,index) => (
                   <SwiperSlide key={index}>

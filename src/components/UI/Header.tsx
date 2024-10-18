@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import "./Header.css";
 
 export default function Header() {
   const pathname = usePathname();
@@ -89,14 +90,16 @@ export default function Header() {
       </div>
       <div className="mt-bottom-bar">
         <div className="container-xl">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light ">
             <Link className="navbar-brand" href="/">
               <Image
                 loader={() => "/icon/logo.svg"}
                 src="/icon/logo.svg"
                 alt="schon"
-                width={40}
-                height={40}
+                width={200}
+                height={50}
+                className="logo"
+                // layout="responsive"
               />
             </Link>
 
@@ -128,7 +131,8 @@ export default function Header() {
                 </li>
               </ul>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+
+            <div className="secondHeader">
               <Link href="/feature">
                 {pathname === "/feature" ? (
                   <i
@@ -175,30 +179,33 @@ export default function Header() {
               </Link>
               {/* Add this */}
               {isNavCollapsed ? (
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  aria-controls="navbarNav"
-                  aria-expanded={!isNavCollapsed ? true : false}
-                  aria-label="Toggle navigation"
-                  onClick={handleNavCollapse}
-                >
-                  <span className="navbar-toggler-icon"></span>
-                </button>
-              ) : (
-                <button
-                  className="close-button"
-                  type="button"
-                  aria-label="Close menu"
-                  onClick={handleNavCollapse}
-                  style={{ position: "absolute", top: "10px", right: "10px",border:"1px solid rgba( 0,0,0 , 0.15", background:"transparent" }}
-                >
-                  <i
-                    className="bi bi-x"
-                    style={{ fontSize: "20px", color: "#000" }}
-                  ></i>
-                </button>
-              )}
+              <button
+                className="navbar-toggler shadowH"
+                type="button"
+                aria-controls="navbarNav"
+                aria-expanded={!isNavCollapsed ? true : false}
+                aria-label="Toggle navigation"
+                onClick={handleNavCollapse}
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            ) : (
+              <button
+                className="navbar-toggler shadowH"
+                type="button"
+                aria-label="Close menu"
+                onClick={handleNavCollapse}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "0px",
+                  border: "1px solid rgba( 0,0,0 , 0.15",
+                  background: "transparent",
+                }}
+              >
+                <span className="bi bi-x" style={{fontSize:"20px", fontWeight:'bold'}}></span>
+              </button>
+            )}
             </div>
           </nav>
         </div>

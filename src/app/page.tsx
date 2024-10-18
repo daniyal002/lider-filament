@@ -2,6 +2,9 @@ import PopularProducts from "@/components/PopularProducts/PopularProducts";
 import style from "./page.module.scss";
 import PopularCategory from "@/components/PopularCategory/PopularCategory";
 import SubscribeUpdate from "@/components/SubscribeUpdate/SubscribeUpdate";
+import Image from "next/image";
+import banner from '../../public/img/banner-image.png'
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,16 +25,16 @@ export default function Home() {
             <br /> -Лучшие цены за нить высокого качества.
           </p>
           <div className={style.buttons}>
-            <a href="#" className={`${style.button} ${style.getStarted}`}>
-              Get Started
-            </a>
-            <a href="#" className={`${style.button} ${style.createNtf}`}>
-              Create NTFs
-            </a>
+            <Link href="/product" className={`${style.button} ${style.getStarted}`}>
+              Продукты
+            </Link>
+            <Link href="/about-company" className={`${style.button} ${style.createNtf}`}>
+              О Компании
+            </Link>
           </div>
         </div>
         <div className={style.image}>
-          <img src="./img/banner-image.png" alt="Banner Image" />
+          <Image src={banner} alt="Banner Image" width={500} height={500} />
         </div>
       </div>
 
@@ -40,13 +43,12 @@ export default function Home() {
       </div>
 
       <div className={style.containerSecondScrenn}>
-        <PopularCategory/>
+        <PopularCategory />
       </div>
 
       <div className={style.containerSecondScrenn}>
-      <SubscribeUpdate/>
+        <SubscribeUpdate />
       </div>
-
     </>
   );
 }

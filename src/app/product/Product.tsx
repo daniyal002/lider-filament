@@ -206,7 +206,7 @@ export default function Product() {
         >
           {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
             <>
-              <ul className="mt-productlisthold list-inline">
+              <ul className="" style={{display:"flex", flexWrap:'wrap',columnGap:'15px',rowGap:"30px",listStyle:"none",justifyContent:"center"}}>
                 {filteredProducts.slice(skip, skip + limit).map((product) => (
                   <li key={product.product_id} style={{ textAlign: "center" }}>
                     <div className="mt-product1 large">
