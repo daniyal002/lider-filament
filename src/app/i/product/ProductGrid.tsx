@@ -1,3 +1,4 @@
+import { baseURL } from "@/api/interseptors";
 import { useCategoryData } from "@/hook/categoryHook";
 import { useAddProductTopMutation, useDeleteProductMutation, useDeleteProductTopMutation, useProductTopData } from "@/hook/productHook";
 import { IProductResponse, IProductResponseDetail } from "@/interface/product";
@@ -33,33 +34,33 @@ export default function ProductGrid({
   useEffect(() => {
     if (productData) {
       let filtered = productData.detail;
-  
+
       if (nameProduct) {
         filtered = filtered.filter((product) =>
           product.product_name.toLowerCase().includes(nameProduct.toLowerCase())
         );
       }
-  
+
       if (minPrice !== undefined) {
         filtered = filtered.filter(
           (product) => product.product_price >= minPrice
         );
       }
-  
+
       if (maxPrice !== undefined) {
         filtered = filtered.filter(
           (product) => product.product_price <= maxPrice
         );
       }
-  
+
       if (categoryId) {
         filtered = filtered.filter(
           (product) => product.product_category.category_id === categoryId
         );
       }
-  
+
       setFilteredProducts(filtered); // Update the filtered products
-  
+
       // Reset pagination to the first page after filtering
       setSkip(0);
     }
@@ -86,7 +87,7 @@ export default function ProductGrid({
             className="col-xs-12 col-sm-4 col-md-3 wow fadeInLeft"
             data-wow-delay="0.4s"
           >
-           
+
            <section
             className="shop-widget filter-widget bg-grey"
             style={{
@@ -164,7 +165,7 @@ export default function ProductGrid({
               <ul className="list-unstyled category-list">
                 {categoryData?.detail.map((category) => (
                   <li key={category.category_id}>
-                    <a 
+                    <a
                   style={{cursor:"pointer"}}
                   onClick={() => {
                     if (category.category_id === categoryId) {
@@ -214,12 +215,12 @@ export default function ProductGrid({
                         <Link href={`/product/${product.product_id}`}>
                               <Image
                                 loader={() =>
-                                  `http://192.168.30.153:8001/${
+                                  `${baseURL}/${
                                     product?.product_images &&
                                     product?.product_images[0]?.image_patch
                                   }`
                                 }
-                                src={`http://192.168.30.153:8001/${
+                                src={`${baseURL}/${
                                   product?.product_images &&
                                   product?.product_images[0]?.image_patch
                                 }`}
@@ -294,12 +295,12 @@ export default function ProductGrid({
                                 </a>
                               </li>
                               )}
-                              
+
                             </ul>
                           </div>
                         </div>
                       </div>
-                      <div 
+                      <div
                       className="txt"
                       style={{ textAlign: "left", padding: "0" }}>
                         <strong className="title">
