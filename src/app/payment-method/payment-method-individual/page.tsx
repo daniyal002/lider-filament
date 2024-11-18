@@ -7,7 +7,7 @@ const PaymentMethodIndividual = () => {
   return (
     <div className={style.container}>
       <div className={style.paymentMethods}>
-       
+
         <div className={style.methodDetails}>
         <div className={style.methodBlock}>
         <div className={style.iconTextBlock}>
@@ -15,11 +15,11 @@ const PaymentMethodIndividual = () => {
               <h3 className={style.methodTitle}>Онлайн оплата</h3>
             </div>
             <p className={style.methodDescription}>
-            Картами Visa, MasterCard, Мир. Без комиссии
+            При оформлении на сайте или через онлайн-консультанта:банковсокой картой: Тинькофф, Сбербанк, Альфа-Банк, ВТБ-Банк.
             </p>
           </div>
-          
-          <div className={style.methodBlock}>
+
+          {/* <div className={style.methodBlock}>
           <div className={style.iconTextBlock}>
               <img src='/icon/SBP.svg' alt="QRIcon" className={style.icon} />
               <h3 className={style.methodTitle}>По СПБ</h3>
@@ -50,7 +50,7 @@ const PaymentMethodIndividual = () => {
               Перейдите по ссылке на оплату и выберите приложение вашего банка.
               Затем перейдите в него и подтвердите оплату
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

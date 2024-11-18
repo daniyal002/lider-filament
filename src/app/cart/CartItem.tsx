@@ -104,6 +104,7 @@ export default function CartItem({ cartItem }: Props) {
                 borderRadius: "25px",
                 padding: "10px",
                 border: "0",
+                outline:"none",
               }}
             />
           </div>

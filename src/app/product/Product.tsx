@@ -241,7 +241,7 @@ export default function Product() {
                                        product.product_price,
                                        1,
                                        // @ts-ignore
-                                       product.product_images[0].image_patch
+                                       product.product_images[0]?.image_patch
                                     )
                                   }
                                 >

@@ -43,7 +43,7 @@ export default function Header() {
               <div className="col-xs-12 col-sm-6 text-right">
                 <ul className="mt-top-list">
                   <li>
-                    <a href="#">Order Track</a>
+                    <Link href="/order">Order Track</Link>
                   </li>
                   {user ? (
                     <li>

@@ -1,0 +1,40 @@
+.orderList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; // Увеличиваем отступ между карточками
+
+    .orderListItem {
+        display: flex;
+        flex-direction: column; // Изменяем на вертикальное направление
+        justify-content: flex-start; // Выравнивание по верхнему краю
+        border: 1px solid #551A8B; // Основной цвет границы
+        padding: 15px; // Увеличиваем отступ внутри карточки
+        border-radius: 12px; // Закругленные углы
+        transition: 0.3s; // Плавный переход для эффектов
+        background-color: #e7e7e7; // Светлый фон карточки
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Тень для глубины
+        cursor: pointer;
+
+
+        p {
+            margin: 5px 0; // Отступы между параграфами
+            font-size: 16px; // Размер шрифта
+            line-height: 1.5; // Высота строки для лучшей читаемости
+        }
+
+        .orderNumber {
+            font-weight: bold; // Жирный шрифт для номера заказа
+            color: #551A8B; // Основной цвет для номера заказа
+        }
+
+        .orderSum {
+            font-size: 18px; // Увеличенный размер шрифта для суммы
+            color: #333; // Цвет текста для суммы
+        }
+
+        .orderDate {
+            font-style: italic; // Курсив для даты
+            color: #777; // Светлый цвет для даты
+        }
+    }
+}

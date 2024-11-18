@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import { useProductData } from "@/hook/productHook";
@@ -6,6 +6,7 @@ import useLocalCart from "@/hook/localStorageCartHook";
 import { getAccessToken } from "@/services/auth-token.service";
 import { ICartResponseDetail } from "@/interface/cart";
 import { useCartUserData } from "@/hook/cartHook";
+import { useCreateOrderMutation } from "@/hook/orderHook";
 
 export default function Cart() {
   const { productData } = useProductData();
@@ -14,6 +15,7 @@ export default function Cart() {
   const { getLocalCart } = useLocalCart();
   const [localCart, setLocalCart] = useState(() => getLocalCart() || []);
   const accessToken = getAccessToken();
+  const { mutate: createOrderMutation } = useCreateOrderMutation();
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -21,10 +23,10 @@ export default function Cart() {
       setLocalCart(updatedCart || []);
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
 
@@ -33,21 +35,27 @@ export default function Cart() {
     console.log("Local cart updated:", localCart);
   }, [localCart]);
 
-  const [filteredProducts, setFilteredProducts] = useState<ICartResponseDetail[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<
+    ICartResponseDetail[]
+  >([]);
 
   useEffect(() => {
-    const filtered = productData?.detail.filter(product =>
-      localCart.some(cartItem => cartItem.product_id === product.product_id)
-    ).map(filteredProduct => {
-      const cartItem = localCart.find(item => item.product_id === filteredProduct.product_id);
-      return {
-        ...filteredProduct,
-        //@ts-ignore
-        product_image: filteredProduct?.product_images[0]?.image_patch,
-        product_quantity: cartItem?.product_quantity,
-        product_price: cartItem?.product_price
-      };
-    });
+    const filtered = productData?.detail
+      .filter((product) =>
+        localCart.some((cartItem) => cartItem.product_id === product.product_id)
+      )
+      .map((filteredProduct) => {
+        const cartItem = localCart.find(
+          (item) => item.product_id === filteredProduct.product_id
+        );
+        return {
+          ...filteredProduct,
+          //@ts-ignore
+          product_image: filteredProduct?.product_images[0]?.image_patch,
+          product_quantity: cartItem?.product_quantity,
+          product_price: cartItem?.product_price,
+        };
+      });
     setFilteredProducts(filtered as ICartResponseDetail[]);
   }, [productData, localCart]);
 
@@ -69,15 +77,13 @@ export default function Cart() {
 
   return (
     <div className="mt-side-widget">
-      {accessToken ? (
-        cartData?.detail?.map((cartItem, index) => (
-          <CartItem cartItem={cartItem} key={index} />
-        ))
-      ) : (
-        filteredProducts?.map((cartItem, index) => (
-          <CartItem cartItem={cartItem} key={index} />
-        ))
-      )}
+      {accessToken
+        ? cartData?.detail?.map((cartItem, index) => (
+            <CartItem cartItem={cartItem} key={index} />
+          ))
+        : filteredProducts?.map((cartItem, index) => (
+            <CartItem cartItem={cartItem} key={index} />
+          ))}
 
       <div className="cart-row-total">
         <span className="mt-total">Итого</span>
@@ -86,9 +92,23 @@ export default function Cart() {
         </span>
       </div>
       <div className="cart-btn-row">
-        <a href="#" className="btn-type3">
+        <button
+          className="btn-type3"
+          onClick={() =>
+            createOrderMutation({
+              products: cartData ?cartData?.detail.map((cart) => ({
+                product_id: cart.product_id,
+                product_price: cart.product_price.toString(),
+                product_quantity: Number(cart.product_quantity),
+                product_sum: String(cart.product_price * cart.product_quantity),
+              })) : [],
+              order_sum: total,
+              order_status_id: 1,
+            })
+          }
+        >
           К оплате
-        </a>
+        </button>
       </div>
     </div>
   );
