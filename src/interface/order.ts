@@ -26,7 +26,7 @@ export interface IOrderResponseDeatail{
   order_sum:string,
   order_id: number;
   order_status: {order_status_name:string, order_status_id:number};
-  products:IProductOrderResponse[]
+  order_products:IProductResponseDetail[]
 }
 
 export interface IProductOrderResponse {

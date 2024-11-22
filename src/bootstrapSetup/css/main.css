@@ -1401,7 +1401,7 @@ a:hover {
 -------------------------------------------------------------------*/
 
 .mt-bottom-bar {
-	background: #fff;
+	background: rgba(134, 155, 223, 0.14)!important;
 	padding: 42px 31px 42px 48px;
 	-webkit-transition: all .4s linear;
 	transition: all .4s linear;
@@ -3226,7 +3226,7 @@ a:hover {
 }
 
 #mt-footer .f-widget-about .address-list li a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 #mt-footer .f-widget-about .address-list address {
@@ -3446,7 +3446,7 @@ a:hover {
 }
 
 #mt-footer .f-widget-nav2 a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 #mt-footer .social-network a {
@@ -3455,7 +3455,7 @@ a:hover {
 }
 
 #mt-footer .social-network a:hover {
-	color: #ff6060;
+	color: #551A8B;
 }
 
 /*------------------------------------------------------------------

@@ -43,7 +43,7 @@ export default function Header() {
               <div className="col-xs-12 col-sm-6 text-right">
                 <ul className="mt-top-list">
                   <li>
-                    <Link href="/order">Order Track</Link>
+                    <Link href="/order">Заказы</Link>
                   </li>
                   {user ? (
                     <li>
@@ -131,8 +131,8 @@ export default function Header() {
                 </li>
               </ul>
             </div>
-
-            <div className="secondHeader">
+            {!isNavCollapsed && (
+              <div className="threedHeader">
               <Link href="/feature">
                 {pathname === "/feature" ? (
                   <i
@@ -148,7 +148,7 @@ export default function Header() {
                     className="bi bi-heart"
                     style={{
                       fontSize: "25px",
-                      color: "#000",
+                      color: "#6625a3",
                       fontWeight: "700",
                     }}
                   ></i>
@@ -168,13 +168,12 @@ export default function Header() {
                   className="bi bi-basket"
                   style={{
                     fontSize: "28px",
-                    color: "#000",
+                    color: "#6625a3",
                     fontWeight: "700",
                   }}
                 ></i>
                 <div className="mt-sh-cart">
                   <strong>Корзина</strong>
-                  <span>3 items &nbsp;$74.00</span>
                 </div>
               </Link>
               {/* Add this */}
@@ -186,6 +185,87 @@ export default function Header() {
                 aria-expanded={!isNavCollapsed ? true : false}
                 aria-label="Toggle navigation"
                 onClick={handleNavCollapse}
+                style={{color:"#6625a3"}}
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            ) : (
+              <button
+                className="navbar-toggler shadowH"
+                type="button"
+                aria-label="Close menu"
+                onClick={handleNavCollapse}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "0px",
+                  border: "1px solid #6625a3",
+                  background: "transparent",
+                  color:"#6625a3"
+                }}
+              >
+                <span className="bi bi-x" style={{fontSize:"20px", fontWeight:'bold'}}></span>
+              </button>
+            )}
+            </div>
+            ) }
+
+            {isNavCollapsed && (
+              <div className="secondHeader">
+              <Link href="/feature">
+                {pathname === "/feature" ? (
+                  <i
+                    className="bi bi-heart-fill"
+                    style={{
+                      fontSize: "25px",
+                      color: "#6625a3",
+                      fontWeight: "700",
+                    }}
+                  ></i>
+                ) : (
+                  <i
+                    className="bi bi-heart"
+                    style={{
+                      fontSize: "25px",
+                      color: "#6625a3",
+                      fontWeight: "700",
+                    }}
+                  ></i>
+                )}
+              </Link>
+              <Link
+                href="/cart"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  className="bi bi-basket"
+                  style={{
+                    fontSize: "28px",
+                    color: "#6625a3",
+                    fontWeight: "700",
+                  }}
+                ></i>
+                <div className="mt-sh-cart">
+                  <strong style={{color:"#6625a3"}}>Корзина</strong>
+                </div>
+              </Link>
+              {/* Add this */}
+              {isNavCollapsed ? (
+              <button
+                className="navbar-toggler shadowH"
+                type="button"
+                aria-controls="navbarNav"
+                aria-expanded={!isNavCollapsed ? true : false}
+                aria-label="Toggle navigation"
+                onClick={handleNavCollapse}
+                style={{color:"#6625a3",border: "1px solid #6625a3"}}
+
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -201,12 +281,15 @@ export default function Header() {
                   right: "0px",
                   border: "1px solid rgba( 0,0,0 , 0.15",
                   background: "transparent",
+                  color:"#6625a3"
                 }}
               >
                 <span className="bi bi-x" style={{fontSize:"20px", fontWeight:'bold'}}></span>
               </button>
             )}
             </div>
+            )}
+
           </nav>
         </div>
       </div>

@@ -31,7 +31,9 @@ export interface IProductResponseDetail {
   product_category: ICategoryRequset;
   images?: FileList;
   product_images?: IProductImages[]
-  featured_count?:number
+  featured_count?:number,
+  product_quantity?:number,
+  product_sum?:number
 }
 
 export interface IProductByIdResponse {

@@ -1,0 +1,50 @@
+.orderDetail {
+    border: 1px solid #551A8B; // Border color for the order detail
+    border-radius: 12px; // Rounded corners
+    padding: 20px; // Padding inside the order detail
+    background-color: #f9f9f9; // Light background for the detail
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Shadow for depth
+    margin: 20px 0; // Margin for spacing
+
+    .orderNumber {
+        font-size: 24px; // Larger font size for the order number
+        color: #551A8B; // Color for the order number
+        margin-bottom: 10px; // Space below the order number
+    }
+
+    .orderDate,
+    .orderStatus,
+    .orderSum {
+        font-size: 16px; // Font size for other details
+        margin: 5px 0; // Margin for spacing
+        color: #333; // Darker text color
+    }
+
+    .productsTitle {
+        font-size: 20px; // Font size for the products section title
+        margin-top: 20px; // Space above the products title
+        margin-bottom: 10px; // Space below the products title
+        color: #551A8B; // Color for the title
+    }
+
+    .productsList {
+        display: flex; // Flexbox for product items
+        flex-direction: column; // Column layout
+        gap: 15px; // Space between product items
+
+        .productItem {
+            border: 1px solid #ccc; // Border for product item
+            border-radius: 8px; // Rounded corners for product item
+            padding: 15px; // Padding inside product item
+            background-color: #fff; // White background for product item
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Shadow for product item
+
+            .productName {
+                font-size: 18px; // Font size for product name
+                font-weight: bold; // Bold font for product name
+                color: #333; // Darker text color
+                margin-bottom: 5px; // Space below product name
+            }
+        }
+    }
+}

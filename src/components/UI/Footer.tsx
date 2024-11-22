@@ -14,8 +14,8 @@ export default function Footer() {
 									</div>
 									<ul className="list-unstyled address-list">
 										<li><address>Connaugt Road Central Suite 18B, 148 <br/>New Yankee</address></li>
-										<li><a href="tel:15553332211">+1 (555) 333 22 11</a></li>
-										<li><a href="mailto:&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;">&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;</a></li>
+										<li><a href="tel:79640044853">+7 (964) 004 48 53</a></li>
+										<li><a href="mail:vagid08@mail.ru">vagid08@mail.ru</a></li>
 									</ul>
 									<ul className="list-unstyled social-network">
 										<li><a href="#"><i className="bi bi-telegram" style={{fontSize:"19px"}}></i></a></li>

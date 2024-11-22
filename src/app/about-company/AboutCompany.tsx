@@ -45,44 +45,49 @@ const AboutCompany = () => {
   const listPaymentToLegalEntities:IPaymentTable[] = [
     {
       description: "Полное наименование организации",
-      text: "Общество с ограниченной ответственностью 'ПК 'НИТ' ",
-    },
-    {
-      description: "ИНН",
-      text: "3459072358",
-    },
-    {
-      description: "КПП",
-      text: "345901001",
-    },
-    {
-      description: "ОГРН",
-      text: "1173443004701",
-    },
-    {
-      description: "Фактический адрес",
-      text: "Волгоград, Университетский проспект, Волгоград, ул. Новороссийская, д.5, кв.254",
+      text: "Общество с ограниченной ответственностью 'ЛИДЕР-В' ",
     },
     {
       description: "Юридический адрес",
-      text: "400127, Россия, Волгоградская область, г. Волгоград, ул. Студеная, дом 11, офис 1",
+      text: "Российская Федерация, ДАГЕСТАН РЕСП. Г МАХАЧКАЛА, ПР-КТ НАСРУТДИНОВА, дом 107, корп. А, кв 37",
     },
     {
-      description: "Наименование банка",
-      text: "ФИЛИАЛ ТОЧКА БАНК КИВИ БАНК (АО)",
+      description: "ИНН",
+      text: "0572019062",
     },
     {
-      description: "БИК",
-      text: "044525797",
+      description: "ОГРН",
+      text: "1170571013183",
+    },
+    {
+      description: "КПП",
+      text: "057101001",
     },
     {
       description: "Расчетный счёт",
-      text: "40702810610050008030",
+      text: "40702810610000294419",
     },
     {
-      description: "Кор. счёт",
+      description: "Банк",
+      text: "АО 'Тинькофф Банк' ",
+    },
+    {
+      description:"Юридический адрес Банка",
+      text: "Москва, 123060, 1-й Волоколамский проезд, д. 10, стр. 1",
+    },
+    {
+      description: "Корр. счёт Банка",
       text: "30101810445250000797",
     },
+    {
+      description:"ИНН Банка",
+      text:"7710140679"
+    },
+    {
+      description: "БИК Банка",
+      text: "044525974",
+    },
+
   ];
 
   return (
@@ -111,7 +116,11 @@ const AboutCompany = () => {
       </div>
 
       <div className={style.requisitesSection}>
-        <RequisitesPromotioTable list={listPaymentToIndividuals} text="Оплата физическим лицам" />
+        {/* <RequisitesPromotioTable list={listPaymentToIndividuals} text="Оплата физическим лицам" /> */}
+        <div className={style.requisites}>
+        <h2>Оплата физическим лицам</h2>
+        <h3>Оплата принимается по QR-коду и переводом</h3>
+        </div>
         <RequisitesPromotioTable list={listPaymentToLegalEntities} text="Оплата юридическим лицам" />
       </div>
     </div>

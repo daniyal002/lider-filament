@@ -4,7 +4,7 @@ import { IOrderRequest, IOrderResponse } from "@/interface/order";
 export const orderService = {
     async getAllOrders() {
         const response = await axiosWidthAuth.get<IOrderResponse>('order/read_all_users_orders');
-        return response.data
+        return response.data.detail
     },
 
     async getUserOrders(){

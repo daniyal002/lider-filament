@@ -1,7 +1,8 @@
 'use client'
 import { useUserOrdersData } from "@/hook/orderHook";
-import React from "react";
+import React, { useState } from "react";
 import style from "./OrderList.module.scss";
+import OrderDetail from "./OrderDetail";
 
 export default function OrderList() {
   const formattedDateTime = (dateString: string): string => {
@@ -14,18 +15,40 @@ export default function OrderList() {
     const seconds = String(date.getSeconds()).padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
+  const [openOrderId, setOpenOrderId] = useState<number>(NaN);
 
   const { userOrdersData } = useUserOrdersData();
 
   return (
     <div className={style.orderList}>
-      {userOrdersData?.map((order) => (
-        <div className={style.orderListItem} key={order.order_number}>
-          <p className={style.orderDate}>Дата создания заявки - {formattedDateTime(order.created_at)}</p>
-          <p className={style.orderNumber}>Заявка № - {order.order_number}</p>
-          <p className={style.orderSum}>На сумму - {order.order_sum}₽</p>
-        </div>
-      ))}
+        {userOrdersData?.map((order) => (
+            <React.Fragment key={order.order_number}>
+                {openOrderId !== order.order_id ? (
+                    <div
+                        className={style.orderListItem}
+                        onClick={() => setOpenOrderId(order.order_id)}
+                    >
+                        <p className={style.orderDate}>
+                            Дата создания заявки - {formattedDateTime(order.created_at)}
+                        </p>
+                        <p className={style.orderNumber}>
+                            Заявка № - {order.order_number}
+                        </p>
+                        <p className={style.orderStatus}>
+                            Статус - {order.order_status.order_status_name}
+                        </p>
+                        <p className={style.orderSum}>
+                            На сумму - {order.order_sum}₽
+                        </p>
+                    </div>
+                ) : (
+                    <div>
+                        <OrderDetail order={order} />
+                        <button onClick={() => setOpenOrderId(NaN)}>Закрыть детали</button>
+                    </div>
+                )}
+            </React.Fragment>
+        ))}
     </div>
-  );
+);
 }
