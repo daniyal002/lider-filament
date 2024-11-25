@@ -3,6 +3,7 @@ import { IErrorResponse } from "@/interface/error";
 import axios, { AxiosError } from "axios";
 import { userService } from "@/services/user.service";
 import { IUserDetail, IUserResponse } from "@/interface/user";
+import { useRouter } from "next/navigation";
 
 export const useUserData = (skip:string,limit:string) => {
   const {
@@ -27,10 +28,18 @@ export const useUserDataById = (id: string) => {
     queryFn: () => userService.getUserById(id),
     enabled: !!id, // Only run the query if id is truthy
   });
-  
+
   return { userByIdData, isLoading, error };
 };
 
+export const useGetMe = () => {
+  const {data:getMe, isLoading,error} = useQuery({
+    queryKey: ["GetMe"],
+    queryFn: () => userService.getMe(),
+    })
+
+    return {getMe,isLoading,error};
+}
 
 export const useUpdateUserMutation = () => {
   const queryClient = useQueryClient();
@@ -55,7 +64,7 @@ export const useUpdateUserMutation = () => {
     },
   });
 
-  return { mutate };  
+  return { mutate };
 };
 
 export const useDeleteUserMutation = () => {
@@ -85,3 +94,22 @@ export const useDeleteUserMutation = () => {
 
   return { mutate };
 };
+
+
+export const useResetForgotPassword = () => {
+	const { replace } = useRouter()
+
+  const { mutate,error,isSuccess } = useMutation({
+    mutationKey: ["resetForgotPassword"],
+    mutationFn: (email:string) => userService.resetForgotPassword(email),
+    onSuccess: (_, variables) => {
+      setTimeout(()=>{
+        replace('/auth/login')
+      },3000)
+      },
+      onError: (error: AxiosError<IErrorResponse>) => {
+        console.error(error?.response?.data?.detail);
+        },
+        });
+        return { mutate,error,isSuccess };
+}

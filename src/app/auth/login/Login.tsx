@@ -73,12 +73,7 @@ export default function Login() {
                     )}
                     <div className="box">
                       <span className="left">
-                        <input
-                          className="checkbox"
-                          type="checkbox"
-                          id="check1"
-                        />
-                        <label>Remember Me</label>
+                        <Link href='/auth/reset-password' className="help">Сброс пароля</Link>
                       </span>
                       <Link href="/auth/registration" className="help">
                         Регистрация
@@ -95,7 +90,7 @@ export default function Login() {
                   {error.response?.data.detail}
                 </div>
               )}
-              
+
             </div>
           </div>
         </div>

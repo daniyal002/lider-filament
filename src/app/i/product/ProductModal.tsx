@@ -29,7 +29,7 @@ export default function ProductModal({ productId, setProductId, type }: Props) {
 
   const onSubmit: SubmitHandler<IProductRequest> = (data) => {
     const formData = new FormData();
-  
+
 
     // Преобразование объекта в строку JSON и добавление в formData
     const productCreate = JSON.stringify({
@@ -51,17 +51,15 @@ export default function ProductModal({ productId, setProductId, type }: Props) {
       note: data.note,
       category_id: data.category_id,
     });
-    type === "Создать" ? formData.append('product_create', productCreate) : formData.append('product_update', productUpdate)  
-  
+    type === "Создать" ? formData.append('product_create', productCreate) : formData.append('product_update', productUpdate)
+
     // Добавление файлов (изображений)
     if (data.images) {
       Array.from(data.images).forEach((file) => {
         formData.append('images', file);
       });
     }
-  
-    console.log(formData.getAll("images")); // Проверка наличия файлов
-  
+
     // Передача именно FormData
     if (type === "Создать") {
       createProductMutation(formData as any); // Приведение к типу any для обхода типизации
@@ -71,7 +69,7 @@ export default function ProductModal({ productId, setProductId, type }: Props) {
     setProductId(undefined);
     reset();
   };
-  
+
 
   useEffect(() => {
     if (productId === undefined && type === "Создать") {

@@ -9,7 +9,7 @@
     /* flex-wrap: nowrap; */
 
     .nav-link{
-        color: #6625a3;
+        color: #fff;
     }
     .navbar-toggler-icon{
         background-image:url('../../../public/icon/burger.svg')

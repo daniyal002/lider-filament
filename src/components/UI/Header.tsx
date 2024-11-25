@@ -218,7 +218,7 @@ export default function Header() {
                     className="bi bi-heart-fill"
                     style={{
                       fontSize: "25px",
-                      color: "#6625a3",
+                      color: "red",
                       fontWeight: "700",
                     }}
                   ></i>
@@ -227,7 +227,7 @@ export default function Header() {
                     className="bi bi-heart"
                     style={{
                       fontSize: "25px",
-                      color: "#6625a3",
+                      color: "#fff",
                       fontWeight: "700",
                     }}
                   ></i>
@@ -247,12 +247,12 @@ export default function Header() {
                   className="bi bi-basket"
                   style={{
                     fontSize: "28px",
-                    color: "#6625a3",
+                    color: "#fff",
                     fontWeight: "700",
                   }}
                 ></i>
                 <div className="mt-sh-cart">
-                  <strong style={{color:"#6625a3"}}>Корзина</strong>
+                  <strong style={{color:"#fff"}}>Корзина</strong>
                 </div>
               </Link>
               {/* Add this */}

@@ -1,4 +1,4 @@
-import { axiosWidthAuth } from "@/api/interseptors"
+import { axiosClassic, axiosWidthAuth } from "@/api/interseptors"
 import { IUserDetail, IUserDetailById, IUserResponse } from "@/interface/user"
 
 export const userService = {
@@ -15,6 +15,10 @@ export const userService = {
         return response.data
     },
 
+    async getMe(){
+        const response = await axiosWidthAuth.get<IUserDetailById>("user/read_me")
+        return response.data
+    },
 
     async updateUser(data:IUserDetail){
         const response = await axiosWidthAuth.put<IUserDetailById>(`user/update_user`,data)
@@ -24,5 +28,11 @@ export const userService = {
     async deleteUserById(data:IUserDetail){
         const response = await axiosWidthAuth.delete<string>(`user/delete_user?user_id=${data.user_id}`)
         return response.data
+    },
+
+    async resetForgotPassword(email:string){
+        const response = await axiosClassic.put<string>(`user/reset_forgot_password`,{email})
+        return response.data
     }
+
 }

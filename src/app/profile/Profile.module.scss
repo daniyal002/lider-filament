@@ -1,0 +1,50 @@
+.profileContainer {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #6625a3;
+  border-radius: 10px;
+  background-color: rgba(134, 155, 223, 0.14)!important;
+
+  .profileHeader {
+    text-align: center;
+    margin-bottom: 20px;
+    h2 {
+      margin: 0;
+      color: #fff;
+
+    }
+    p {
+      color: #fff;
+    }
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+    label{
+        color: #fff;
+    }
+
+    p {
+        color: #fff;
+        border:1px solid #6625a3;
+        padding: 10px;
+        border-radius: 8px;
+      }
+  }
+  .btnGroup {
+    display: flex;
+    justify-content: space-between;
+
+    .reset{
+        border-radius: 8px;
+        border: 0;
+        transition: 0.5s;
+        padding: 10px;
+        &:hover{
+            background-color: #6625a3;
+            color: #fff;
+        }
+    }
+  }
+}

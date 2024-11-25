@@ -1,7 +1,8 @@
 import React from 'react'
+import Profile from './Profile'
 
 export default function page() {
   return (
-    <div>Аккаунт</div>
+    <div><Profile/></div>
   )
 }
