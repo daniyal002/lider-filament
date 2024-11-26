@@ -240,7 +240,7 @@ a:hover {
 
 #mt-header.style3 .mt-top-bar {
 	padding: 0;
-	background: #282828;
+	background: rgba(134, 155, 223, 0.14)!important;
 }
 
 #mt-header.style3 .tel {
@@ -1405,7 +1405,7 @@ a:hover {
 	padding: 42px 31px 42px 48px;
 	-webkit-transition: all .4s linear;
 	transition: all .4s linear;
-	border-bottom: 3px solid #551A8B;
+	border-bottom: 2px solid #551A8B;
 }
 
 .mt-bottom-bar .mt-holder {
@@ -3144,7 +3144,7 @@ a:hover {
 }
 
 #mt-footer .footer-area p a:hover {
-	color: #ff6060;
+	color: #7634b4;
 }
 
 #mt-footer .bank-card-2 {

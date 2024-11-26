@@ -1,7 +1,8 @@
 interface IDecodedPayload{
     exp:number,
     sub:string,
-    user:boolean
+    user:boolean,
+    name:string,
 }
 
 export const decoder = (token:string | null):IDecodedPayload | string => {

@@ -13,7 +13,7 @@ export default function Footer() {
 										<Link href="/"><img src="/icon/logo.svg" alt="Lider-V"/></Link>
 									</div>
 									<ul className="list-unstyled address-list">
-										<li><address>Connaugt Road Central Suite 18B, 148 <br/>New Yankee</address></li>
+										<li><address>г. Махачкала, Насрутдинова 107А,  <br/>кв 37</address></li>
 										<li><a href="tel:79640044853">+7 (964) 004 48 53</a></li>
 										<li><a href="mail:vagid08@mail.ru">vagid08@mail.ru</a></li>
 									</ul>
@@ -28,7 +28,6 @@ export default function Footer() {
 									<h3 className="f-widget-heading">Маркетплейс</h3>
 									<ul className="list-unstyled f-widget-nav">
 										<li><Link href="/product">Продукты</Link></li>
-										<li><a href="#">Категории</a></li>
 									</ul>
 								</div>
 								<div className="nav-widget-1">

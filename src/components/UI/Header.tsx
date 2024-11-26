@@ -12,6 +12,7 @@ import "./Header.css";
 export default function Header() {
   const pathname = usePathname();
   const [user, setUser] = useState<boolean>();
+  const [name, setName] = useState<string>();
   const { mutate: logout } = useLogout();
   const getToken = getAccessToken();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -20,6 +21,12 @@ export default function Header() {
     const decodeToken = decoder(getToken);
     //@ts-ignore
     setUser(decodeToken.user);
+  }, [getToken]);
+
+  useEffect(() => {
+    const decodeToken = decoder(getToken);
+    //@ts-ignore
+    setName(decodeToken.name);
   }, [getToken]);
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -47,11 +54,11 @@ export default function Header() {
                   </li>
                   {user ? (
                     <li>
-                      <Link href={"/i"}>Аккаунт</Link>
+                      <Link href={"/i"}>{name}</Link>
                     </li>
                   ) : (
                     <li>
-                      <Link href="/profile">Аккаунт</Link>
+                      <Link href="/profile">{name}</Link>
                     </li>
                   )}
 
@@ -82,6 +89,7 @@ export default function Header() {
                       Регистрация
                     </Link>
                   </li>
+
                 </ul>
               </div>
             )}

@@ -1,0 +1,10 @@
+.reset{
+    border-radius: 8px;
+        border: 0;
+        transition: 0.5s;
+        padding: 8px;
+        &:hover{
+            background-color: #6625a3;
+            color: #fff;
+        }
+    }

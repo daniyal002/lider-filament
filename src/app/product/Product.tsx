@@ -2,12 +2,11 @@
 
 import { baseURL } from "@/api/interseptors";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
+import { useProductFilter } from "@/components/ProductFilterContext/ProductFilterContext";
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
 import useLocalCart from "@/hook/localStorageCartHook";
 import {
-  useAddProductFeaturedMutation,
-  useDeleteProductFeaturedMutation,
   useProductData,
   useProductFeaturedData,
 } from "@/hook/productHook";
@@ -16,14 +15,15 @@ import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import style from './Product.module.scss'
 
 export default function Product() {
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(10);
   const [nameProduct, setNameProduct] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<number>();
   const [maxPrice, setMaxPrice] = useState<number>();
-  const [categoryId, setCategoryId] = useState<number>();
+  const {categoryId,setCategoryId} = useProductFilter()
 
   // Fetching products and categories
   const { productData } = useProductData();
@@ -85,6 +85,7 @@ export default function Product() {
     setNameProduct(undefined)
     setMinPrice(undefined)
     setMaxPrice(undefined)
+    setCategoryId(null)
   }
 
   return (
@@ -163,7 +164,7 @@ export default function Product() {
                 className="form-control"
                 placeholder="До"
               />
-            <button onClick={reset}>Сбросить Фильтр</button>
+            <button onClick={reset} className={style.reset}>Сбросить Фильтр</button>
             </div>
           </section>
 
@@ -182,10 +183,14 @@ export default function Product() {
               {categoryData?.detail.map((category) => (
                 <li key={category.category_id}>
                   <a
-                  style={{cursor:"pointer"}}
+                  style={{
+                    cursor: 'pointer',
+                    color: categoryId === category.category_id ? '#551A8B' : 'white', // Измените цвет по вашему желанию
+                    fontWeight: categoryId === category.category_id ? 'bold' : 'normal',
+                  }}
                     onClick={() => {
                       if (category.category_id === categoryId) {
-                        setCategoryId(undefined);
+                        setCategoryId(null);
                       } else {
                         setCategoryId(category.category_id);
                       }
@@ -284,6 +289,7 @@ export default function Product() {
                       <button
                         onClick={() => handlePagination(skip - limit)}
                         disabled={skip <= 0}
+                        className={style.reset}
                       >
                         Назад
                       </button>
@@ -291,7 +297,9 @@ export default function Product() {
                   </li>
                   <li>
                     {skip + limit < filteredProducts.length && ( // Only show if more products exist
-                      <button onClick={() => handlePagination(skip + limit)}>
+                      <button onClick={() => handlePagination(skip + limit)}
+                      className={style.reset}
+                      >
                         Вперед
                       </button>
                     )}

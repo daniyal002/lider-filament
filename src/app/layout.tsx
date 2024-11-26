@@ -8,6 +8,7 @@ import QueryClientContextProvider from "./QueryClientContextProvider";
 import Header from "@/components/UI/Header";
 import Footer from "@/components/UI/Footer";
 import { baseURL } from "@/api/interseptors";
+import { ProductFilterProvider } from "@/components/ProductFilterContext/ProductFilterContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <QueryClientContextProvider>
         <InstallBootstrap />
+        <ProductFilterProvider>
         <body className={inter.className}>
           <Header />
           <main className="main">
@@ -36,6 +38,7 @@ export default function RootLayout({
           </main>
           <Footer/>
         </body>
+        </ProductFilterProvider>
       </QueryClientContextProvider>
     </html>
   );
