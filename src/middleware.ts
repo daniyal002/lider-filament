@@ -21,7 +21,7 @@ function role() {
 export default function middleware(req: NextRequest) {
     const userRole = role();
     // Проверяем, если пользователь пытается получить доступ к маршруту, начинающемуся с /i/
-    if (req.nextUrl.pathname.startsWith('/i/')) {
+    if (req.nextUrl.pathname.startsWith('/i')) {
         // Если роль пользователя не соответствует требуемой (например, userRole.user == false)
         if (!userRole || userRole === false) {
             // Перенаправляем на главную страницу

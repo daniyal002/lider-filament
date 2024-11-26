@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 import style from './Profile.module.scss'
-import { useGetMe, useResetForgotPassword } from '@/hook/userHook'
+import { useGetMe, useResetForgotPasswordProfile } from '@/hook/userHook'
 
 export default function Profile() {
 
     const {getMe,isLoading,error} = useGetMe()
-    const {mutate} = useResetForgotPassword()
+    const {mutate,isSuccess,error:errorResetPassword} = useResetForgotPasswordProfile()
 
     if(isLoading){
         return(
@@ -47,6 +47,8 @@ export default function Profile() {
                 <button type="button" className={style.reset} onClick={() => mutate(getMe?.detail.email as string)}> Сбросить пароль</button>
                 <button type="button" className={style.reset}> Сменить почту</button>
             </div>
+            {errorResetPassword && !isSuccess && (<p className={style.errorEmail}>{errorResetPassword.response?.data.detail}</p>)}
+                {!errorResetPassword && isSuccess && (<p className={style.successEmail}>Пароль успешно сброшен! Новый пароль отправлен на ваш E-mail.</p>)}
         </form>
     </div>
   )

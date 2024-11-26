@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { userService } from "@/services/user.service";
 import { IUserDetail, IUserResponse } from "@/interface/user";
 import { useRouter } from "next/navigation";
+import { removeAccessTokenFromStorage, removeRefreshTokenFromStorage } from "@/services/auth-token.service";
 
 export const useUserData = (skip:string,limit:string) => {
   const {
@@ -104,6 +105,26 @@ export const useResetForgotPassword = () => {
     mutationFn: (email:string) => userService.resetForgotPassword(email),
     onSuccess: (_, variables) => {
       setTimeout(()=>{
+        replace('/auth/login')
+      },3000)
+      },
+      onError: (error: AxiosError<IErrorResponse>) => {
+        console.error(error?.response?.data?.detail);
+        },
+        });
+        return { mutate,error,isSuccess };
+}
+
+export const useResetForgotPasswordProfile = () => {
+	const { replace } = useRouter()
+
+  const { mutate,error,isSuccess } = useMutation({
+    mutationKey: ["resetForgotPassword"],
+    mutationFn: (email:string) => userService.resetForgotPassword(email),
+    onSuccess: (_, variables) => {
+      setTimeout(()=>{
+        removeAccessTokenFromStorage()
+        removeRefreshTokenFromStorage()
         replace('/auth/login')
       },3000)
       },
