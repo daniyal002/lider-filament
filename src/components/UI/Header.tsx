@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import logo from '/public/icon/logo.svg'
 import "./Header.css";
 
 export default function Header() {
@@ -101,16 +102,14 @@ export default function Header() {
           <nav className="navbar navbar-expand-lg navbar-light ">
             <Link className="navbar-brand" href="/">
               <Image
-                loader={() => "/icon/logo.svg"}
-                src="/icon/logo.svg"
-                alt="schon"
+                src={logo}
+                alt="Лидер-В"
                 width={200}
                 height={50}
                 className="logo"
                 // layout="responsive"
               />
             </Link>
-
             <div
               className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
               id="navbarNav"

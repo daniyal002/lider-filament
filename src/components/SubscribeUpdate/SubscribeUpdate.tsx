@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "./SubscribeUpdate.module.scss";
+import logo from '/public/img/single-image.jpg'
+import Image from "next/image";
+
 
 export default function SubscribeUpdate(){
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <img src="./img/single-image.jpg" alt="" className={styles.image} />
+        <Image src={logo} className={styles.image} alt="Подпишитесь"/>
       </div>
 
       <div className={styles.textContainer}>

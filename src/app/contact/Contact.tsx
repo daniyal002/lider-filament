@@ -1,6 +1,11 @@
 import React from "react";
 import style from "./Contact.module.scss";
 import Link from "next/link";
+import email from '/public/icon/email_white_36dp.svg'
+import phone from '/public/icon/phone.svg'
+import home from '/public/icon/home_white_36dp.svg'
+import Image from "next/image";
+
 
 const Contact = () => {
   return (
@@ -9,17 +14,17 @@ const Contact = () => {
         <h1 className={style.title}>Контакты</h1>
         <div className={style.contactBlocks}>
           <ContactBlock
-            img={"/icon/phone.svg"}
+            img={phone}
             type="tel"
             text="+7 (964) 004-48-53"
           />
           <ContactBlock
-            img={"/icon/email_white_36dp.svg"}
+            img={email}
             type="mailto"
             text="vagid08@mail.ru"
           />
           <ContactBlock
-            img={"/icon/home_white_36dp.svg"}
+            img={home}
             text="Город Махачкала, пр-кт Насрутдинова 107А"
           />
         </div>
@@ -38,14 +43,14 @@ const ContactBlock = ({ img, text, type }:{img:string,text:string, type?:"tel" |
     {type ? (
       <Link href={`${type}:${text}`} className={style.contactBlockLink}>
       <div className={style.contactBlock}>
-        <img src={img} alt="icon" className={style.icon} />
+        <Image src={img} alt="icon" className={style.icon} width={60} height={36}/>
         <p className={style.text}>{text}</p>
       </div>
       </Link>
     ) : (
       <Link href='#' className={style.contactBlockLink}>
       <div className={style.contactBlock}>
-        <img src={img} alt="icon" className={style.icon} />
+        <Image src={img} alt="icon" className={style.icon} width={60} height={36} />
         <p className={style.text}>{text}</p>
       </div>
       </Link>

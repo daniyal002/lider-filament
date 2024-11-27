@@ -24,6 +24,11 @@
     background: linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media (max-width:340px) {
+    font-size: 25px;
+
+    }
   }
 
   .description {
@@ -113,7 +118,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0px 20px 133px 20px;
+    padding: 11px;
     max-width: 1320px;
     margin: 0 auto;
 

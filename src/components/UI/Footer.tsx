@@ -1,16 +1,20 @@
 import Link from 'next/link'
 import React from 'react'
+import logo from '/public/icon/logo.svg'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
     <footer id="mt-footer" className="style8 wow fadeInUp" data-wow-delay="0.4s">
 				<div className="footer-holder dark">
 					<div className="container-fluid">
-						<div className="row">
+						<div className="row" style={{alignItems:'center'}}>
 							<div className="col-xs-12 col-sm-4">
 								<div className="f-widget-about">
 									<div className="logo">
-										<Link href="/"><img src="/icon/logo.svg" alt="Lider-V"/></Link>
+										<Link href="/"><Image src={logo} alt="Lider-V" width={100} height={100}/></Link>
+										{/* <Link href="/"><img src={logo} alt="Lider-V" /></Link> */}
+
 									</div>
 									<ul className="list-unstyled address-list">
 										<li><address>г. Махачкала, Насрутдинова 107А,  <br/>кв 37</address></li>
