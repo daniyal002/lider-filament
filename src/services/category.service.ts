@@ -26,7 +26,7 @@ export const categoryService = {
     },
 
     async deleteCategoryById(data:ICategoryRequset){
-        const response = await axiosWidthAuth.delete<string>(`category/delete_category?category_id=${data.category_id}`)
+        const response = await axiosWidthAuth.delete<string>(`category/delete_category`,{data:{category_id:data.category_id}})
         return response.data
     }
 }

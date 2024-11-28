@@ -155,7 +155,7 @@ export default function Header() {
                     className="bi bi-heart"
                     style={{
                       fontSize: "25px",
-                      color: "#6625a3",
+                      color: "#fff",
                       fontWeight: "700",
                     }}
                   ></i>
@@ -175,7 +175,7 @@ export default function Header() {
                   className="bi bi-basket"
                   style={{
                     fontSize: "28px",
-                    color: "#6625a3",
+                    color: "#fff",
                     fontWeight: "700",
                   }}
                 ></i>
@@ -192,7 +192,7 @@ export default function Header() {
                 aria-expanded={!isNavCollapsed ? true : false}
                 aria-label="Toggle navigation"
                 onClick={handleNavCollapse}
-                style={{color:"#6625a3"}}
+                style={{color:"#fff"}}
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -208,7 +208,7 @@ export default function Header() {
                   right: "0px",
                   border: "1px solid #6625a3",
                   background: "transparent",
-                  color:"#6625a3"
+                  color:"#fff"
                 }}
               >
                 <span className="bi bi-x" style={{fontSize:"20px", fontWeight:'bold'}}></span>
@@ -271,7 +271,7 @@ export default function Header() {
                 aria-expanded={!isNavCollapsed ? true : false}
                 aria-label="Toggle navigation"
                 onClick={handleNavCollapse}
-                style={{color:"#6625a3",border: "1px solid #6625a3"}}
+                style={{color:"#fff",border: "1px solid #6625a3"}}
 
               >
                 <span className="navbar-toggler-icon"></span>

@@ -26,7 +26,7 @@ export const userService = {
     },
 
     async deleteUserById(data:IUserDetail){
-        const response = await axiosWidthAuth.delete<string>(`user/delete_user?user_id=${data.user_id}`)
+        const response = await axiosWidthAuth.delete<string>("user/delete_user",{data:{user_id:data.user_id}})
         return response.data
     },
 

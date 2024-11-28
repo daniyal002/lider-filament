@@ -4,6 +4,7 @@ import {
   IProductRequest,
   IProductResponse,
 } from "@/interface/product";
+import { data } from "jquery";
 
 export const productService = {
   async getProduct() {
@@ -41,7 +42,7 @@ export const productService = {
 
   async deleteProductById(data: IProductRequest) {
     const response = await axiosWidthAuth.delete<string>(
-      `product/delete_product?product_id=${data.product_id}`
+      "product/delete_product", {data:{product_id:data.product_id}}
     );
     return response.data;
   },
@@ -57,7 +58,7 @@ export const productService = {
   },
 
   async deleteProductFeatured(product_id:number){
-    const response = await axiosWidthAuth.delete<string>(`product/delete_product_from_featured?product_id=${product_id}`)
+    const response = await axiosWidthAuth.delete<string>("product/delete_product_from_featured", {data:{product_id:product_id}})
     return response.data
   },
 
@@ -72,7 +73,7 @@ export const productService = {
   },
 
   async deleteProductTop(product_id:number){
-    const response = await axiosWidthAuth.delete<string>(`product/delete_product_from_top?product_id=${product_id}`)
+    const response = await axiosWidthAuth.delete<string>("product/delete_product_from_top",{data:{product_id:product_id}})
     return response.data
   }
 

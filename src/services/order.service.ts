@@ -18,12 +18,12 @@ export const orderService = {
     },
 
     async updateOrder(id: number, data: IOrderRequest) {
-        const response = await axiosWidthAuth.put<IOrderResponse>(`order/update_order/${id}`,data);
+        const response = await axiosWidthAuth.put<IOrderResponse>("order/update_order",data);
         return response.data
     },
 
     async deleteOrder(id: number) {
-        const response = await axiosWidthAuth.delete<IOrderResponse>(`order/delete_order/${id}`);
+        const response = await axiosWidthAuth.delete<IOrderResponse>("order/delete_order",{data:{order_id:id}})
         return response.data
     },
 }
