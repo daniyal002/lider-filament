@@ -1,6 +1,4 @@
-import { useCreateProductMutation, useProductDataById, useUpdateProductMutation } from "@/hook/productHook";
-import { IProductRequest, IProductResponseDetail } from "@/interface/product";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "./ProductModal.scss";
 import { ICategoryRequset } from "@/interface/category";

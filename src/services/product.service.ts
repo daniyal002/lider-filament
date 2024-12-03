@@ -33,7 +33,7 @@ export const productService = {
 
   async updateProduct(product_id: string, formData: FormData) {
     const response = await axiosWidthAuth.put<IProductByIdResponse>(
-      `product/update_product?product_id=${product_id}`,
+      `product/update_product`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );

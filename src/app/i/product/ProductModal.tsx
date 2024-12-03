@@ -51,7 +51,7 @@ export default function ProductModal({ productId, setProductId, type }: Props) {
       note: data.note,
       category_id: data.category_id,
     });
-    type === "Создать" ? formData.append('product_create', productCreate) : formData.append('product_update', productUpdate)
+    type === "Создать" ? formData.append('product_create', productCreate) : formData.append('product_update', productUpdate); formData.append("product_id",JSON.stringify(data.product_id))
 
     // Добавление файлов (изображений)
     if (data.images) {
