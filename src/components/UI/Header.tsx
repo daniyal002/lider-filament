@@ -47,7 +47,7 @@ export default function Header() {
                 vagid08@mail.ru
               </a>
             </div>
-            {getToken ? (
+            {/* {getToken ? (
               <div className="col-xs-12 col-sm-6 text-right">
                 <ul className="mt-top-list">
                   <li>
@@ -93,7 +93,7 @@ export default function Header() {
 
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

@@ -30,10 +30,6 @@ export default function Cart() {
     };
   }, []);
 
-  // Для логирования изменений в localCart
-  useEffect(() => {
-    console.log("Local cart updated:", localCart);
-  }, [localCart]);
 
   const [filteredProducts, setFilteredProducts] = useState<
     ICartResponseDetail[]

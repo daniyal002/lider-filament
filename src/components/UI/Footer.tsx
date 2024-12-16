@@ -23,7 +23,7 @@ export default function Footer() {
 									</ul>
 									<ul className="list-unstyled social-network">
 										<li><a href="#"><i className="bi bi-telegram" style={{fontSize:"19px"}}></i></a></li>
-										<li><a href="#"><i className="fa fa-whatsapp" style={{fontSize:"19px"}}></i></a></li>
+										<li><a href="https://wa.me/79289772357" target='_blank'><i className="fa fa-whatsapp" style={{fontSize:"19px"}}></i></a></li>
 									</ul>
 								</div>
 							</div>

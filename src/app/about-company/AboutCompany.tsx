@@ -77,7 +77,7 @@ const AboutCompany = () => {
     },
     {
       description: "Корр. счёт Банка",
-      text: "30101810445250000797",
+      text: "30101810145250000974",
     },
     {
       description:"ИНН Банка",
