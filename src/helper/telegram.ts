@@ -42,9 +42,9 @@ export async function sendTelegramMessageFromCart(
       throw new Error(`Telegram API responded with status: ${response.status}`);
     }
 
-    console.log("Message sent successfully!");
+    toast.success("Ваш заказ успешно отправлено, в течении 10 минут с вами свяжется наш менеджер.");
   } catch (error) {
-    console.error("Failed to send message:", error);
+    toast.error("Ошибка при отправке")
   }
 }
 
