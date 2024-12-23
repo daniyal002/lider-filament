@@ -10,6 +10,7 @@ import { sendTelegramMessageFromCart } from "@/helper/telegram";
 import { IProductResponseDetail } from "@/interface/product";
 import { useHookFormMask } from "use-mask-input";
 import { useForm } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
 
 export default function Cart() {
   const {
@@ -93,6 +94,7 @@ export default function Cart() {
 
   return (
     <div className="mt-side-widget">
+      <Toaster toastOptions={{duration:5000}}/>
       {accessToken
         ? cartData?.detail?.map((cartItem, index) => (
             <CartItem cartItem={cartItem} key={index} />
