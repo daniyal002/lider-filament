@@ -89,7 +89,6 @@ export default function Cart() {
 
     // Отправка сообщения в Telegram
     sendTelegramMessageFromCart(getValues('phone'),localCart, productData?.detail as IProductResponseDetail[]);
-    alert("Сообщение отправлено!");
   };
 
   return (

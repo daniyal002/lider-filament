@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import style from './Product.module.scss'
+import { Toaster } from "react-hot-toast";
 
 export default function Product() {
   const [skip, setSkip] = useState(0);
@@ -101,7 +102,7 @@ export default function Product() {
             style={{
               background: "rgba(134, 155, 223, 0.14)",
               border: "1px solid #efefef",
-              padding: "36px 38px 48px 30px",
+              padding: "36px 30px 48px 30px",
             }}
           >
             <h2
@@ -207,11 +208,12 @@ export default function Product() {
 
         <div
           className="col-xs-12 col-sm-8 col-md-9 wow fadeInRight"
+          style={{padding:"0 5px"}}
           data-wow-delay="0.4s"
         >
           {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
             <>
-              <ul className="" style={{display:"flex", flexWrap:'wrap',columnGap:'15px',rowGap:"30px",listStyle:"none",justifyContent:"center"}}>
+              <ul className="" style={{display:"flex", flexWrap:'wrap',columnGap:'15px',rowGap:"30px",listStyle:"none",justifyContent:"flex-start",padding:'0 10px', margin:"0 auto"}}>
                 {filteredProducts.slice(skip, skip + limit).map((product) => (
                   <li key={product.product_id} style={{ textAlign: "center" }}>
                     <div className="mt-product1 large">
@@ -231,8 +233,8 @@ export default function Product() {
                                   product?.product_images[0]?.image_patch
                                 }`}
                                 alt={String(product.product_id)}
-                                width={275}
-                                height={290}
+                                width={290}
+                                height={400}
                               />
                             </Link>
 

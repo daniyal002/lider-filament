@@ -43,7 +43,13 @@ function useLocalCart() {
 
   };
 
-  return { getLocalCart, addLocalCart, removeLocalCart };
+  const removeAllLocalCart = () => {
+    localStorage.setItem("cart", '');
+    window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: '' }));
+
+  };
+
+  return { getLocalCart, addLocalCart, removeLocalCart,removeAllLocalCart };
 }
 
 export default useLocalCart;

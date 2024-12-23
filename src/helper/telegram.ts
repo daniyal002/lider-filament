@@ -1,6 +1,11 @@
+import useLocalCart from "@/hook/localStorageCartHook";
 import { ICartRequset } from "@/interface/cart";
 import { IProductResponseDetail } from "@/interface/product";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
+const {removeAllLocalCart} = useLocalCart()
+
 
 export async function sendTelegramMessageFromCart(
   phone:string,
@@ -25,7 +30,7 @@ export async function sendTelegramMessageFromCart(
   const encodedMessage = encodeURIComponent(message);
 
   // Send message to Telegram Bot API
-  const url = `https://api.telegram.org/bot7901839307:AAGaUbGMJZX8zHhEjkX8uUSLToF2hIr660M/sendMessage`;
+  const url = `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`;
   const body = JSON.stringify({
     chat_id: "-1002346045711",
     text: message,
@@ -41,8 +46,8 @@ export async function sendTelegramMessageFromCart(
     if (!response.ok) {
       throw new Error(`Telegram API responded with status: ${response.status}`);
     }
-
     toast.success("Ваш заказ успешно отправлено, в течении 10 минут с вами свяжется наш менеджер.");
+    removeAllLocalCart()
   } catch (error) {
     toast.error("Ошибка при отправке")
   }
@@ -62,7 +67,7 @@ export async function sendTelegramMessageFromContact(
   const encodedMessage = encodeURIComponent(message);
 
   // Send message to Telegram Bot API
-  const url = `https://api.telegram.org/bot7901839307:AAGaUbGMJZX8zHhEjkX8uUSLToF2hIr660M/sendMessage`;
+  const url = `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`;
   const body = JSON.stringify({
     chat_id: "-1002346045711",
     text: message,

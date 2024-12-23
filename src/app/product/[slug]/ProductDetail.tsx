@@ -74,7 +74,7 @@ export default function ProductDetail({ productId }: Props) {
                 navigation={true}
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
-                style={{ maxWidth: "400px" }}
+                style={{ maxWidth: "290px" }}
               >
                 {productByIdData?.detail?.product_images.map((img,index) => (
                   <SwiperSlide key={index}>
@@ -82,8 +82,8 @@ export default function ProductDetail({ productId }: Props) {
                       style={{
                         display: "flex",
                         gap: "5px",
-                        alignItems: "center",
-                        marginBottom:"10px"
+                        // alignItems: "center",
+                        // marginBottom:"10px"
                       }}
                     >
                       <i className="fa fa-heart" style={{ color: "red" }}></i>
@@ -94,7 +94,7 @@ export default function ProductDetail({ productId }: Props) {
                       src={`${baseURL}/${img.image_patch}`}
                       alt={img.image_name}
                       width={300}
-                      height={500}
+                      height={400}
                     />
                   </SwiperSlide>
                 ))}
@@ -123,7 +123,7 @@ export default function ProductDetail({ productId }: Props) {
                 className="product-form"
                 style={{ marginBottom: "40px" }}
               >
-                <fieldset>
+                <fieldset style={{display:'flex',flexWrap:'wrap',gap:"10px", alignItems:'center'}}>
                   <div className="row-val">
                     <label>Количество</label>
                     <input type="number" id="qty" placeholder="1" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}/>
