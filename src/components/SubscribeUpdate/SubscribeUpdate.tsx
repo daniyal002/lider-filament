@@ -8,7 +8,6 @@ export default function SubscribeUpdate(){
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <img src="./img/single-image.jpg" alt="" className={styles.image} />
         <Image src={logo} className={styles.image} alt="Подпишитесь"/>
       </div>
 
