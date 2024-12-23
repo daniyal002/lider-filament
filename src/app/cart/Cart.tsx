@@ -6,16 +6,26 @@ import useLocalCart from "@/hook/localStorageCartHook";
 import { getAccessToken } from "@/services/auth-token.service";
 import { ICartResponseDetail } from "@/interface/cart";
 import { useCartUserData } from "@/hook/cartHook";
-import { useCreateOrderMutation } from "@/hook/orderHook";
+import { sendTelegramMessageFromCart } from "@/helper/telegram";
+import { IProductResponseDetail } from "@/interface/product";
+import { useHookFormMask } from "use-mask-input";
+import { useForm } from "react-hook-form";
 
 export default function Cart() {
+  const {
+    register,
+    getValues
+  } = useForm();
   const { productData } = useProductData();
   const { cartData } = useCartUserData();
   const [total, setTotal] = useState<number>(0);
   const { getLocalCart } = useLocalCart();
   const [localCart, setLocalCart] = useState(() => getLocalCart() || []);
   const accessToken = getAccessToken();
-  const { mutate: createOrderMutation } = useCreateOrderMutation();
+
+  const [showPhoneInput, setShowPhoneInput] = useState<boolean>(false); // Состояние для показа инпута
+  const registerWithMask = useHookFormMask(register);
+
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -29,7 +39,6 @@ export default function Cart() {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-
 
   const [filteredProducts, setFilteredProducts] = useState<
     ICartResponseDetail[]
@@ -71,6 +80,17 @@ export default function Cart() {
     setTotal(summ);
   }, [cartData, accessToken, localCart]);
 
+  const handleSendMessage = () => {
+    if (!getValues('phone')) {
+      alert("Введите номер телефона перед оплатой!");
+      return;
+    }
+
+    // Отправка сообщения в Telegram
+    sendTelegramMessageFromCart(getValues('phone'),localCart, productData?.detail as IProductResponseDetail[]);
+    alert("Сообщение отправлено!");
+  };
+
   return (
     <div className="mt-side-widget">
       {accessToken
@@ -88,23 +108,31 @@ export default function Cart() {
         </span>
       </div>
       <div className="cart-btn-row">
-        <button
-          className="btn-type3"
-          onClick={() =>
-            createOrderMutation({
-              products: cartData ?cartData?.detail.map((cart) => ({
-                product_id: cart.product_id,
-                product_price: cart.product_price.toString(),
-                product_quantity: Number(cart.product_quantity),
-                product_sum: String(cart.product_price * cart.product_quantity),
-              })) : [],
-              order_sum: total,
-              order_status_id: 1,
-            })
-          }
-        >
-          К оплате
-        </button>
+        {!showPhoneInput ? (
+          <button
+            className="btn-type3"
+            onClick={() => setShowPhoneInput(true)} // Показать инпут для телефона
+          >
+            К оплате
+          </button>
+        ) : (
+          <div className="phone-input-container">
+
+             <input
+                      className="input"
+                      type="tel"
+                      inputMode="tel"
+                      placeholder="Введите номер телефона"
+                      {...registerWithMask("phone", ["8(999)-999-99-99"])}
+                    />
+            <button
+              className="btn-type3"
+              onClick={handleSendMessage} // Отправка сообщения
+            >
+              Отправить
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

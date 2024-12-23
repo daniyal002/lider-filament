@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Cooperation.module.scss';
+import CooperationForm from '@/components/CooperationForm/CooperationForm';
 
 const Cooperation = () => {
   return (
@@ -29,41 +30,7 @@ const FormCooperation = () => {
         Для получения прайс-листа и дополнительной информации, заполните форму
         обратной связи:
       </h3>
-      <form className={style.form}>
-        <div className={style.formInputs}>
-          <input
-            type="text"
-            required
-            placeholder="Ваше имя"
-            className={style.input}
-          />
-          <input
-            type="number"
-            required
-            placeholder="Ваш телефон"
-            className={style.input}
-          />
-          <input
-            type="email"
-            placeholder="Ваш E-mail"
-            className={style.input}
-          />
-        </div>
-        <textarea
-          rows={10}
-          placeholder="Ваше сообщение"
-          className={style.textarea}
-        />
-        <div className={style.formFooter}>
-          <div className={style.checkboxContainer}>
-            <input type="checkbox" required className={style.checkbox} style={{margin:"0"}}/>
-            <span>Я согласен(а) на обработку персональных данных</span>
-          </div>
-          <button type="submit" className={style.submitButton}>
-            Отправить
-          </button>
-        </div>
-      </form>
+      <CooperationForm/>
 
       <div className={style.infoBlock}>
         <p className={style.phoneInfo}>

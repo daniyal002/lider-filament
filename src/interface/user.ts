@@ -20,3 +20,11 @@ export interface IUserResponse {
 export interface IUserDetailById{
     detail: IUserDetail;
 }
+
+export interface IContactForm{
+  name: string;
+  phone: string;
+  email: string;
+  messageText: string;
+  isAgreed: boolean;
+}

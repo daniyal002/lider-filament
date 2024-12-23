@@ -189,17 +189,10 @@ export default function ProductGrid({
           >
             <header className="mt-shoplist-header">
               <div className="btn-box">
-                <button
-                  className="drop-link"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  onClick={() => {
-                    setProductType("Создать");
-                    setProductId(undefined);
-                  }}
+                <Link href='product/newProduct'
                 >
                   Добавить товар
-                </button>
+                </Link>
               </div>
             </header>
             {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
@@ -231,17 +224,11 @@ export default function ProductGrid({
                             </Link>
                             <ul className="links">
                               <li>
-                                <button
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal"
-                                  onClick={() => {
-                                    setProductType("Изменить");
-                                    setProductId(product.product_id);
-                                  }}
+                                <Link href={`product/${product.product_id}`}
                                   style={{ cursor: "pointer" }}
                                 >
                                   <span>Редактировать</span>
-                                </button>
+                                </Link>
                               </li>
                               <li>
                                 <a

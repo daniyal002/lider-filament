@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { productService } from "@/services/product.service";
 import { IProductRequest, IProductResponse, IProductResponseDetail } from "@/interface/product";
 import { getAccessToken } from "@/services/auth-token.service";
+import toast from "react-hot-toast";
 
 export const useProductData = () => {
   const {
@@ -46,9 +47,11 @@ export const useCreateProductMutation = () => {
           detail: [...oldData.detail, newProduct.detail],
         };
       });
+      history.back();
+      toast.success("Товар успешно добавлен")
     },
     onError: (error: AxiosError<IErrorResponse>) => {
-      console.error(error?.response?.data?.detail);
+      toast.error(error?.response?.data?.detail as string);
     },
   });
 
@@ -73,9 +76,11 @@ export const useUpdateProductMutation = () => {
           ),
         };
       });
+      history.back();
+      toast.success("Товар успешно обновлен")
     },
     onError: (error: AxiosError<IErrorResponse>) => {
-      console.error(error?.response?.data?.detail);
+      toast.error(error?.response?.data?.detail as string);
     },
   });
 
@@ -101,9 +106,10 @@ export const useDeleteProductMutation = () => {
           ),
         };
       });
+      toast.success("Товар успешно удален")
     },
     onError(error: AxiosError<IErrorResponse>) {
-      console.log(error?.response?.data?.detail);
+      toast.error(error?.response?.data?.detail as string);
     },
   });
 
