@@ -1,10 +1,10 @@
 import useLocalCart from "@/hook/localStorageCartHook";
+import { removeAllLocalCart } from "@/hook/removeAllLocal";
 import { ICartRequset } from "@/interface/cart";
 import { IProductResponseDetail } from "@/interface/product";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const {removeAllLocalCart} = useLocalCart()
 
 
 export async function sendTelegramMessageFromCart(
