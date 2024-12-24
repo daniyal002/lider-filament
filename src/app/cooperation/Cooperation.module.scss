@@ -1,18 +1,18 @@
 .container {
     max-width: 1320px;
     margin: 0 auto;
-    padding: 133px 20px;
+    padding: 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .firstScreen {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .mainTitle {
     font-size: 45px;
     background: linear-gradient(180deg, #9CD0FF, #A95BF3, #9CD0FF);
@@ -25,33 +25,33 @@
 
     }
   }
-  
+
   .subtitle {
     font-size: 20px;
     color: #a95bf3;
     font-weight: 600;
     text-align: left;
   }
-  
+
   .description {
     font-size: 16px;
     color: #fff;
     text-align: left;
   }
-  
+
   .formContainer {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .formTitle {
     font-size: 20px;
     color: #a95bf3;
     font-weight: 600;
     text-align: left;
   }
-  
+
   .form {
     display: flex;
     flex-direction: column;
@@ -60,14 +60,14 @@
     padding: 20px;
     gap: 40px;
   }
-  
+
   .formInputs {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
   }
-  
+
   .input {
     height: 50px;
     padding: 34px 15px;
@@ -79,7 +79,7 @@
     border-radius: 10px;
     background: rgba(134, 155, 223, 0.14);
   }
-  
+
   .textarea {
     width: 100%;
     height: 150px;
@@ -91,7 +91,7 @@
     background: rgba(134, 155, 223, 0.14);
     color: #fff;
   }
-  
+
   .formFooter {
     display: flex;
     flex-wrap: wrap;
@@ -102,15 +102,15 @@
     justify-content: center;
     }
   }
-  
+
   .checkboxContainer {
     display: flex;
     align-items: center;
     color: #fff;
     gap:5px
   }
-  
-  
+
+
   .submitButton {
     background: linear-gradient(#6847f5, #a95bf3);
     color: #f2f2f2;
@@ -120,26 +120,26 @@
     font-weight: 500;
     cursor: pointer;
   }
-  
+
   .infoBlock {
     display: flex;
     flex-direction: column;
     gap: 15px;
     align-items: center;
   }
-  
+
   .phoneInfo {
     font-size: 19px;
     color: #fff;
     font-weight: 500;
     text-align: center;
   }
-  
+
   .phoneLink {
     color: #a95bf3;
     text-decoration: none;
   }
-  
+
   .priceListButton {
     background: linear-gradient(#6847f5, #a95bf3);
     color: #f2f2f2;
@@ -149,4 +149,3 @@
     font-weight: 500;
     cursor: pointer;
   }
-  

@@ -37,7 +37,7 @@ export default function Footer() {
 								<div className="nav-widget-1">
 									<h3 className="f-widget-heading">Информация</h3>
 									<ul className="list-unstyled f-widget-nav">
-										<li><Link href="/share">Акции</Link></li>
+										{/* <li><Link href="/share">Акции</Link></li> */}
 										<li><Link href="/cooperation">Сотрудничество</Link></li>
 										<li><Link href="/payment-info/order-description">Информация об оплате</Link></li>
 										<li><Link href="/payment-info/return-description">Информация о возврате</Link></li>
