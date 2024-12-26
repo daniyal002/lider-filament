@@ -1,11 +1,6 @@
 "use client";
 import { baseURL } from "@/api/interseptors";
-import {
-  useAddProductFeaturedMutation,
-  useDeleteProductFeaturedMutation,
-  useProductDataById,
-  useProductFeaturedData,
-} from "@/hook/productHook";
+import { useProductDataById } from "@/hook/productHook";
 import Image from "next/image";
 import Link from "next/link";
 import "./ProductDetail.css";
@@ -20,6 +15,7 @@ import { useCreateCartMutation } from "@/hook/cartHook";
 import useLocalFavorites from "@/hook/localStorageFavoriteHook";
 import { getAccessToken } from "@/services/auth-token.service";
 import useLocalCart from "@/hook/localStorageCartHook";
+import { Toaster } from "react-hot-toast";
 
 interface Props {
   productId: string;
@@ -27,27 +23,35 @@ interface Props {
 
 export default function ProductDetail({ productId }: Props) {
   const { productByIdData } = useProductDataById(productId);
+  const { mutate: createCartMutation } = useCreateCartMutation();
 
-  const { mutate: addProductFeaturedMutation } =
-    useAddProductFeaturedMutation();
-  const { mutate: deleteProductFeaturedMutation } =
-    useDeleteProductFeaturedMutation();
-  const { productFeaturedData } = useProductFeaturedData();
-  const {mutate:createCartMutation} = useCreateCartMutation()
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const [quantity, setQuantity] = useState<number>(1)
+  const { getLocalFavorites, addLocalFavorite, removeLocalFavorite } =
+    useLocalFavorites();
+  const { addLocalCart } = useLocalCart();
+  const localFavorites = getLocalFavorites();
+  const accessToken = getAccessToken();
 
-  const { getLocalFavorites,addLocalFavorite,removeLocalFavorite } = useLocalFavorites();
-  const {addLocalCart} = useLocalCart()
-  const localFavorites = getLocalFavorites()
-  const accessToken = getAccessToken()
-
-  const addCart = (product_id:number,product_price:number,product_quantity:number = 1, product_image:string) => {
-    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
-  }
+  const addCart = (
+    product_id: number,
+    product_price: number,
+    product_quantity: number = 1,
+    product_image: string
+  ) => {
+    accessToken
+      ? createCartMutation({
+          product_id,
+          product_price,
+          product_quantity,
+          product_image,
+        })
+      : addLocalCart({ product_id, product_price, product_quantity });
+  };
 
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
+      <Toaster/>
       <div className="container">
         <div className="row">
           <div
@@ -56,7 +60,7 @@ export default function ProductDetail({ productId }: Props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              gap: "30px",
+              // rowGap: "30px",
               flexWrap: "wrap",
               paddingTop: "40px",
             }}
@@ -76,9 +80,9 @@ export default function ProductDetail({ productId }: Props) {
                 className="mySwiper"
                 style={{ maxWidth: "290px" }}
               >
-                {productByIdData?.detail?.product_images.map((img,index) => (
+                {productByIdData?.detail?.product_images.map((img, index) => (
                   <SwiperSlide key={index}>
-                     <span
+                    {/* <span
                       style={{
                         display: "flex",
                         gap: "5px",
@@ -88,7 +92,7 @@ export default function ProductDetail({ productId }: Props) {
                     >
                       <i className="fa fa-heart" style={{ color: "red" }}></i>
                       {productByIdData?.detail.featured_count}
-                    </span>
+                    </span> */}
                     <Image
                       loader={() => `${baseURL}/${img.image_patch}`}
                       src={`${baseURL}/${img.image_patch}`}
@@ -108,9 +112,7 @@ export default function ProductDetail({ productId }: Props) {
                   <Link href="/product">Продукты</Link>
                   <i className="fa fa-angle-right"></i>
                 </li>
-                <li>{productByIdData?.detail.product_name}
-
-                </li>
+                <li>{productByIdData?.detail.product_name}</li>
               </ul>
               <h2>{productByIdData?.detail.product_name}</h2>
               <div className="text-holder">
@@ -121,19 +123,67 @@ export default function ProductDetail({ productId }: Props) {
               <form
                 action="#"
                 className="product-form"
-                style={{ marginBottom: "40px" }}
+                style={{ marginBottom: "15px" }}
               >
-                <fieldset style={{display:'flex',flexWrap:'wrap',gap:"10px", alignItems:'center'}}>
-                  <div className="row-val">
-                    <label>Количество</label>
-                    <input type="number" id="qty" placeholder="1" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}/>
+                <fieldset
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "10px",
+                    alignItems: "center",
+                  }}
+                >
+                  <div className="row-val" style={{ display:"flex", alignItems:'center', gap:'8px' }}>
+                    {/* <label>Количество</label> */}
+                    <i
+                      className="bi bi-dash-circle"
+                      style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
+                      onClick={() => {
+                        setQuantity((prev) => prev - 1);
+                      }}
+                    ></i>
+                    <input
+                      type="number"
+                      // id="qty"
+                      placeholder="1"
+                      min={1}
+                      value={quantity}
+                      onChange={(e) => setQuantity(Number(e.target.value))}
+                      style={{
+                        background: "rgba(134, 155, 223, 0.14)",
+                        color: "#a663e3",
+                        width: "70px",
+                        fontSize: "18px",
+                        borderRadius: "25px",
+                        padding: "0 0 0 15px",
+                        border: "1px solid #a663e3",
+                        outline: "none",
+                        height:"22px"
+                      }}
+                    />
+                    <i
+                      className="bi bi-plus-circle"
+                      style={{ fontSize: "20px", color: "#a663e3", cursor:'pointer' }}
+                      onClick={() => {
+                        setQuantity((prev) => prev + 1);
+                      }}
+                    ></i>
                   </div>
                   <div className="row-val">
-                    <button type="button" onClick={() => {
-                        addCart(productByIdData?.detail.product_id as number,productByIdData?.detail.product_price as number,quantity,
+                    <button
+                      type="button"
+                      onClick={() => {
+                        addCart(
+                          productByIdData?.detail.product_id as number,
+                          productByIdData?.detail.product_price as number,
+                          quantity,
                           // @ts-ignore
-                          productByIdData?.detail.product_images[0].image_patch)
-                    }}>В КОРЗИНУ</button>
+                          productByIdData?.detail.product_images[0].image_patch
+                        );
+                      }}
+                    >
+                      В КОРЗИНУ
+                    </button>
                   </div>
                 </fieldset>
               </form>
@@ -166,50 +216,9 @@ export default function ProductDetail({ productId }: Props) {
                   </a>
                 </li>
                 <li>
-                  {accessToken ? (
-                     <a>
-                     {productFeaturedData?.detail.find(
-                       (productFeature) =>
-                         productFeature.product_id === Number(productId)
-                     ) ? (
-                       <button
-                         style={{
-                           border: "0",
-                           backgroundColor: "transparent",
-                           color: "red",
-                           display: "flex",
-                           gap: "10px",
-                           padding: "0",
-                         }}
-                         onClick={() =>
-                           deleteProductFeaturedMutation(Number(productId))
-                         }
-                       >
-                         <i className="bi bi-heart-fill"></i>
-                         УБРАТЬ ИЗ ИЗБРАННОГО
-                       </button>
-                     ) : (
-                       <button
-                         style={{
-                           border: "0",
-                           backgroundColor: "transparent",
-                           display: "flex",
-                           gap: "10px",
-                           padding: "0",
-                         }}
-                         onClick={() =>
-                           addProductFeaturedMutation(Number(productId))
-                         }
-                       >
-                         <i className="bi bi-heart-fill"></i>В ИЗБРАННОЕ
-                       </button>
-                     )}
-                   </a>
-                  ): (
                   <a>
                     {localFavorites?.find(
-                      (productFeature) =>
-                        productFeature === Number(productId)
+                      (productFeature) => productFeature === Number(productId)
                     ) ? (
                       <button
                         style={{
@@ -220,9 +229,7 @@ export default function ProductDetail({ productId }: Props) {
                           gap: "10px",
                           padding: "0",
                         }}
-                        onClick={() =>
-                          removeLocalFavorite(Number(productId))
-                        }
+                        onClick={() => removeLocalFavorite(Number(productId))}
                       >
                         <i className="bi bi-heart-fill"></i>
                         УБРАТЬ ИЗ ИЗБРАННОГО
@@ -236,15 +243,12 @@ export default function ProductDetail({ productId }: Props) {
                           gap: "10px",
                           padding: "0",
                         }}
-                        onClick={() =>
-                          addLocalFavorite(Number(productId))
-                        }
+                        onClick={() => addLocalFavorite(Number(productId))}
                       >
                         <i className="bi bi-heart-fill"></i>В ИЗБРАННОЕ
                       </button>
                     )}
                   </a>
-                  )}
                 </li>
               </ul>
             </div>

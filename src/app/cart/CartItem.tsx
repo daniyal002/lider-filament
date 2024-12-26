@@ -31,7 +31,7 @@ export default function CartItem({ cartItem }: Props) {
           product_price: cartItem.product_price,
           product_image: cartItem.product_image,
         })
-      : addLocalCart({ product_id, product_price, product_quantity },true);
+      : addLocalCart({ product_id, product_price, product_quantity }, true);
   };
 
   const deleteCart = (
@@ -56,18 +56,21 @@ export default function CartItem({ cartItem }: Props) {
           loader={() => `${baseURL}/${cartItem.product_image}`}
           src={`${baseURL}/${cartItem.product_image}`}
           alt="image"
-          width={72}
-          height={72}
+          width={100}
+          height={100}
           className="img-responsive"
         />
       </Link>
       <div className="mt-h">
-        <span className="mt-h-title">
-          <Link href={`product/${cartItem.product_id}`}>
+        <span className="mt-h-title" style={{ marginBottom: "10px" }}>
+          <Link
+            href={`product/${cartItem.product_id}`}
+            style={{ fontSize: "24px" }}
+          >
             {cartItem.product_name}
           </Link>
         </span>
-        <span className="price">
+        <span className="price" style={{ fontSize: "20px" }}>
           <i className="fa fa-rub" aria-hidden="true"></i>{" "}
           {cartItem.product_price}
         </span>
@@ -80,9 +83,22 @@ export default function CartItem({ cartItem }: Props) {
               gap: "10px",
               alignItems: "center",
               outline: "none",
+              marginTop: "10px",
             }}
           >
-            <label>Количество</label>
+            {/* <label>Количество</label> */}
+            <i
+              className="bi bi-dash-circle"
+              style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
+              onClick={() => {
+                setQuantity((prev) => prev - 1);
+                updateCart(
+                  cartItem.product_id,
+                  cartItem.product_price,
+                  quantity - 1
+                );
+              }}
+            ></i>
             <input
               type="number"
               id="qty"
@@ -99,14 +115,28 @@ export default function CartItem({ cartItem }: Props) {
                 );
               }}
               style={{
-                width: "72px",
+                background: "rgba(134, 155, 223, 0.14)",
+                color: "#a663e3",
+                width: "70px",
                 fontSize: "18px",
                 borderRadius: "25px",
-                padding: "10px",
-                border: "0",
-                outline:"none",
+                padding: "0 0 0 15px",
+                border: "1px solid #a663e3",
+                outline: "none",
               }}
             />
+            <i
+              className="bi bi-plus-circle"
+              style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
+              onClick={() => {
+                setQuantity((prev) => prev + 1);
+                updateCart(
+                  cartItem.product_id,
+                  cartItem.product_price,
+                  quantity + 1
+                );
+              }}
+            ></i>
           </div>
         </span>
       </div>

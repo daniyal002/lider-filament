@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 interface Product {
   product_id: number;
   product_price: number;
@@ -20,6 +22,9 @@ function useLocalCart() {
       // Add new product to cart
       const updatedCart = [...currentCart, product];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if(window.location.pathname !== "/cart" ) {
+        toast.success("Товар успешно добавлен в корзину!")
+      }
     } else {
       // Update existing product quantity
       let updatedProduct;
@@ -32,6 +37,9 @@ function useLocalCart() {
       const updatedCart = [...currentCart.slice(0, existingProductIndex), updatedProduct, ...currentCart.slice(existingProductIndex + 1)];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
+      if(window.location.pathname !== "/cart" ) {
+        toast.success("Товар успешно добавлен в корзину!")
+      }
     }
   };
 

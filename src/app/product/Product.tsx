@@ -91,13 +91,14 @@ export default function Product() {
 
   return (
     <div className="container">
+      <Toaster toastOptions={{duration:3000}}/>
       <div className="row">
         <aside
           id="sidebar"
           className="col-xs-12 col-sm-4 col-md-3 wow fadeInLeft"
           data-wow-delay="0.4s"
         >
-          <section
+          {/* <section
             className="shop-widget filter-widget bg-grey"
             style={{
               background: "rgba(134, 155, 223, 0.14)",
@@ -167,7 +168,7 @@ export default function Product() {
               />
             <button onClick={reset} className={style.reset}>Сбросить Фильтр</button>
             </div>
-          </section>
+          </section> */}
 
           <section className="shop-widget">
             <h2

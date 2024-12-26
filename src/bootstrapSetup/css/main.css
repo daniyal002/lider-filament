@@ -2339,7 +2339,7 @@ a:hover {
 }
 
 .mt-side-widget .cart-row .img {
-	width: 74px;
+	width: 100px;
 	float: left;
 	margin: 0 13px 0 9px;
 }
@@ -2871,7 +2871,7 @@ a:hover {
 }
 
 #mt-footer.style8 .logo {
-	margin: 0 0 42px;
+	margin: 0 0 0px;
 }
 
 #mt-footer.style8 .footer-holder {
@@ -7205,7 +7205,7 @@ a:hover {
 .mt-product-detial .detial-holder {
 	width: 40%;
 	float: left;
-	padding: 50px 0;
+	padding: 0px 0;
 	position: relative;
 }
 
@@ -7323,7 +7323,7 @@ a:hover {
 
 .mt-product-detial .text-holder {
 	overflow: hidden;
-	margin: 0 0 35px;
+	margin: 0 0 15px;
 }
 
 .mt-product-detial .text-holder .price {
