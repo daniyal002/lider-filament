@@ -1,3 +1,6 @@
+import { lengthLocalCartAtom } from "@/store/cartStore";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 interface Product {
@@ -7,6 +10,8 @@ interface Product {
 }
 
 function useLocalCart() {
+  const [cartLength, setCartLength] = useAtom(lengthLocalCartAtom)
+
   const getLocalCart = (): Product[] => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -25,6 +30,7 @@ function useLocalCart() {
       if(window.location.pathname !== "/cart" ) {
         toast.success("Товар успешно добавлен в корзину!")
       }
+      setCartLength(updatedCart.length)
     } else {
       // Update existing product quantity
       let updatedProduct;
@@ -40,6 +46,7 @@ function useLocalCart() {
       if(window.location.pathname !== "/cart" ) {
         toast.success("Товар успешно добавлен в корзину!")
       }
+      setCartLength(updatedCart.length)
     }
   };
 
@@ -48,16 +55,16 @@ function useLocalCart() {
     const updatedCart = currentCart.filter((product) => product.product_id !== productId);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
-
+    setCartLength(updatedCart.length)
   };
 
   const removeAllLocalCart = () => {
     localStorage.setItem("cart", '');
     window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: '' }));
-
+    setCartLength(0)
   };
 
-  return { getLocalCart, addLocalCart, removeLocalCart,removeAllLocalCart };
+  return { cartLength,getLocalCart, addLocalCart, removeLocalCart,removeAllLocalCart };
 }
 
 export default useLocalCart;

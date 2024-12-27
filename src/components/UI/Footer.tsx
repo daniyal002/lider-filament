@@ -43,14 +43,6 @@ export default function Footer() {
                 </ul>
                 <ul className="list-unstyled social-network">
                   <li>
-                    <a href="#">
-                      <i
-                        className="bi bi-telegram"
-                        style={{ fontSize: "19px" }}
-                      ></i>
-                    </a>
-                  </li>
-                  <li>
                     <a href="https://wa.me/79289772357" target="_blank">
                       <i
                         className="fa fa-whatsapp"
@@ -119,7 +111,7 @@ export default function Footer() {
           <div className="row">
             <div className="col-xs-12 text-center">
               <p>
-                © <Link href="/">Лидер-В</Link> - все права защищены
+                © <Link href="/">Лидер-В</Link> - 2025
               </p>
             </div>
           </div>

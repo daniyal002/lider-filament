@@ -139,7 +139,7 @@ export default function ProductDetail({ productId }: Props) {
                       className="bi bi-dash-circle"
                       style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
                       onClick={() => {
-                        setQuantity((prev) => prev - 1);
+                        setQuantity((prev) => prev === 1 ? 1 : prev - 1);
                       }}
                     ></i>
                     <input
@@ -148,7 +148,7 @@ export default function ProductDetail({ productId }: Props) {
                       placeholder="1"
                       min={1}
                       value={quantity}
-                      onChange={(e) => setQuantity(Number(e.target.value))}
+                      onChange={(e) =>  Number(e.target.value) > 0 && setQuantity(Number(e.target.value))}
                       style={{
                         background: "rgba(134, 155, 223, 0.14)",
                         color: "#a663e3",

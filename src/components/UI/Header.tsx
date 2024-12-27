@@ -1,36 +1,25 @@
 "use client";
 
-import { decoder } from "@/helper/decoder";
-import { useLogout } from "@/hook/useAuth";
-import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import logo from '/public/icon/logo.svg'
 import "./Header.css";
+import { useAtom } from "jotai";
+import { lengthLocalCartAtom } from "@/store/cartStore";
+import useLocalCart from "@/hook/localStorageCartHook";
 
 export default function Header() {
   const pathname = usePathname();
-  const [user, setUser] = useState<boolean>();
-  const [name, setName] = useState<string>();
-  const { mutate: logout } = useLogout();
-  const getToken = getAccessToken();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
-  useEffect(() => {
-    const decodeToken = decoder(getToken);
-    //@ts-ignore
-    setUser(decodeToken.user);
-  }, [getToken]);
-
-  useEffect(() => {
-    const decodeToken = decoder(getToken);
-    //@ts-ignore
-    setName(decodeToken.name);
-  }, [getToken]);
-
+  const [cartLength, setCartLength] = useAtom(lengthLocalCartAtom)
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+  const {getLocalCart} = useLocalCart()
+
+  useEffect(()=>{
+    setCartLength(getLocalCart().length)
+  },[])
 
   return (
     <header id="mt-header" className="style3">
@@ -47,53 +36,6 @@ export default function Header() {
                 vagid08@mail.ru
               </a>
             </div>
-            {/* {getToken ? (
-              <div className="col-xs-12 col-sm-6 text-right">
-                <ul className="mt-top-list">
-                  <li>
-                    <Link href="/order">Заказы</Link>
-                  </li>
-                  {user ? (
-                    <li>
-                      <Link href={"/i"}>{name}</Link>
-                    </li>
-                  ) : (
-                    <li>
-                      <Link href="/profile">{name}</Link>
-                    </li>
-                  )}
-
-                  <li className="active">
-                    <a style={{ cursor: "pointer" }} onClick={() => logout()}>
-                      Выход
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="col-xs-12 col-sm-6 text-right">
-                <ul className="mt-top-list">
-                  <li className={pathname === "/auth/login" ? "active" : ""}>
-                    <Link href="/auth/login" style={{ cursor: "pointer" }}>
-                      Вход
-                    </Link>
-                  </li>
-                  <li
-                    className={
-                      pathname === "/auth/registration" ? "active" : ""
-                    }
-                  >
-                    <Link
-                      href="/auth/registration"
-                      style={{ cursor: "pointer" }}
-                    >
-                      Регистрация
-                    </Link>
-                  </li>
-
-                </ul>
-              </div>
-            )} */}
           </div>
         </div>
       </div>
@@ -173,6 +115,7 @@ export default function Header() {
               >
                 <i
                   className="bi bi-basket"
+                  data-descr={cartLength}
                   style={{
                     fontSize: "28px",
                     color: "#fff",
@@ -252,6 +195,7 @@ export default function Header() {
               >
                 <i
                   className="bi bi-basket"
+                  data-descr={cartLength}
                   style={{
                     fontSize: "28px",
                     color: "#fff",
