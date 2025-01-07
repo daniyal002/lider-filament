@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Лидер-В",
   description: "ООО «Лидер-В» - производитель филамента для 3D печати",
-  metadataBase: new URL(baseURL),
+  metadataBase: new URL("https://lider-filament.ru/"),
 };
 
 export default function RootLayout({
