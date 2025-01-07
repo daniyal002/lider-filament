@@ -4,7 +4,7 @@ import axios, { type CreateAxiosDefaults } from 'axios';
 import { errorCatch } from './error';
 
 // export const baseURL = "http://192.168.30.153:8001"
-export const baseURL = "https://lider-filament.ru/api/"
+export const baseURL = process.env.NEXT_PUBLIC_API_URL
 const options: CreateAxiosDefaults = {
     baseURL: baseURL,
     headers: {

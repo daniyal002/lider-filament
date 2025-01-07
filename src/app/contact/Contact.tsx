@@ -16,7 +16,7 @@ const Contact = () => {
       <div className={style.contactHeader}>
         <h1 className={style.title}>Контакты</h1>
         <div className={style.contactBlocks}>
-          <ContactBlock img={phone} type="tel" text="+7 (964) 004-48-53" />
+          <ContactBlock img={phone} type="tel" text="+7 (928) 977-23-57" />
           <ContactBlock img={email} type="mailto" text="vagid08@mail.ru" />
           <ContactBlock
             img={home}

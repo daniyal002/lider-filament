@@ -35,7 +35,7 @@ export default function Footer() {
                     </address>
                   </li>
                   <li>
-                    <a href="tel:79640044853">+7 (964) 004 48 53</a>
+                    <a href="tel:79289772357">+7 (928) 977 23 57</a>
                   </li>
                   <li>
                     <a href="mail:vagid08@mail.ru">vagid08@mail.ru</a>
@@ -46,7 +46,7 @@ export default function Footer() {
                     <a href="https://wa.me/79289772357" target="_blank">
                       <i
                         className="fa fa-whatsapp"
-                        style={{ fontSize: "19px" }}
+                        style={{ fontSize: "40px", color: "#2cb742" }}
                       ></i>
                     </a>
                   </li>

@@ -27,11 +27,11 @@ export default function Header() {
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-sm-6 hidden-xs">
-              <span className="tel active">
-                <i className="fa fa-phone" aria-hidden="true"></i> +7 (964) 004
-                48 53
-              </span>
-              <a className="tel" href="#">
+              <a className="tel active" href="tel:79289772357">
+                <i className="fa fa-phone" aria-hidden="true"></i> +7 (928) 977
+                23 57
+              </a>
+              <a className="tel" href="mailto:vagid08@mail.ru">
                 <i className="fa fa-envelope-o" aria-hidden="true"></i>{" "}
                 vagid08@mail.ru
               </a>
