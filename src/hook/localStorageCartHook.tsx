@@ -1,12 +1,13 @@
+import { product_additional_prices } from "@/interface/product";
 import { lengthLocalCartAtom } from "@/store/cartStore";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 interface Product {
   product_id: number;
   product_price: number;
   product_quantity: number;
+  product_additional_prices:product_additional_prices[]
 }
 
 function useLocalCart() {
@@ -21,6 +22,7 @@ function useLocalCart() {
   };
 
   const addLocalCart = (product: Product, isCartPage:boolean = false) => {
+    console.log(product)
     const currentCart = getLocalCart();
     const existingProductIndex = currentCart.findIndex((item) => item.product_id === product.product_id);
     if (existingProductIndex === -1) {

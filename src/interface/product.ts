@@ -12,7 +12,7 @@ export interface IProductRequest {
   images?: FileList;
   product_images?: IProductImages[]
   featured_count?:number
-
+  product_additional_prices?:product_additional_prices[]
 }
 
 export interface IProductResponse {
@@ -34,6 +34,7 @@ export interface IProductResponseDetail {
   featured_count?:number,
   product_quantity?:number,
   product_sum?:number
+  product_additional_prices?:product_additional_prices[]
 }
 
 export interface IProductByIdResponse {
@@ -44,4 +45,10 @@ export interface IProductImages {
   image_id: number;
   image_name: string;
   image_patch: string;
+}
+
+export interface product_additional_prices{
+  additional_price_id?:number
+  product_from:string
+  product_additional_price:number
 }

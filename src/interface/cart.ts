@@ -1,4 +1,5 @@
 import { ICategoryRequset } from "./category";
+import { product_additional_prices } from "./product";
 
 export interface ICartRequset {
   cart_id?: number;
@@ -19,7 +20,8 @@ export interface ICartResponseDetail{
   product_color: string;
   product_category: ICategoryRequset;
   product_quantity:number
-  product_image?:string
+  product_image?:string,
+  product_additional_prices?:product_additional_prices[]
 }
 
 export interface ICartResponse{

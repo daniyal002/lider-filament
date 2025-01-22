@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import style from './PopularProducts.module.scss'
 import FavoriteButton from '../FavoriteButton/FavoriteButton'
-import { IProductResponse } from '@/interface/product'
+import { IProductResponse, product_additional_prices } from '@/interface/product'
 import { getAccessToken } from '@/services/auth-token.service'
 import useLocalCart from '@/hook/localStorageCartHook'
 
@@ -18,8 +18,8 @@ export default function PopularProducts() {
     const {addLocalCart} = useLocalCart()
     const accessToken = getAccessToken()
 
-    const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
-      accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+    const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string,product_additional_prices:product_additional_prices[]) => {
+      accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity,product_additional_prices})
     }
   return (
     <>
@@ -58,7 +58,8 @@ export default function PopularProducts() {
                             <li>
                               <a onClick={() => addCart(product.product_id as number,product.product_price,1,
                                 //@ts-ignore
-                                product.product_images[0].image_patch)}>
+                                product.product_images[0].image_patch,
+                                product.product_additional_prices as product_additional_prices[],)}>
                                 <i className="icon-handbag"></i>
                                 <span>В корзину</span>
                               </a>

@@ -60,10 +60,28 @@ export default function Cart() {
           product_image: filteredProduct?.product_images[0]?.image_patch,
           product_quantity: cartItem?.product_quantity,
           product_price: cartItem?.product_price,
+          product_additional_prices:cartItem?.product_additional_prices
         };
       });
     setFilteredProducts(filtered as ICartResponseDetail[]);
   }, [productData, localCart]);
+
+  // useEffect(() => {
+  //   let summ = 0;
+  //   if (accessToken) {
+  //     cartData?.detail.forEach((cart) => {
+  //       let summItem = cart.product_price * cart.product_quantity;
+  //       summ += summItem;
+  //     });
+  //   } else {
+  //     localCart.forEach((cart) => {
+  //       let price = cart.product_additional_prices.find(price => cart.product_quantity > Number(price.product_from))?.product_additional_price || cart.product_price
+  //       let summItem = Number(price) * cart.product_quantity;
+  //       summ += summItem;
+  //     });
+  //   }
+  //   setTotal(summ);
+  // }, [cartData, accessToken, localCart]);
 
   useEffect(() => {
     let summ = 0;
@@ -74,19 +92,24 @@ export default function Cart() {
       });
     } else {
       localCart.forEach((cart) => {
-        let summItem = cart.product_price * cart.product_quantity;
+        // Sort additional prices in descending order of product_from
+        const applicablePrice =
+          cart.product_additional_prices
+            ?.sort((a, b) => Number(b.product_from) - Number(a.product_from))
+            .find((price) => cart.product_quantity >= Number(price.product_from))
+            ?.product_additional_price || cart.product_price;
+
+        let summItem = Number(applicablePrice) * cart.product_quantity;
         summ += summItem;
       });
     }
     setTotal(summ);
   }, [cartData, accessToken, localCart]);
-
   const handleSendMessage = () => {
     if (!getValues('phone')) {
       alert("Введите номер телефона перед оплатой!");
       return;
     }
-
     // Отправка сообщения в Telegram
     sendTelegramMessageFromCart(getValues('phone'),localCart, productData?.detail as IProductResponseDetail[]);
   };
@@ -105,7 +128,7 @@ export default function Cart() {
       <div className="cart-row-total">
         <span className="mt-total">Итого</span>
         <span className="mt-total-txt">
-          {total} <i className="fa fa-rub" aria-hidden="true"></i>
+          {total} ₽
         </span>
       </div>
       <div className="cart-btn-row">

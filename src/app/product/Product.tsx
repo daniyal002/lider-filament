@@ -10,7 +10,7 @@ import {
   useProductData,
   useProductFeaturedData,
 } from "@/hook/productHook";
-import { IProductResponse, IProductResponseDetail } from "@/interface/product";
+import { IProductResponse, IProductResponseDetail, product_additional_prices } from "@/interface/product";
 import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,8 +34,8 @@ export default function Product() {
   const {addLocalCart} = useLocalCart()
   const accessToken = getAccessToken()
 
-  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
-    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string,product_additional_prices:product_additional_prices[]) => {
+    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity,product_additional_prices})
   }
 
   // Filtering logic - runs when productData or filter conditions change
@@ -249,7 +249,8 @@ export default function Product() {
                                        product.product_price,
                                        1,
                                        // @ts-ignore
-                                       product.product_images[0]?.image_patch
+                                       product.product_images[0]?.image_patch,
+                                       product.product_additional_prices as product_additional_prices[]
                                     )
                                   }
                                 >
@@ -277,8 +278,7 @@ export default function Product() {
                           </Link>
                         </strong>
                         <span className="price">
-                          <span>{product.product_price}</span>
-                          <i className="fa fa-rub"></i>{" "}
+                          <span>{product.product_price}</span> ₽/кг
                         </span>
                       </div>
                     </div>

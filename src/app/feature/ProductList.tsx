@@ -1,6 +1,6 @@
 import { baseURL } from "@/api/interseptors";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
-import { IProductResponse, IProductResponseDetail } from "@/interface/product";
+import { IProductResponse, IProductResponseDetail, product_additional_prices } from "@/interface/product";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ interface Props {
   filteredProducts: IProductResponseDetail[];
   skip: number;
   limit: number;
-  addCart: (product_id:number,product_price:number,product_quantity:number,product_image:string) => void;
+  addCart: (product_id:number,product_price:number,product_quantity:number,product_image:string,product_additional_prices:product_additional_prices[]) => void;
   handlePagination: (newSkip: number) => void;
   productFeaturedData: IProductResponse | undefined;
 }
@@ -39,7 +39,8 @@ export default function ProductList({ filteredProducts, skip, limit, addCart, ha
                             <li>
                               <a style={{ cursor: "pointer" }} onClick={() => addCart( product.product_id as number, product.product_price,1,
                               // @ts-ignore
-                                product?.product_images[0].image_patch)}>
+                                product?.product_images[0].image_patch,
+                                product.product_additional_prices as product_additional_prices[])}>
                                 <i className="icon-handbag"></i>
                                 <span>В корзину</span>
                               </a>

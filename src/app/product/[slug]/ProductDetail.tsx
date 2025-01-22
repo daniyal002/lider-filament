@@ -16,6 +16,7 @@ import useLocalFavorites from "@/hook/localStorageFavoriteHook";
 import { getAccessToken } from "@/services/auth-token.service";
 import useLocalCart from "@/hook/localStorageCartHook";
 import { Toaster } from "react-hot-toast";
+import { product_additional_prices } from "@/interface/product";
 
 interface Props {
   productId: string;
@@ -37,7 +38,8 @@ export default function ProductDetail({ productId }: Props) {
     product_id: number,
     product_price: number,
     product_quantity: number = 1,
-    product_image: string
+    product_image: string,
+    product_additional_prices: product_additional_prices[]
   ) => {
     accessToken
       ? createCartMutation({
@@ -46,7 +48,7 @@ export default function ProductDetail({ productId }: Props) {
           product_quantity,
           product_image,
         })
-      : addLocalCart({ product_id, product_price, product_quantity });
+      : addLocalCart({ product_id, product_price, product_quantity,product_additional_prices });
   };
 
   return (
@@ -82,17 +84,6 @@ export default function ProductDetail({ productId }: Props) {
               >
                 {productByIdData?.detail?.product_images.map((img, index) => (
                   <SwiperSlide key={index}>
-                    {/* <span
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        // alignItems: "center",
-                        // marginBottom:"10px"
-                      }}
-                    >
-                      <i className="fa fa-heart" style={{ color: "red" }}></i>
-                      {productByIdData?.detail.featured_count}
-                    </span> */}
                     <Image
                       loader={() => `${baseURL}/${img.image_patch}`}
                       src={`${baseURL}/${img.image_patch}`}
@@ -117,8 +108,9 @@ export default function ProductDetail({ productId }: Props) {
               <h2>{productByIdData?.detail.product_name}</h2>
               <div className="text-holder">
                 <span className="price">
-                  {productByIdData?.detail.product_price} ₽
+                  {productByIdData?.detail.product_price} ₽/кг
                 </span>
+
               </div>
               <form
                 action="#"
@@ -169,6 +161,7 @@ export default function ProductDetail({ productId }: Props) {
                       }}
                     ></i>
                   </div>
+
                   <div className="row-val">
                     <button
                       type="button"
@@ -178,7 +171,8 @@ export default function ProductDetail({ productId }: Props) {
                           productByIdData?.detail.product_price as number,
                           quantity,
                           // @ts-ignore
-                          productByIdData?.detail.product_images[0].image_patch
+                          productByIdData?.detail.product_images[0].image_patch,
+                          productByIdData?.detail.product_additional_prices,
                         );
                       }}
                     >
@@ -187,6 +181,16 @@ export default function ProductDetail({ productId }: Props) {
                   </div>
                 </fieldset>
               </form>
+
+              <div className="row-val product_additional_prices">
+              {productByIdData?.detail.product_additional_prices?.map(product_additional_price => (
+                  <div key={product_additional_price.additional_price_id} className="product_additional_price">
+                  <span className="price"> От {product_additional_price.product_from} кг:</span>
+                  <span  className="price"> {product_additional_price.product_additional_price} ₽/кг</span>
+                  </div>
+                ))}
+              </div>
+
               <div className="txt-wrap">{productByIdData?.detail.note}</div>
               <div className="txt-wrap">
                 Размер: {productByIdData?.detail.product_size}
@@ -251,7 +255,9 @@ export default function ProductDetail({ productId }: Props) {
                   </a>
                 </li>
               </ul>
+
             </div>
+
           </div>
         </div>
       </div>

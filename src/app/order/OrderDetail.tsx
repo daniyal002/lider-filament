@@ -20,7 +20,7 @@ export default function OrderDetail({ order }: Props) {
                     <div className={style.productItem} key={index}>
                         <h3 className={style.productName}>{product.product_name}</h3>
                         <p>Количество: {product.product_quantity}</p>
-                        <p>Цена: {product.product_price}₽</p>
+                        <p>Цена: {product.product_price}₽/кг</p>
                         <p>Сумма: {product.product_sum}₽</p>
                     </div>
                 ))}

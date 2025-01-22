@@ -25,6 +25,27 @@
   .form-group {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    .additional-price-group{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+      border: 1px solid #a95bf3;
+      padding: 5px;
+      border-radius: 8px;
+
+      @media (max-width:770px) {
+        flex-direction: column;
+      align-items: stretch;
+      }
+
+      .form-group-additional{
+        display: flex;
+        flex-direction: column;
+      }
+    }
   }
 
   label {
@@ -107,6 +128,13 @@
     .product-page {
       padding: 15px;
     }
+
+   @media (max-width:400px) {
+    .product-page {
+      padding: 5px;
+    }
+
+   }
 
     .btn-primary,
     .btn-secondary {

@@ -4,7 +4,6 @@ import {
   IProductRequest,
   IProductResponse,
 } from "@/interface/product";
-import { data } from "jquery";
 
 export const productService = {
   async getProduct() {

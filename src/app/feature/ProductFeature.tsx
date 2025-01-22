@@ -14,6 +14,7 @@ import CategorySection from "./CategorySection";
 import ProductList from "./ProductList";
 import { ICategoryResponse } from "@/interface/category";
 import useLocalCart from "@/hook/localStorageCartHook";
+import { product_additional_prices } from "@/interface/product";
 
 export default function ProductFeature() {
   const [skip, setSkip] = useState(0);
@@ -46,8 +47,8 @@ export default function ProductFeature() {
     };
   }, []);
 
-  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string) => {
-    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity})
+  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string,product_additional_prices:product_additional_prices[]) => {
+    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity,product_additional_prices})
   }
 
   const filteredProducts = useMemo(() => {

@@ -7,7 +7,7 @@ import {
 } from "@/hook/productHook";
 import { IProductRequest } from "@/interface/product";
 import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import "./ProductPage.scss";
 import { useCategoryData } from "@/hook/categoryHook";
 import { Toaster } from "react-hot-toast";
@@ -21,12 +21,18 @@ export default function ProductPage({ productId }: Props) {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<IProductRequest>({ mode: "onChange" });
   const { mutate: createProductMutation } = useCreateProductMutation();
   const { mutate: updateProductMutation } = useUpdateProductMutation();
   const { productByIdData } = useProductDataById(String(productId));
   const { categoryData } = useCategoryData();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "product_additional_prices",
+  });
 
   const onSubmit: SubmitHandler<IProductRequest> = (data) => {
     const formData = new FormData();
@@ -38,6 +44,7 @@ export default function ProductPage({ productId }: Props) {
       product_color: data.product_color,
       note: data.note,
       category_id: data.category_id,
+      product_additional_prices: data.product_additional_prices
     });
 
     if (productId !== Number(productId)) {
@@ -45,6 +52,7 @@ export default function ProductPage({ productId }: Props) {
     } else {
       formData.append("product_update", productData);
       formData.append("product_id", JSON.stringify(data.product_id));
+
     }
 
     if (data.images) {
@@ -52,6 +60,7 @@ export default function ProductPage({ productId }: Props) {
         formData.append("images", file);
       });
     }
+
 
     if (productId !== Number(productId)) {
       createProductMutation(formData as any);
@@ -74,6 +83,7 @@ export default function ProductPage({ productId }: Props) {
         category_id: undefined,
         images: undefined,
         note: undefined,
+        product_additional_prices: undefined,
       });
     } else if (productId) {
       reset({
@@ -85,6 +95,7 @@ export default function ProductPage({ productId }: Props) {
         product_weight: productByIdData?.detail.product_weight,
         category_id: productByIdData?.detail.product_category?.category_id,
         note: productByIdData?.detail.note,
+        product_additional_prices: productByIdData?.detail.product_additional_prices || [],
       });
     }
   }, [reset, productId, productByIdData]);
@@ -138,6 +149,67 @@ export default function ProductPage({ productId }: Props) {
           {errors.product_price && (
             <p className="error">{errors.product_price.message}</p>
           )}
+        </div>
+
+        {/* Product Additional Prices */}
+        <div className="form-group">
+          <label>Дополнительные цены</label>
+          {fields.map((field, index) => (
+            <div key={field.id} className="additional-price-group">
+              <div className="form-group-additional">
+              <label>От</label>
+              <input
+                type="text"
+                placeholder="С какого количества"
+                {...register(`product_additional_prices.${index}.product_from`, {
+                  required: "Введите количество",
+                })}
+              />
+              {errors.product_additional_prices?.[index]?.product_from && (
+                <p className="error">
+                  {errors.product_additional_prices[index].product_from?.message}
+                </p>
+              )}
+              </div>
+              <div className="form-group-additional">
+              <label>Цена</label>
+              <input
+                type="number"
+                placeholder="Цена"
+                {...register(
+                  `product_additional_prices.${index}.product_additional_price`,
+                  {
+                    required: "Введите цену",
+                  }
+                )}
+              />
+              {errors.product_additional_prices?.[index]?.product_additional_price && (
+                <p className="error">
+                  {
+                    errors.product_additional_prices[index]
+                      .product_additional_price?.message
+                  }
+                </p>
+              )}
+              </div>
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="btn-secondary"
+              >
+                Удалить
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              append({ product_from: "", product_additional_price: 0 })
+            }
+            className="btn-primary"
+          >
+            Добавить цену
+          </button>
         </div>
 
         <div className="form-group">
