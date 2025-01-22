@@ -6,16 +6,17 @@ import { useProductFilter } from "@/components/ProductFilterContext/ProductFilte
 import { useCreateCartMutation } from "@/hook/cartHook";
 import { useCategoryData } from "@/hook/categoryHook";
 import useLocalCart from "@/hook/localStorageCartHook";
+import { useProductData, useProductFeaturedData } from "@/hook/productHook";
 import {
-  useProductData,
-  useProductFeaturedData,
-} from "@/hook/productHook";
-import { IProductResponse, IProductResponseDetail, product_additional_prices } from "@/interface/product";
+  IProductResponse,
+  IProductResponseDetail,
+  product_additional_prices,
+} from "@/interface/product";
 import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import style from './Product.module.scss'
+import style from "./Product.module.scss";
 import { Toaster } from "react-hot-toast";
 
 export default function Product() {
@@ -24,19 +25,37 @@ export default function Product() {
   const [nameProduct, setNameProduct] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<number>();
   const [maxPrice, setMaxPrice] = useState<number>();
-  const {categoryId,setCategoryId} = useProductFilter()
+  const { categoryId, setCategoryId } = useProductFilter();
 
   // Fetching products and categories
   const { productData } = useProductData();
   const { categoryData } = useCategoryData();
   const { productFeaturedData } = useProductFeaturedData();
   const { mutate: createCartMutation } = useCreateCartMutation();
-  const {addLocalCart} = useLocalCart()
-  const accessToken = getAccessToken()
+  const { addLocalCart } = useLocalCart();
+  const accessToken = getAccessToken();
 
-  const addCart = (product_id:number,product_price:number,product_quantity:number = 1,product_image:string,product_additional_prices:product_additional_prices[]) => {
-    accessToken ? createCartMutation({product_id,product_price,product_quantity,product_image}) : addLocalCart({product_id,product_price,product_quantity,product_additional_prices})
-  }
+  const addCart = (
+    product_id: number,
+    product_price: number,
+    product_quantity: number = 1,
+    product_image: string,
+    product_additional_prices: product_additional_prices[]
+  ) => {
+    accessToken
+      ? createCartMutation({
+          product_id,
+          product_price,
+          product_quantity,
+          product_image,
+        })
+      : addLocalCart({
+          product_id,
+          product_price,
+          product_quantity,
+          product_additional_prices,
+        });
+  };
 
   // Filtering logic - runs when productData or filter conditions change
   useEffect(() => {
@@ -83,15 +102,15 @@ export default function Product() {
   };
 
   const reset = () => {
-    setNameProduct(undefined)
-    setMinPrice(undefined)
-    setMaxPrice(undefined)
-    setCategoryId(null)
-  }
+    setNameProduct(undefined);
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
+    setCategoryId(null);
+  };
 
   return (
     <div className="container">
-      <Toaster toastOptions={{duration:3000}}/>
+      <Toaster toastOptions={{ duration: 3000 }} />
       <div className="row">
         <aside
           id="sidebar"
@@ -185,11 +204,15 @@ export default function Product() {
               {categoryData?.detail.map((category) => (
                 <li key={category.category_id}>
                   <a
-                  style={{
-                    cursor: 'pointer',
-                    color: categoryId === category.category_id ? '#551A8B' : 'white', // Измените цвет по вашему желанию
-                    fontWeight: categoryId === category.category_id ? 'bold' : 'normal',
-                  }}
+                    style={{
+                      cursor: "pointer",
+                      color:
+                        categoryId === category.category_id
+                          ? "#551A8B"
+                          : "white", // Измените цвет по вашему желанию
+                      fontWeight:
+                        categoryId === category.category_id ? "bold" : "normal",
+                    }}
                     onClick={() => {
                       if (category.category_id === categoryId) {
                         setCategoryId(null);
@@ -209,12 +232,24 @@ export default function Product() {
 
         <div
           className="col-xs-12 col-sm-8 col-md-9 wow fadeInRight"
-          style={{padding:"0 5px"}}
+          style={{ padding: "0 5px" }}
           data-wow-delay="0.4s"
         >
           {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
             <>
-              <ul className="" style={{display:"flex", flexWrap:'wrap',columnGap:'15px',rowGap:"30px",listStyle:"none",justifyContent:"flex-start",padding:'0 10px', margin:"0 auto"}}>
+              <ul
+                className=""
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  columnGap: "15px",
+                  rowGap: "30px",
+                  listStyle: "none",
+                  justifyContent: "flex-start",
+                  padding: "0 10px",
+                  margin: "0 auto",
+                }}
+              >
                 {filteredProducts.slice(skip, skip + limit).map((product) => (
                   <li key={product.product_id} style={{ textAlign: "center" }}>
                     <div className="mt-product1 large">
@@ -242,15 +277,15 @@ export default function Product() {
                             <ul className="links">
                               <li>
                                 <a
-                                style={{cursor:"pointer"}}
+                                  style={{ cursor: "pointer" }}
                                   onClick={() =>
                                     addCart(
-                                       product.product_id as number,
-                                       product.product_price,
-                                       1,
-                                       // @ts-ignore
-                                       product.product_images[0]?.image_patch,
-                                       product.product_additional_prices as product_additional_prices[]
+                                      product.product_id as number,
+                                      product.product_price,
+                                      1,
+                                      // @ts-ignore
+                                      product.product_images[0]?.image_patch,
+                                      product.product_additional_prices as product_additional_prices[]
                                     )
                                   }
                                 >
@@ -259,7 +294,12 @@ export default function Product() {
                                 </a>
                               </li>
                               <li>
-                               <FavoriteButton productId={product.product_id as number} productFeaturedData={productFeaturedData as IProductResponse} />
+                                <FavoriteButton
+                                  productId={product.product_id as number}
+                                  productFeaturedData={
+                                    productFeaturedData as IProductResponse
+                                  }
+                                />
                               </li>
                             </ul>
                           </div>
@@ -278,7 +318,18 @@ export default function Product() {
                           </Link>
                         </strong>
                         <span className="price">
-                          <span>{product.product_price}</span> ₽/кг
+                          <span>
+                            {product?.product_additional_prices &&
+                            product.product_additional_prices.length > 0
+                              ? "от " +
+                                Math.min(
+                                  ...product.product_additional_prices.map(
+                                    (price) => price.product_additional_price
+                                  )
+                                )
+                              : product.product_price}
+                          </span>
+                          ₽/кг
                         </span>
                       </div>
                     </div>
@@ -300,8 +351,9 @@ export default function Product() {
                   </li>
                   <li>
                     {skip + limit < filteredProducts.length && ( // Only show if more products exist
-                      <button onClick={() => handlePagination(skip + limit)}
-                      className={style.reset}
+                      <button
+                        onClick={() => handlePagination(skip + limit)}
+                        className={style.reset}
                       >
                         Вперед
                       </button>

@@ -1,6 +1,11 @@
 import { baseURL } from "@/api/interseptors";
 import { useCategoryData } from "@/hook/categoryHook";
-import { useAddProductTopMutation, useDeleteProductMutation, useDeleteProductTopMutation, useProductTopData } from "@/hook/productHook";
+import {
+  useAddProductTopMutation,
+  useDeleteProductMutation,
+  useDeleteProductTopMutation,
+  useProductTopData,
+} from "@/hook/productHook";
 import { IProductResponse, IProductResponseDetail } from "@/interface/product";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,11 +29,10 @@ export default function ProductGrid({
   const [maxPrice, setMaxPrice] = useState<number>();
   const [categoryId, setCategoryId] = useState<number>();
 
-
   const { mutate: deleteProductMutation } = useDeleteProductMutation();
   const { mutate: addProductTopMutation } = useAddProductTopMutation();
   const { mutate: deleteProductTopMutation } = useDeleteProductTopMutation();
-  const {productTopData} = useProductTopData()
+  const { productTopData } = useProductTopData();
   const { categoryData } = useCategoryData();
 
   useEffect(() => {
@@ -74,10 +78,10 @@ export default function ProductGrid({
     setSkip(newSkip);
   };
   const reset = () => {
-    setNameProduct(undefined)
-    setMinPrice(undefined)
-    setMaxPrice(undefined)
-  }
+    setNameProduct(undefined);
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
+  };
   return (
     <>
       <div className="container">
@@ -87,94 +91,98 @@ export default function ProductGrid({
             className="col-xs-12 col-sm-4 col-md-3 wow fadeInLeft"
             data-wow-delay="0.4s"
           >
-
-           <section
-            className="shop-widget filter-widget bg-grey"
-            style={{
-              background: "rgba(134, 155, 223, 0.14)",
-              border: "1px solid #efefef",
-              padding: "36px 38px 48px 30px",
-            }}
-          >
-            <h2
+            <section
+              className="shop-widget filter-widget bg-grey"
               style={{
-                background:
-                  "linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                background: "rgba(134, 155, 223, 0.14)",
+                border: "1px solid #efefef",
+                padding: "36px 38px 48px 30px",
               }}
             >
-              Фильтр
-            </h2>
-
-            <div
-              className="search-range"
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
-              <span
-                className="sub-title"
-                style={{ margin: "0", color: "#fff" }}
-              >
-                Название товара
-              </span>
-              <input
-                type="text"
-                value={nameProduct || ""}
-                onChange={(e) => setNameProduct(e.target.value)}
-                className="form-control"
-                placeholder="Название товара"
-              />
-              <span
-                className="sub-title"
-                style={{ margin: "0", color: "#fff" }}
-              >
-                Цена
-              </span>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
-                    setMinPrice(Number(value));
-                  }
+              <h2
+                style={{
+                  background:
+                    "linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
-                min="0"
-                className="form-control"
-                placeholder="От"
-              />
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^\d*$/.test(value)) {  // Allow only numbers (digits)
-                    setMaxPrice(Number(value));
-                  }
-                }}
-                max="10000"
-                className="form-control"
-                placeholder="До"
-              />
-            <button onClick={reset}>Сбросить Фильтр</button>
+              >
+                Фильтр
+              </h2>
 
-            </div>
-          </section>
+              <div
+                className="search-range"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
+                <span
+                  className="sub-title"
+                  style={{ margin: "0", color: "#fff" }}
+                >
+                  Название товара
+                </span>
+                <input
+                  type="text"
+                  value={nameProduct || ""}
+                  onChange={(e) => setNameProduct(e.target.value)}
+                  className="form-control"
+                  placeholder="Название товара"
+                />
+                <span
+                  className="sub-title"
+                  style={{ margin: "0", color: "#fff" }}
+                >
+                  Цена
+                </span>
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      // Allow only numbers (digits)
+                      setMinPrice(Number(value));
+                    }
+                  }}
+                  min="0"
+                  className="form-control"
+                  placeholder="От"
+                />
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      // Allow only numbers (digits)
+                      setMaxPrice(Number(value));
+                    }
+                  }}
+                  max="10000"
+                  className="form-control"
+                  placeholder="До"
+                />
+                <button onClick={reset}>Сбросить Фильтр</button>
+              </div>
+            </section>
             <section className="shop-widget">
               <h2>Категории</h2>
               <ul className="list-unstyled category-list">
                 {categoryData?.detail.map((category) => (
                   <li key={category.category_id}>
                     <a
-                  style={{cursor:"pointer"}}
-                  onClick={() => {
-                    if (category.category_id === categoryId) {
-                      setCategoryId(undefined);
-                    } else {
-                      setCategoryId(category.category_id);
-                    }
-                  }}
-                  >
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        if (category.category_id === categoryId) {
+                          setCategoryId(undefined);
+                        } else {
+                          setCategoryId(category.category_id);
+                        }
+                      }}
+                    >
                       <span className="name">{category.category_name}</span>
                       <span className="num">{category.product_count}</span>
                     </a>
@@ -189,149 +197,171 @@ export default function ProductGrid({
           >
             <header className="mt-shoplist-header">
               <div className="btn-box">
-                <Link href='product/newProduct'
-                >
-                  Добавить товар
-                </Link>
+                <Link href="product/newProduct">Добавить товар</Link>
               </div>
             </header>
             {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
               <>
-            <ul className="mt-productlisthold list-inline">
-              {filteredProducts &&
-                filteredProducts.slice(skip, skip + limit).map((product) => (
-                  <li key={product.product_id}>
-                    <div className="mt-product1 large">
-                      <div className="box">
-                        <div className="b1">
-                          <div className="b2">
-                        <Link href={`/product/${product.product_id}`}>
-                              <Image
-                                loader={() =>
-                                  `${baseURL}/${
-                                    product?.product_images &&
-                                    product?.product_images[0]?.image_patch
-                                  }`
-                                }
-                                src={`${baseURL}/${
-                                  product?.product_images &&
-                                  product?.product_images[0]?.image_patch
-                                }`}
-                                alt={String(product.product_id)}
-                                width={275}
-                                height={290}
-                              />
-                            </Link>
-                            <ul className="links">
-                              <li>
-                                <Link href={`product/${product.product_id}`}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <span>Редактировать</span>
-                                </Link>
-                              </li>
-                              <li>
-                                <a
-                                  onClick={() =>
-                                    deleteProductMutation({
-                                      ...product,
-                                      category_id:
-                                        product.product_category.category_id,
-                                    })
-                                  }
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <Image
-                                    src={"/trash.svg"}
-                                    alt="Direct Image"
-                                    width={23.78}
-                                    height={20}
-                                  />
+                <ul className="mt-productlisthold list-inline">
+                  {filteredProducts &&
+                    filteredProducts
+                      .slice(skip, skip + limit)
+                      .map((product) => (
+                        <li key={product.product_id}>
+                          <div className="mt-product1 large">
+                            <div className="box">
+                              <div className="b1">
+                                <div className="b2">
+                                  <Link href={`/product/${product.product_id}`}>
+                                    <Image
+                                      loader={() =>
+                                        `${baseURL}/${
+                                          product?.product_images &&
+                                          product?.product_images[0]
+                                            ?.image_patch
+                                        }`
+                                      }
+                                      src={`${baseURL}/${
+                                        product?.product_images &&
+                                        product?.product_images[0]?.image_patch
+                                      }`}
+                                      alt={String(product.product_id)}
+                                      width={275}
+                                      height={290}
+                                    />
+                                  </Link>
+                                  <ul className="links">
+                                    <li>
+                                      <Link
+                                        href={`product/${product.product_id}`}
+                                        style={{ cursor: "pointer" }}
+                                      >
+                                        <span>Редактировать</span>
+                                      </Link>
+                                    </li>
+                                    <li>
+                                      <a
+                                        onClick={() =>
+                                          deleteProductMutation({
+                                            ...product,
+                                            category_id:
+                                              product.product_category
+                                                .category_id,
+                                          })
+                                        }
+                                        style={{ cursor: "pointer" }}
+                                      >
+                                        <Image
+                                          src={"/trash.svg"}
+                                          alt="Direct Image"
+                                          width={23.78}
+                                          height={20}
+                                        />
+                                      </a>
+                                    </li>
+                                    {productTopData?.detail.find(
+                                      (top) =>
+                                        top.product_id === product.product_id
+                                    ) ? (
+                                      <li>
+                                        <a
+                                          onClick={() =>
+                                            deleteProductTopMutation(
+                                              product.product_id as number
+                                            )
+                                          }
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <Image
+                                            src={
+                                              "/icon/arrow-up-circle-fill.svg"
+                                            }
+                                            alt="Direct Image"
+                                            width={23.78}
+                                            height={20}
+                                          />
+                                        </a>
+                                      </li>
+                                    ) : (
+                                      <li>
+                                        <a
+                                          onClick={() =>
+                                            addProductTopMutation(
+                                              product.product_id as number
+                                            )
+                                          }
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <Image
+                                            src={"/icon/arrow-up-circle.svg"}
+                                            alt="Direct Image"
+                                            width={23.78}
+                                            height={20}
+                                          />
+                                        </a>
+                                      </li>
+                                    )}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="txt"
+                              style={{ textAlign: "left", padding: "0" }}
+                            >
+                              <strong className="title">
+                                {product?.product_category?.category_name}
+                              </strong>
+                              <strong className="title">
+                                <a href="product-detail.html">
+                                  {product.product_name}
                                 </a>
-                              </li>
-                              {productTopData?.detail.find(top => top.product_id === product.product_id) ? (
-                                <li>
-                                <a
-                                  onClick={() =>
-                                    deleteProductTopMutation(product.product_id as number)
-                                  }
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <Image
-                                    src={"/icon/arrow-up-circle-fill.svg"}
-                                    alt="Direct Image"
-                                    width={23.78}
-                                    height={20}
-                                  />
-                                </a>
-                              </li>
-                              ) : (
-                                <li>
-                                <a
-                                  onClick={() =>
-                                    addProductTopMutation(product.product_id as number)
-                                  }
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  <Image
-                                    src={"/icon/arrow-up-circle.svg"}
-                                    alt="Direct Image"
-                                    width={23.78}
-                                    height={20}
-                                  />
-                                </a>
-                              </li>
-                              )}
-
-                            </ul>
+                              </strong>
+                              <span className="price">
+                                <span>
+                                  {product?.product_additional_prices &&
+                                  product.product_additional_prices.length > 0
+                                    ? "от " +
+                                      Math.min(
+                                        ...product.product_additional_prices.map(
+                                          (price) =>
+                                            price.product_additional_price
+                                        )
+                                      )
+                                    : product.product_price}
+                                </span>
+                                 ₽/кг
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div
-                      className="txt"
-                      style={{ textAlign: "left", padding: "0" }}>
-                        <strong className="title">
-                          {product?.product_category?.category_name}
-                        </strong>
-                        <strong className="title">
-                          <a href="product-detail.html">
-                            {product.product_name}
-                          </a>
-                        </strong>
-                        <span className="price">
-                          <i className="fa fa-eur"></i>{" "}
-                          <span>{product.product_price}</span>
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-            </ul>
-            <nav className="mt-pagination">
-                <ul className="list-inline">
-                  <li>
-                    {skip > 0 && (
-                      <button
-                        onClick={() => handlePagination(skip - limit)}
-                        disabled={skip <= 0}
-                      >
-                        Назад
-                      </button>
-                    )}
-                  </li>
-                  <li>
-                    {skip + limit < filteredProducts.length && ( // Only show if more products exist
-                      <button onClick={() => handlePagination(skip + limit)}>
-                        Вперед
-                      </button>
-                    )}
-                  </li>
+                        </li>
+                      ))}
                 </ul>
-              </nav>
+                <nav className="mt-pagination">
+                  <ul className="list-inline">
+                    <li>
+                      {skip > 0 && (
+                        <button
+                          onClick={() => handlePagination(skip - limit)}
+                          disabled={skip <= 0}
+                        >
+                          Назад
+                        </button>
+                      )}
+                    </li>
+                    <li>
+                      {skip + limit < filteredProducts.length && ( // Only show if more products exist
+                        <button onClick={() => handlePagination(skip + limit)}>
+                          Вперед
+                        </button>
+                      )}
+                    </li>
+                  </ul>
+                </nav>
               </>
-              ) : (
-                <p>Нет продуктов</p>
-              )}
+            ) : (
+              <p>Нет продуктов</p>
+            )}
           </div>
         </div>
       </div>
