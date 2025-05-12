@@ -2327,11 +2327,23 @@ a:hover {
 	top: 10px;
 	right: 15px;
 	color: #ff6060;
-	font-size: 14px;
-	position: absolute;
+	font-size: 20px;
+	/* position: absolute; */
 	-webkit-transition: all .4s linear;
 	transition: all .4s linear;
+	margin-top: 5px;
+	margin-right: 5px;
 }
+
+@media (max-width:360px) {
+	.mt-side-widget .cart-row .close{
+	font-size: 15px;
+
+	}
+	
+}
+
+
 
 .mt-side-widget .cart-row .close:hover {
 	color: #fff;
@@ -2371,7 +2383,7 @@ a:hover {
 }
 
 .mt-side-widget .price {
-	color: #551A8B;
+	color: #cd97ff;
 	font: 600 15px/20px "Source Sans Pro", sans-serif;
 }
 
@@ -5829,7 +5841,7 @@ a:hover {
 
 .mt-product1 .price {
 	display: block;
-	color: #551A8B;
+	color: #cd97ff;
 	font: 600 17px/20px "Source Sans Pro", sans-serif;
 }
 
@@ -7333,7 +7345,7 @@ a:hover {
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
 	letter-spacing: -1px;
-	color: #551A8B;
+	color: #cd97ff;
 }
 
 .mt-product-detial .text-holder .price del {

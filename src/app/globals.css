@@ -17,3 +17,21 @@ body {
   margin: 20px auto;
   flex: 1;
 }
+
+input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  /* appearance: none; */
+  padding-right: 10px; /* Опционально: чтобы текст не уходил под скрытые стрелки */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]::-moz-inner-spin-button {
+  -moz-appearance: none;
+  display: none;
+}

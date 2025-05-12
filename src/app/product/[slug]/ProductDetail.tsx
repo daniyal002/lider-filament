@@ -10,7 +10,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useCreateCartMutation } from "@/hook/cartHook";
 import useLocalFavorites from "@/hook/localStorageFavoriteHook";
 import { getAccessToken } from "@/services/auth-token.service";
@@ -25,6 +25,7 @@ interface Props {
 export default function ProductDetail({ productId }: Props) {
   const { productByIdData } = useProductDataById(productId);
   const { mutate: createCartMutation } = useCreateCartMutation();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -48,12 +49,17 @@ export default function ProductDetail({ productId }: Props) {
           product_quantity,
           product_image,
         })
-      : addLocalCart({ product_id, product_price, product_quantity,product_additional_prices });
+      : addLocalCart({
+          product_id,
+          product_price,
+          product_quantity,
+          product_additional_prices,
+        });
   };
 
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
-      <Toaster/>
+      <Toaster />
       <div className="container">
         <div className="row">
           <div
@@ -105,12 +111,13 @@ export default function ProductDetail({ productId }: Props) {
                 </li>
                 <li>{productByIdData?.detail.product_name}</li>
               </ul>
-              <h2>{productByIdData?.detail.product_name}</h2>
+              <h2 style={{ fontWeight: "bold" }}>
+                {productByIdData?.detail.product_name}
+              </h2>
               <div className="text-holder">
                 <span className="price">
                   {productByIdData?.detail.product_price} ₽/кг
                 </span>
-
               </div>
               <form
                 action="#"
@@ -125,22 +132,42 @@ export default function ProductDetail({ productId }: Props) {
                     alignItems: "center",
                   }}
                 >
-                  <div className="row-val" style={{ display:"flex", alignItems:'center', gap:'8px' }}>
+                  <div
+                    className="row-val"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     {/* <label>Количество</label> */}
                     <i
                       className="bi bi-dash-circle"
-                      style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
+                      style={{
+                        fontSize: "20px",
+                        color: "#a663e3",
+                        cursor: "pointer",
+                      }}
                       onClick={() => {
-                        setQuantity((prev) => prev === 1 ? 1 : prev - 1);
+                        setQuantity((prev) => (prev === 1 ? 1 : prev - 1));
                       }}
                     ></i>
                     <input
                       type="number"
-                      // id="qty"
+                      id="qty"
                       placeholder="1"
                       min={1}
                       value={quantity}
-                      onChange={(e) =>  Number(e.target.value) > 0 && setQuantity(Number(e.target.value))}
+                      onChange={(e) =>
+                        Number(e.target.value) > 0 &&
+                        setQuantity(Number(e.target.value))
+                      }
+                      onFocus={() => {
+                        setTimeout(() => {
+                          inputRef.current?.select();
+                        }, 0);
+                      }}
+                      ref={inputRef}
                       style={{
                         background: "rgba(134, 155, 223, 0.14)",
                         color: "#a663e3",
@@ -150,12 +177,16 @@ export default function ProductDetail({ productId }: Props) {
                         padding: "0 0 0 15px",
                         border: "1px solid #a663e3",
                         outline: "none",
-                        height:"22px"
+                        height: "22px",
                       }}
                     />
                     <i
                       className="bi bi-plus-circle"
-                      style={{ fontSize: "20px", color: "#a663e3", cursor:'pointer' }}
+                      style={{
+                        fontSize: "20px",
+                        color: "#a663e3",
+                        cursor: "pointer",
+                      }}
                       onClick={() => {
                         setQuantity((prev) => prev + 1);
                       }}
@@ -172,7 +203,7 @@ export default function ProductDetail({ productId }: Props) {
                           quantity,
                           // @ts-ignore
                           productByIdData?.detail.product_images[0].image_patch,
-                          productByIdData?.detail.product_additional_prices,
+                          productByIdData?.detail.product_additional_prices
                         );
                       }}
                     >
@@ -183,25 +214,38 @@ export default function ProductDetail({ productId }: Props) {
               </form>
 
               <div className="row-val product_additional_prices">
-              {productByIdData?.detail.product_additional_prices?.map(product_additional_price => (
-                  <div key={product_additional_price.additional_price_id} className="product_additional_price">
-                  <span className="price"> От {product_additional_price.product_from} кг:</span>
-                  <span  className="price"> {product_additional_price.product_additional_price} ₽/кг</span>
-                  </div>
-                ))}
+                {productByIdData?.detail.product_additional_prices?.map(
+                  (product_additional_price) => (
+                    <div
+                      key={product_additional_price.additional_price_id}
+                      className="product_additional_price"
+                    >
+                      <span className="price">
+                        {" "}
+                        От {product_additional_price.product_from} кг:
+                      </span>
+                      <span className="price">
+                        {" "}
+                        {product_additional_price.product_additional_price} ₽/кг
+                      </span>
+                    </div>
+                  )
+                )}
               </div>
 
-              <div className="txt-wrap">{productByIdData?.detail.note}</div>
-              <div className="txt-wrap">
+              <div className="txt-wrap" style={{ color: "white" }}>
+                {productByIdData?.detail.note}
+              </div>
+              <div className="txt-wrap" style={{ color: "white" }}>
                 Размер: {productByIdData?.detail.product_size}
               </div>
-              <div className="txt-wrap">
+              <div className="txt-wrap" style={{ color: "white" }}>
                 Вес: {productByIdData?.detail.product_weight} грамм
               </div>
-              <div className="txt-wrap">
+              <div className="txt-wrap" style={{ color: "white" }}>
                 Цвет: {productByIdData?.detail.product_color}
               </div>
-              <div className="txt-wrap">
+              <div className="txt-wrap" style={{ color: "white" }}>
                 Категория:{" "}
                 {productByIdData?.detail.product_category.category_name}
               </div>
@@ -215,12 +259,16 @@ export default function ProductDetail({ productId }: Props) {
                 }}
               >
                 <li>
-                  <a>
-                    <i className="fa fa-share-alt"></i>ПОДЕЛИТЬСЯ
+                  <a style={{ color: "white" }}>
+                    <i
+                      className="fa fa-share-alt"
+                      style={{ color: "white" }}
+                    ></i>
+                    ПОДЕЛИТЬСЯ
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a style={{ color: "white" }}>
                     {localFavorites?.find(
                       (productFeature) => productFeature === Number(productId)
                     ) ? (
@@ -255,9 +303,7 @@ export default function ProductDetail({ productId }: Props) {
                   </a>
                 </li>
               </ul>
-
             </div>
-
           </div>
         </div>
       </div>

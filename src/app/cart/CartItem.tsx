@@ -6,7 +6,7 @@ import { product_additional_prices } from "@/interface/product";
 import { getAccessToken } from "@/services/auth-token.service";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Props {
   cartItem: ICartResponseDetail;
@@ -20,9 +20,10 @@ export default function CartItem({ cartItem }: Props) {
   const { mutate: deleteCartMutation } = useDeleteCartMutation();
   const accessToken = getAccessToken();
   const { addLocalCart, removeLocalCart } = useLocalCart();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-   // Function to calculate the applicable price
-   const calculatePrice = (
+  // Function to calculate the applicable price
+  const calculatePrice = (
     basePrice: number,
     additionalPrices: product_additional_prices[],
     quantity: number
@@ -51,7 +52,7 @@ export default function CartItem({ cartItem }: Props) {
     product_id: number,
     product_price: number,
     product_quantity: number,
-    product_additional_prices:product_additional_prices[]
+    product_additional_prices: product_additional_prices[]
   ) => {
     accessToken
       ? updateCartMutation({
@@ -62,7 +63,15 @@ export default function CartItem({ cartItem }: Props) {
           product_price: cartItem.product_price,
           product_image: cartItem.product_image,
         })
-      : addLocalCart({ product_id, product_price, product_quantity,product_additional_prices }, true);
+      : addLocalCart(
+          {
+            product_id,
+            product_price,
+            product_quantity,
+            product_additional_prices,
+          },
+          true
+        );
   };
 
   const deleteCart = (
@@ -81,99 +90,131 @@ export default function CartItem({ cartItem }: Props) {
       : removeLocalCart(product_id);
   };
   return (
-    <div className="cart-row" style={{border:"1px solid #551A8B", minHeight:"134px", borderRadius:"8px"}}>
-      <Link href={`product/${cartItem.product_id}`} className="img">
-        <Image
-          loader={() => `${baseURL}/${cartItem.product_image}`}
-          src={`${baseURL}/${cartItem.product_image}`}
-          alt="image"
-          width={100}
-          height={100}
-          className="img-responsive"
-          style={{borderRight:"1px solid #551A8B"}}
-        />
-      </Link>
-      <div className="mt-h">
-        <span className="mt-h-title" style={{ marginBottom: "10px" }}>
-          <Link
-            href={`product/${cartItem.product_id}`}
-            style={{ fontSize: "24px", color:"#fff"}}
-          >
-            {cartItem.product_name}
-          </Link>
-        </span>
-        <span className="price" style={{ fontSize: "20px" }}>
-          {calculatedPrice} ₽/кг
-        </span>
-        <span className="mt-h-title">
-          <div
-            className="row-val"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-              alignItems: "center",
-              outline: "none",
-              marginTop: "10px",
-            }}
-          >
-            {/* <label>Количество</label> */}
-            <i
-              className="bi bi-dash-circle"
-              style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
-              onClick={() => {
-                setQuantity((prev) => prev - 1);
-                updateCart(
-                  cartItem.product_id,
-                  cartItem.product_price,
-                  quantity - 1,
-                  cartItem.product_additional_prices as product_additional_prices[]
-                );
-              }}
-            ></i>
-            <input
-              type="number"
-              id="qty"
-              placeholder="1"
-              min={1}
-              value={quantity || 1}
-              // defaultValue={cartItem.product_quantity}
-              onChange={(e) => {
-                setQuantity(Number(e.target.value));
-                updateCart(
-                  cartItem.product_id,
-                  cartItem.product_price,
-                  Number(e.target.value),
-                  cartItem.product_additional_prices as product_additional_prices[]
-
-                );
-              }}
+    <div
+      className="cart-row"
+      style={{
+        border: "1px solid #551A8B",
+        minHeight: "134px",
+        borderRadius: "8px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      }}
+    >
+      <div>
+        <Link href={`product/${cartItem.product_id}`} className="img">
+          <Image
+            loader={() => `${baseURL}/${cartItem.product_image}`}
+            src={`${baseURL}/${cartItem.product_image}`}
+            alt="image"
+            width={100}
+            height={100}
+            className="img-responsive"
+            style={{ borderRight: "1px solid #551A8B" }}
+          />
+        </Link>
+        <div className="mt-h">
+          <span className="mt-h-title" style={{ marginBottom: "10px" }}>
+            <Link
+              href={`product/${cartItem.product_id}`}
+              style={{ fontSize: "24px", color: "#fff" }}
+            >
+              {cartItem.product_name}
+            </Link>
+          </span>
+          <span className="price" style={{ fontSize: "20px" }}>
+            {calculatedPrice} ₽/кг
+          </span>
+          <span className="mt-h-title">
+            <div
+              className="row-val"
               style={{
-                background: "rgba(134, 155, 223, 0.14)",
-                color: "#a663e3",
-                width: "70px",
-                fontSize: "18px",
-                borderRadius: "25px",
-                padding: "0 0 0 15px",
-                border: "1px solid #a663e3",
+                display: "flex",
+                flexDirection: "row",
+                gap: "10px",
+                alignItems: "center",
                 outline: "none",
+                marginTop: "10px",
               }}
-            />
-            <i
-              className="bi bi-plus-circle"
-              style={{ fontSize: "20px", color: "#a663e3",cursor:'pointer' }}
-              onClick={() => {
-                setQuantity((prev) => prev + 1);
-                updateCart(
-                  cartItem.product_id,
-                  cartItem.product_price,
-                  quantity + 1,
-                  cartItem.product_additional_prices as product_additional_prices[]
-                );
-              }}
-            ></i>
-          </div>
-        </span>
+            >
+              {/* <label>Количество</label> */}
+              <i
+                className="bi bi-dash-circle"
+                style={{
+                  fontSize: "20px",
+                  color: "#a663e3",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setQuantity((prev) => prev - 1);
+                  updateCart(
+                    cartItem.product_id,
+                    cartItem.product_price,
+                    quantity - 1,
+                    cartItem.product_additional_prices as product_additional_prices[]
+                  );
+                }}
+              ></i>
+              <input
+                type="number"
+                id="qty"
+                placeholder="1"
+                min={1}
+                value={quantity || 1}
+                onChange={(e) => {
+                  const inputVal = e.target.value;
+                  let newQuantity = Number(inputVal);
+
+                  // Если введено пустое значение или 0, устанавливаем 1
+                  if (!inputVal || newQuantity < 1) {
+                    newQuantity = 1;
+                  }
+
+                  setQuantity(newQuantity);
+                  updateCart(
+                    cartItem.product_id,
+                    cartItem.product_price,
+                    newQuantity,
+                    cartItem.product_additional_prices as product_additional_prices[]
+                  );
+                }}
+                onFocus={() => {
+                  setTimeout(() => {
+                    inputRef.current?.select();
+                  }, 0);
+                }}
+                ref={inputRef}
+                style={{
+                  background: "rgba(134, 155, 223, 0.14)",
+                  color: "#a663e3",
+                  width: "70px",
+                  fontSize: "18px",
+                  borderRadius: "25px",
+                  padding: "0 0 0 15px",
+                  border: "1px solid #a663e3",
+                  outline: "none",
+                }}
+              />
+              <i
+                className="bi bi-plus-circle"
+                style={{
+                  fontSize: "20px",
+                  color: "#a663e3",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setQuantity((prev) => prev + 1);
+                  updateCart(
+                    cartItem.product_id,
+                    cartItem.product_price,
+                    quantity + 1,
+                    cartItem.product_additional_prices as product_additional_prices[]
+                  );
+                }}
+              ></i>
+            </div>
+          </span>
+        </div>
       </div>
       <button
         className="close fa fa-times"

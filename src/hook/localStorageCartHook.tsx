@@ -36,13 +36,18 @@ function useLocalCart() {
     } else {
       // Update existing product quantity
       let updatedProduct;
+      let updatedCart;
       if(isCartPage){
          updatedProduct = { ...currentCart[existingProductIndex], product_quantity:product.product_quantity };
-      }else{
-        updatedProduct = { ...currentCart[existingProductIndex], product_quantity: currentCart[existingProductIndex].product_quantity + product.product_quantity };
-
       }
-      const updatedCart = [...currentCart.slice(0, existingProductIndex), updatedProduct, ...currentCart.slice(existingProductIndex + 1)];
+      else{
+        updatedProduct = { ...currentCart[existingProductIndex], product_quantity: currentCart[existingProductIndex].product_quantity + product.product_quantity };
+      }
+      
+      updatedCart = [...currentCart.slice(0, existingProductIndex), updatedProduct, ...currentCart.slice(existingProductIndex + 1)];
+      if(product.product_quantity <= 0){
+        updatedCart = currentCart.filter((currentProduct) => currentProduct.product_id !== product.product_id);
+      }
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
       if(window.location.pathname !== "/cart" ) {
