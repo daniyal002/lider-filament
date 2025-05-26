@@ -1,7 +1,7 @@
 'use client'
 import { baseURL } from '@/api/interseptors'
 import { useCreateCartMutation } from '@/hook/cartHook'
-import { useProductFeaturedData, useProductTopData } from '@/hook/productHook'
+import { useProductData, useProductFeaturedData, useProductTopData } from '@/hook/productHook'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -12,7 +12,9 @@ import { getAccessToken } from '@/services/auth-token.service'
 import useLocalCart from '@/hook/localStorageCartHook'
 
 export default function PopularProducts() {
-    const {productTopData,isLoading} = useProductTopData()
+    // const {productTopData,isLoading} = useProductTopData()
+      const { productData,isLoading } = useProductData();
+    
     const {mutate:createCartMutation} = useCreateCartMutation()
     const {productFeaturedData} = useProductFeaturedData()
     const {addLocalCart} = useLocalCart()
@@ -23,68 +25,94 @@ export default function PopularProducts() {
     }
   return (
     <>
-    <h2 className={style.header}>Популярные товары</h2>
-    <div className={style.container}>
+      <h2 className={style.header}>Популярные товары</h2>
+      <div className={style.container}>
         {isLoading ? (
-            <div className={style.spinner}>
+          <div className={style.spinner}>
             <img src="/icon/loop_black_48dp.svg" alt="" />
-            </div>
+          </div>
         ) : (
-            <div className={style.popularProducts}>
-                {productTopData?.detail.map(product => (
-                    <div className="mt-product1 large" key={product.product_id}>
-                    <div className="box">
-                      <div className="b1">
-                        <div className="b2">
-                          <Link href={`/product/${product.product_id}`}>
-                            <Image
-                              loader={() =>
-                                `${baseURL}/${
-                                  product?.product_images &&
-                                  product?.product_images[0]?.image_patch
-                                }`
-                              }
-                              src={`${baseURL}/${
-                                product?.product_images &&
-                                product?.product_images[0]?.image_patch
-                              }`}
-                              alt={String(product.product_id)}
-                              width={275}
-                              height={290}
-                            />
-                          </Link>
+          <div className={style.popularProducts}>
+            {productData?.detail.slice(0, 3).map((product) => (
+              <div className="mt-product1 large" key={product.product_id}>
+                <div className="box">
+                  <div className="b1">
+                    <div className="b2">
+                      <Link href={`/product/${product.product_id}`}>
+                        <Image
+                          loader={() =>
+                            `${baseURL}/${
+                              product?.product_images &&
+                              product?.product_images[0]?.image_patch
+                            }`
+                          }
+                          src={`${baseURL}/${
+                            product?.product_images &&
+                            product?.product_images[0]?.image_patch
+                          }`}
+                          alt={String(product.product_id)}
+                          width={275}
+                          height={290}
+                        />
+                      </Link>
 
-                          <ul className="links">
-                            <li>
-                              <a onClick={() => addCart(product.product_id as number,product.product_price,1,
+                      <ul className="links">
+                        <li>
+                          <a
+                            onClick={() =>
+                              addCart(
+                                product.product_id as number,
+                                product.product_price,
+                                1,
                                 //@ts-ignore
                                 product.product_images[0].image_patch,
-                                product.product_additional_prices as product_additional_prices[],)}>
-                                <i className="icon-handbag"></i>
-                                <span>В корзину</span>
-                              </a>
-                            </li>
-                            <li>
-                              <FavoriteButton productId={product.product_id as number} productFeaturedData={productFeaturedData as IProductResponse}/>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="txt">
-                      <strong className="title">
-                        <a href="product-detail.html">{product.product_name}</a>
-                      </strong>
-                      <span className="price">
-                        <i className="fa fa-eur"></i>{" "}
-                        <span>{product.product_price}</span>
-                      </span>
+                                product.product_additional_prices as product_additional_prices[]
+                              )
+                            }
+                          >
+                            <i className="icon-handbag"></i>
+                            <span>В корзину</span>
+                          </a>
+                        </li>
+                        <li>
+                          <FavoriteButton
+                            productId={product.product_id as number}
+                            productFeaturedData={
+                              productFeaturedData as IProductResponse
+                            }
+                          />
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                ))}
-            </div>
+                </div>
+                <div className="txt">
+                  <strong
+                    className="title"
+                    style={{ maxWidth: "215px", lineHeight: "25px" }}
+                  >
+                    <a href="product-detail.html">{product.product_name}</a>
+                  </strong>
+                  <span className="price">
+                    <span>
+                      {product?.product_additional_prices &&
+                      product.product_additional_prices.length > 0
+                        ? "от " +
+                          Math.min(
+                            ...product.product_additional_prices.map(
+                              (price) => price.product_additional_price
+                            )
+                          )
+                        : product.product_price}
+                      ₽/кг
+                    </span>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
-    </div>
+      </div>
     </>
-  )
+  );
 }

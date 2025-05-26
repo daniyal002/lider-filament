@@ -220,11 +220,11 @@ export default function ProductDetail({ productId }: Props) {
                       key={product_additional_price.additional_price_id}
                       className="product_additional_price"
                     >
-                      <span className="price">
+                      <span className="price" style={{fontSize:"25px", fontWeight:"bold"}}>
                         {" "}
                         От {product_additional_price.product_from} кг:
                       </span>
-                      <span className="price">
+                      <span className="price" style={{fontSize:"25px",fontWeight:"bold"}}>
                         {" "}
                         {product_additional_price.product_additional_price} ₽/кг
                       </span>

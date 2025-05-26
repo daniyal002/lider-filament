@@ -170,10 +170,10 @@ export default function Product() {
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  columnGap: "15px",
+                  columnGap: "10px",
                   rowGap: "30px",
                   listStyle: "none",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   padding: "0 10px",
                   margin: "0 auto",
                 }}
@@ -240,7 +240,8 @@ export default function Product() {
                         <strong className="title">
                           {product.product_category.category_name}
                         </strong>
-                        <strong className="title">
+                        <strong className="title" 
+                         style={{ maxWidth: "215px", lineHeight: "25px" }}>
                           <Link href={`product/${product.product_id}`}>
                             {product.product_name}
                           </Link>
