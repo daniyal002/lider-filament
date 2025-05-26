@@ -51,8 +51,8 @@ export default function PopularProducts() {
                             product?.product_images[0]?.image_patch
                           }`}
                           alt={String(product.product_id)}
-                          width={275}
-                          height={290}
+                          width={290}
+                          height={400}
                         />
                       </Link>
 
@@ -91,7 +91,7 @@ export default function PopularProducts() {
                     className="title"
                     style={{ maxWidth: "215px", lineHeight: "25px" }}
                   >
-                    <a href="product-detail.html">{product.product_name}</a>
+                    <Link href={`/product/${product.product_id}`}>{product.product_name}</Link>
                   </strong>
                   <span className="price">
                     <span>
