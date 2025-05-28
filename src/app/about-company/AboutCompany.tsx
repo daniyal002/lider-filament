@@ -93,7 +93,7 @@ const AboutCompany = () => {
   return (
     <div className={style.container}>
       <h1 className={style.header}>О компании</h1>
-      <p style={{fontSize:"20px", color:'white'}}>
+      <p style={{fontSize:"20px", color:'white',textIndent:"25px"}}>
           Мы, компания «Лидер-В», занимаемся производством пластиковых изделий
           из ПВХ. Успешно действуем на рынке с 2017 года и недавно расширились,
           начав изготовление высококачественной нити филамента для 3D-принтеров.
