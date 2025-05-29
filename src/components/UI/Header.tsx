@@ -82,27 +82,12 @@ export default function Header() {
             </div>
             {!isNavCollapsed && (
               <div className="threedHeader">
-              <Link href="/feature">
-                {pathname === "/feature" ? (
-                  <i
-                    className="bi bi-heart-fill"
-                    style={{
-                      fontSize: "25px",
-                      color: "red",
-                      fontWeight: "700",
-                    }}
-                  ></i>
-                ) : (
-                  <i
-                    className="bi bi-heart"
-                    style={{
-                      fontSize: "25px",
-                      color: "#fff",
-                      fontWeight: "700",
-                    }}
-                  ></i>
-                )}
-              </Link>
+              <a href="https://wa.me/79289772357" target="_blank">
+                      <i
+                        className="fa fa-whatsapp"
+                        style={{ fontSize: "32px", color: "#2cb742" }}
+                      ></i>
+                    </a>
               <Link
                 href="/cart"
                 style={{
@@ -162,27 +147,12 @@ export default function Header() {
 
             {isNavCollapsed && (
               <div className="secondHeader">
-              <Link href="/feature">
-                {pathname === "/feature" ? (
-                  <i
-                    className="bi bi-heart-fill"
-                    style={{
-                      fontSize: "25px",
-                      color: "red",
-                      fontWeight: "700",
-                    }}
-                  ></i>
-                ) : (
-                  <i
-                    className="bi bi-heart"
-                    style={{
-                      fontSize: "25px",
-                      color: "#fff",
-                      fontWeight: "700",
-                    }}
-                  ></i>
-                )}
-              </Link>
+              <a href="https://wa.me/79289772357" target="_blank">
+                      <i
+                        className="fa fa-whatsapp"
+                        style={{ fontSize: "32px", color: "#2cb742" }}
+                      ></i>
+                    </a>
               <Link
                 href="/cart"
                 style={{

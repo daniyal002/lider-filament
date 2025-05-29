@@ -66,23 +66,6 @@ export default function Cart() {
     setFilteredProducts(filtered as ICartResponseDetail[]);
   }, [productData, localCart]);
 
-  // useEffect(() => {
-  //   let summ = 0;
-  //   if (accessToken) {
-  //     cartData?.detail.forEach((cart) => {
-  //       let summItem = cart.product_price * cart.product_quantity;
-  //       summ += summItem;
-  //     });
-  //   } else {
-  //     localCart.forEach((cart) => {
-  //       let price = cart.product_additional_prices.find(price => cart.product_quantity > Number(price.product_from))?.product_additional_price || cart.product_price
-  //       let summItem = Number(price) * cart.product_quantity;
-  //       summ += summItem;
-  //     });
-  //   }
-  //   setTotal(summ);
-  // }, [cartData, accessToken, localCart]);
-
   useEffect(() => {
     let summ = 0;
     if (accessToken) {
@@ -132,14 +115,14 @@ export default function Cart() {
         </span>
       </div>
       <div className="cart-btn-row">
-        {!showPhoneInput ? (
+        {!showPhoneInput ? filteredProducts?.length as number > 0 && (
           <button
             className="btn-type3"
             onClick={() => setShowPhoneInput(true)} // Показать инпут для телефона
           >
             К оплате
           </button>
-        ) : (
+        ) : filteredProducts?.length as number > 0 && (
           <div className="phone-input-container">
 
              <input

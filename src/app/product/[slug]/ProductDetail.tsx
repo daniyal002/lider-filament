@@ -220,11 +220,17 @@ export default function ProductDetail({ productId }: Props) {
                       key={product_additional_price.additional_price_id}
                       className="product_additional_price"
                     >
-                      <span className="price" style={{fontSize:"25px", fontWeight:"bold"}}>
+                      <span
+                        className="price"
+                        style={{ fontSize: "25px", fontWeight: "bold" }}
+                      >
                         {" "}
                         От {product_additional_price.product_from} кг:
                       </span>
-                      <span className="price" style={{fontSize:"25px",fontWeight:"bold"}}>
+                      <span
+                        className="price"
+                        style={{ fontSize: "25px", fontWeight: "bold" }}
+                      >
                         {" "}
                         {product_additional_price.product_additional_price} ₽/кг
                       </span>
@@ -259,47 +265,25 @@ export default function ProductDetail({ productId }: Props) {
                 }}
               >
                 <li>
-                  <a style={{ color: "white" }}>
+                  <a
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator
+                          .share({
+                            title: document.title,
+                            url: window.location.href,
+                          })
+                          .catch((error) => "");
+                      } else {
+                      }
+                    }}
+                    style={{ color: "white", cursor: "pointer" }}
+                  >
                     <i
                       className="fa fa-share-alt"
                       style={{ color: "white" }}
                     ></i>
                     ПОДЕЛИТЬСЯ
-                  </a>
-                </li>
-                <li>
-                  <a style={{ color: "white" }}>
-                    {localFavorites?.find(
-                      (productFeature) => productFeature === Number(productId)
-                    ) ? (
-                      <button
-                        style={{
-                          border: "0",
-                          backgroundColor: "transparent",
-                          color: "red",
-                          display: "flex",
-                          gap: "10px",
-                          padding: "0",
-                        }}
-                        onClick={() => removeLocalFavorite(Number(productId))}
-                      >
-                        <i className="bi bi-heart-fill"></i>
-                        УБРАТЬ ИЗ ИЗБРАННОГО
-                      </button>
-                    ) : (
-                      <button
-                        style={{
-                          border: "0",
-                          backgroundColor: "transparent",
-                          display: "flex",
-                          gap: "10px",
-                          padding: "0",
-                        }}
-                        onClick={() => addLocalFavorite(Number(productId))}
-                      >
-                        <i className="bi bi-heart-fill"></i>В ИЗБРАННОЕ
-                      </button>
-                    )}
                   </a>
                 </li>
               </ul>

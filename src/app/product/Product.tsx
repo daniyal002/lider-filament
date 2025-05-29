@@ -201,7 +201,6 @@ export default function Product() {
                                 height={400}
                               />
                             </Link>
-
                             <ul className="links">
                               <li>
                                 <a
@@ -217,18 +216,25 @@ export default function Product() {
                                     )
                                   }
                                 >
-                                  <i className="icon-handbag"></i>
+                                  <i
+                                    className="bi bi-basket"
+                                    style={{
+                                      fontSize: "15px",
+                                      color: "#fff",
+                                      fontWeight: "700",
+                                    }}
+                                  ></i>
                                   <span>В корзину</span>
                                 </a>
                               </li>
-                              <li>
+                              {/* <li>
                                 <FavoriteButton
                                   productId={product.product_id as number}
                                   productFeaturedData={
                                     productFeaturedData as IProductResponse
                                   }
                                 />
-                              </li>
+                              </li> */}
                             </ul>
                           </div>
                         </div>
@@ -240,8 +246,10 @@ export default function Product() {
                         <strong className="title">
                           {product.product_category.category_name}
                         </strong>
-                        <strong className="title" 
-                         style={{ maxWidth: "215px", lineHeight: "25px" }}>
+                        <strong
+                          className="title"
+                          style={{ maxWidth: "215px", lineHeight: "25px" }}
+                        >
                           <Link href={`product/${product.product_id}`}>
                             {product.product_name}
                           </Link>

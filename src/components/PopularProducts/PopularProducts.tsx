@@ -59,6 +59,7 @@ export default function PopularProducts() {
                       <ul className="links">
                         <li>
                           <a
+                            style={{ cursor: "pointer" }}
                             onClick={() =>
                               addCart(
                                 product.product_id as number,
@@ -70,18 +71,25 @@ export default function PopularProducts() {
                               )
                             }
                           >
-                            <i className="icon-handbag"></i>
+                            <i
+                              className="bi bi-basket"
+                              style={{
+                                fontSize: "15px",
+                                color: "#fff",
+                                fontWeight: "700",
+                              }}
+                            ></i>
                             <span>В корзину</span>
                           </a>
                         </li>
-                        <li>
+                        {/* <li>
                           <FavoriteButton
                             productId={product.product_id as number}
                             productFeaturedData={
                               productFeaturedData as IProductResponse
                             }
                           />
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </div>
@@ -91,7 +99,9 @@ export default function PopularProducts() {
                     className="title"
                     style={{ maxWidth: "215px", lineHeight: "25px" }}
                   >
-                    <Link href={`/product/${product.product_id}`}>{product.product_name}</Link>
+                    <Link href={`/product/${product.product_id}`}>
+                      {product.product_name}
+                    </Link>
                   </strong>
                   <span className="price">
                     <span>

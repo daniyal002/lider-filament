@@ -107,6 +107,7 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
+
 }
 
 #wrapper {
@@ -5866,15 +5867,16 @@ a:hover {
 	right: 0;
 	bottom: 0;
 	z-index: 1;
-	opacity: 0;
+	opacity: 1;
 	width: 100%;
 	display: table;
 	font-size: 17px;
-	background: #fff;
-	visibility: hidden;
-	position: absolute;
+	color: #fff;
+	background: #551a8b;
+	/* visibility: hidden; */
+	/* position: absolute; */
 	text-align: center;
-	border: 1px solid #eee;
+	/* border: 1px solid #eee; */
 	-webkit-transition: all ease .5s;
 	transition: all ease .5s;
 }
@@ -5933,11 +5935,13 @@ a:hover {
 	font-size: 15px;
 	display: inline-block;
 	vertical-align: middle;
+	color: #fff;
 }
 
 .mt-product1 .links a span {
 	font-size: 14px;
 	margin: 0 -2px 0 10px;
+	color: #fff;
 }
 
 .mt-product1 .links a:hover {
