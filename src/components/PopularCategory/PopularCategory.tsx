@@ -23,13 +23,15 @@ export default function PopularCategory() {
             <img src="/icon/loop_black_48dp.svg" alt="" />
             </div>
         ) : (
-            <div className={style.popularProducts}>
-                {categoryData?.detail.filter(category => category.product_count as number >= 2  ).map(category => (
+            // <div className={style.popularProducts}>
+            <>    
+            {categoryData?.detail.filter(category => category.product_count as number >= 2  ).map(category => (
                     <div className={style.categoryWrapper} key={category.category_id} onClick={() => handleCategoryClick(category.category_id)}>
                       <p>{category.category_name}</p>
                     </div>
                 ))}
-            </div>
+                </>
+            // </div>
         )}
     </div>
     </>

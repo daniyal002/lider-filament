@@ -17,6 +17,9 @@ import { getAccessToken } from "@/services/auth-token.service";
 import useLocalCart from "@/hook/localStorageCartHook";
 import { Toaster } from "react-hot-toast";
 import { product_additional_prices } from "@/interface/product";
+import { useRouter } from "next/navigation";
+import { SquareArrowLeft } from "lucide-react";
+import BackButton from "@/components/UI/BackButton";
 
 interface Props {
   productId: string;
@@ -34,6 +37,8 @@ export default function ProductDetail({ productId }: Props) {
   const { addLocalCart } = useLocalCart();
   const localFavorites = getLocalFavorites();
   const accessToken = getAccessToken();
+
+  const { push,back } = useRouter();
 
   const addCart = (
     product_id: number,
@@ -57,10 +62,14 @@ export default function ProductDetail({ productId }: Props) {
         });
   };
 
+  const [isClickCartB, setIsClickCartB] = useState(false);
+
   return (
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
       <Toaster />
       <div className="container">
+      <BackButton/>
+      
         <div className="row">
           <div
             className="col-xs-12"
@@ -70,7 +79,7 @@ export default function ProductDetail({ productId }: Props) {
               alignItems: "center",
               // rowGap: "30px",
               flexWrap: "wrap",
-              paddingTop: "40px",
+              // paddingTop: "40px",
             }}
           >
             {productByIdData?.detail.product_images?.length ? (
@@ -119,6 +128,34 @@ export default function ProductDetail({ productId }: Props) {
                   {productByIdData?.detail.product_price} ₽/кг
                 </span>
               </div>
+              
+
+              <div className="row-val product_additional_prices">
+                {productByIdData?.detail.product_additional_prices?.map(
+                  (product_additional_price) => (
+                    <div
+                      key={product_additional_price.additional_price_id}
+                      className="product_additional_price"
+                    >
+                      <span
+                        className="price"
+                        style={{ fontSize: "25px", fontWeight: "bold" }}
+                      >
+                        {" "}
+                        От {product_additional_price.product_from} кг:
+                      </span>
+                      <span
+                        className="price"
+                        style={{ fontSize: "25px", fontWeight: "bold" }}
+                      >
+                        {" "}
+                        {product_additional_price.product_additional_price} ₽/кг
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
+
               <form
                 action="#"
                 className="product-form"
@@ -129,7 +166,11 @@ export default function ProductDetail({ productId }: Props) {
                     display: "flex",
                     flexWrap: "wrap",
                     gap: "10px",
-                    alignItems: "center",
+                    alignItems: "start",
+                    flexDirection:"column",
+                    justifyContent:"center",
+                    maxWidth:"150px",
+                    width:"100%"
                   }}
                 >
                   <div
@@ -137,14 +178,14 @@ export default function ProductDetail({ productId }: Props) {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "8px",
+                      gap: "10px",
                     }}
                   >
                     {/* <label>Количество</label> */}
                     <i
                       className="bi bi-dash-circle"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "30px",
                         color: "#a663e3",
                         cursor: "pointer",
                       }}
@@ -172,18 +213,19 @@ export default function ProductDetail({ productId }: Props) {
                         background: "rgba(134, 155, 223, 0.14)",
                         color: "#a663e3",
                         width: "70px",
-                        fontSize: "18px",
+                        fontSize: "20px",
                         borderRadius: "25px",
-                        padding: "0 0 0 15px",
+                        padding: "0 0 0 0",
                         border: "1px solid #a663e3",
                         outline: "none",
-                        height: "22px",
+                        height: "28px",
+                        textAlign:"center"
                       }}
                     />
                     <i
                       className="bi bi-plus-circle"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "30px",
                         color: "#a663e3",
                         cursor: "pointer",
                       }}
@@ -193,18 +235,26 @@ export default function ProductDetail({ productId }: Props) {
                     ></i>
                   </div>
 
-                  <div className="row-val">
+                  <div className="row-val" style={{width:"100%"}}>
                     <button
+                    style={{width:"100%"}}
                       type="button"
                       onClick={() => {
-                        addCart(
-                          productByIdData?.detail.product_id as number,
-                          productByIdData?.detail.product_price as number,
-                          quantity,
-                          // @ts-ignore
-                          productByIdData?.detail.product_images[0].image_patch,
-                          productByIdData?.detail.product_additional_prices
-                        );
+                        if (isClickCartB) {
+                          push("/cart");
+                          setIsClickCartB(false); // необязательно, если не нужно сбрасывать
+                        } else {
+                          addCart(
+                            productByIdData?.detail.product_id as number,
+                            productByIdData?.detail.product_price as number,
+                            quantity,
+                            // @ts-ignore
+                            productByIdData?.detail.product_images[0]
+                              .image_patch,
+                            productByIdData?.detail.product_additional_prices
+                          );
+                          setIsClickCartB(true);
+                        }
                       }}
                     >
                       В КОРЗИНУ
@@ -212,32 +262,6 @@ export default function ProductDetail({ productId }: Props) {
                   </div>
                 </fieldset>
               </form>
-
-              <div className="row-val product_additional_prices">
-                {productByIdData?.detail.product_additional_prices?.map(
-                  (product_additional_price) => (
-                    <div
-                      key={product_additional_price.additional_price_id}
-                      className="product_additional_price"
-                    >
-                      <span
-                        className="price"
-                        style={{ fontSize: "25px", fontWeight: "bold" }}
-                      >
-                        {" "}
-                        От {product_additional_price.product_from} кг:
-                      </span>
-                      <span
-                        className="price"
-                        style={{ fontSize: "25px", fontWeight: "bold" }}
-                      >
-                        {" "}
-                        {product_additional_price.product_additional_price} ₽/кг
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
 
               <div className="txt-wrap" style={{ color: "white" }}>
                 {productByIdData?.detail.note}

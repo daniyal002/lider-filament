@@ -12,6 +12,16 @@ body {
   flex-direction: column;
 }
 
+.lucide {
+color: #fff;
+transition: color 0.5s ease;
+}
+
+.lucide:hover {
+color: #9033e7;
+cursor: pointer;
+}
+
 .main {
   max-width: 1320px;
   margin: 20px auto;

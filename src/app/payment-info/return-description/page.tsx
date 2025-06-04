@@ -1,9 +1,12 @@
 import React from 'react'
 import style from './page.module.scss'
+import BackButton from '@/components/UI/BackButton'
 
 export default function page() {
   return (
-    <div>
+    <div className='container'>
+                        <BackButton />
+      
     <h1 className={style.header}>
     Возврат товара
     </h1>

@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./AboutCompany.module.scss";
 import { IPaymentTable } from "@/interface/payment";
+import BackButton from "@/components/UI/BackButton";
 
 const AboutCompany = () => {
   const listPaymentToIndividuals:IPaymentTable[] = [
@@ -92,6 +93,7 @@ const AboutCompany = () => {
 
   return (
     <div className={style.container}>
+<BackButton/>
       <h1 className={style.header}>О компании</h1>
       <p style={{fontSize:"20px", color:'white',textIndent:"25px"}}>
           Мы, компания «Лидер-В», занимаемся производством пластиковых изделий

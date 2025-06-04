@@ -14,8 +14,9 @@
 .container {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 15px;
   flex-wrap: wrap;
+  width: 100%;
   @media (max-width: 851px) {
     justify-content: center;
   }
@@ -45,11 +46,13 @@
 
 .categoryWrapper {
   background-color: black;
-  border: 1px solid #551a8b;
+  border: 3px solid #551a8b;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.5s;
+  max-width: 90px;
+  width: 100%;
   cursor: pointer;
   p {
     color: #fff;
@@ -58,9 +61,14 @@
     margin: 0;
     font-size: 24px;
     cursor: pointer;
+    background: linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF);
+    background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
   }
   &:hover {
     background-color: #551a8b;
-    border: 1px solid #551a8b;
+    border: 3px solid #551a8b;
   }
 }

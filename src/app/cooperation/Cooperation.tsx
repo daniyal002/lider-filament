@@ -1,10 +1,13 @@
 import React from 'react';
 import style from './Cooperation.module.scss';
 import CooperationForm from '@/components/CooperationForm/CooperationForm';
+import BackButton from '@/components/UI/BackButton';
 
 const Cooperation = () => {
   return (
     <div className={style.container}>
+                  <BackButton />
+      
       <FirstCooperationScreen />
       <FormCooperation />
     </div>

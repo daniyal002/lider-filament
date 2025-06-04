@@ -11,6 +11,9 @@ import { IProductResponseDetail } from "@/interface/product";
 import { useHookFormMask } from "use-mask-input";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
+import { SquareArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import BackButton from "@/components/UI/BackButton";
 
 export default function Cart() {
   const {
@@ -96,10 +99,14 @@ export default function Cart() {
     // Отправка сообщения в Telegram
     sendTelegramMessageFromCart(getValues('phone'),localCart, productData?.detail as IProductResponseDetail[]);
   };
+  const { back } = useRouter();
 
   return (
-    <div className="mt-side-widget">
-      <Toaster toastOptions={{duration:5000}}/>
+    <div className="mt-side-widget" style={{ paddingTop: "0" }}>
+      <BackButton />
+
+      <Toaster toastOptions={{ duration: 5000 }} />
+
       {accessToken
         ? cartData?.detail?.map((cartItem, index) => (
             <CartItem cartItem={cartItem} key={index} />
@@ -110,36 +117,35 @@ export default function Cart() {
 
       <div className="cart-row-total">
         <span className="mt-total">Итого</span>
-        <span className="mt-total-txt">
-          {total} ₽
-        </span>
+        <span className="mt-total-txt">{total} ₽</span>
       </div>
       <div className="cart-btn-row">
-        {!showPhoneInput ? filteredProducts?.length as number > 0 && (
-          <button
-            className="btn-type3"
-            onClick={() => setShowPhoneInput(true)} // Показать инпут для телефона
-          >
-            К оплате
-          </button>
-        ) : filteredProducts?.length as number > 0 && (
-          <div className="phone-input-container">
-
-             <input
-                      className="input"
-                      type="tel"
-                      inputMode="tel"
-                      placeholder="Введите номер телефона"
-                      {...registerWithMask("phone", ["8(999)-999-99-99"])}
-                    />
-            <button
-              className="btn-type3"
-              onClick={handleSendMessage} // Отправка сообщения
-            >
-              Отправить
-            </button>
-          </div>
-        )}
+        {!showPhoneInput
+          ? (filteredProducts?.length as number) > 0 && (
+              <button
+                className="btn-type3"
+                onClick={() => setShowPhoneInput(true)} // Показать инпут для телефона
+              >
+                Оформить заказ
+              </button>
+            )
+          : (filteredProducts?.length as number) > 0 && (
+              <div className="phone-input-container">
+                <input
+                  className="input"
+                  type="tel"
+                  inputMode="tel"
+                  placeholder="Введите номер телефона"
+                  {...registerWithMask("phone", ["8(999)-999-99-99"])}
+                />
+                <button
+                  className="btn-type3"
+                  onClick={handleSendMessage} // Отправка сообщения
+                >
+                  Отправить
+                </button>
+              </div>
+            )}
       </div>
     </div>
   );

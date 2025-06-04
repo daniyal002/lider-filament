@@ -34,11 +34,12 @@ export default function PopularProducts() {
         ) : (
           <div className={style.popularProducts}>
             {productData?.detail.slice(0, 3).map((product) => (
-              <div className="mt-product1 large" key={product.product_id}>
+                      <Link href={`/product/${product.product_id}`} key={product.product_id}>
+
+              <div className="mt-product1 large" >
                 <div className="box">
                   <div className="b1">
                     <div className="b2">
-                      <Link href={`/product/${product.product_id}`}>
                         <Image
                           loader={() =>
                             `${baseURL}/${
@@ -54,43 +55,6 @@ export default function PopularProducts() {
                           width={290}
                           height={400}
                         />
-                      </Link>
-
-                      <ul className="links">
-                        <li>
-                          <a
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              addCart(
-                                product.product_id as number,
-                                product.product_price,
-                                1,
-                                //@ts-ignore
-                                product.product_images[0].image_patch,
-                                product.product_additional_prices as product_additional_prices[]
-                              )
-                            }
-                          >
-                            <i
-                              className="bi bi-basket"
-                              style={{
-                                fontSize: "15px",
-                                color: "#fff",
-                                fontWeight: "700",
-                              }}
-                            ></i>
-                            <span>В корзину</span>
-                          </a>
-                        </li>
-                        {/* <li>
-                          <FavoriteButton
-                            productId={product.product_id as number}
-                            productFeaturedData={
-                              productFeaturedData as IProductResponse
-                            }
-                          />
-                        </li> */}
-                      </ul>
                     </div>
                   </div>
                 </div>
@@ -119,6 +83,8 @@ export default function PopularProducts() {
                   </span>
                 </div>
               </div>
+                      </Link>
+
             ))}
           </div>
         )}

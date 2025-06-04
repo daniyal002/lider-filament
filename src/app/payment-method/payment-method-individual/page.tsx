@@ -2,11 +2,14 @@ import React from 'react';
 import style from './page.module.scss';
 import Image from 'next/image';
 import card from '../../../../public/icon/card.svg'
+import BackButton from '@/components/UI/BackButton';
 
 
 const PaymentMethodIndividual = () => {
   return (
-    <div className={style.container}>
+    <div className="container">
+                        <BackButton />
+      
       <div className={style.paymentMethods}>
 
         <div className={style.methodDetails}>

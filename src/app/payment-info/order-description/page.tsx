@@ -1,9 +1,12 @@
 import React from "react";
 import style from "./page.module.scss";
+import BackButton from "@/components/UI/BackButton";
 
 export default function page() {
   return (
-    <div>
+    <div className="container">
+                        <BackButton />
+      
       <h1 className={style.header}>Как сделать заказ ?</h1>
       <h2 className={style.header2}>
         Для того, чтобы оформить заказ, Вам необходимо совершить несколько

@@ -124,34 +124,27 @@ export default function Product() {
                   "linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
+                textAlign:"center"
               }}
             >
               Категории
             </h2>
-            <ul className="list-unstyled category-list">
+            <ul className="list-unstyled category-list" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
               {categoryData?.detail.map((category) => (
-                <li key={category.category_id}>
-                  <a
-                    style={{
-                      cursor: "pointer",
-                      color:
-                        categoryId === category.category_id
-                          ? "#551A8B"
-                          : "white", // Измените цвет по вашему желанию
-                      fontWeight:
-                        categoryId === category.category_id ? "bold" : "normal",
-                    }}
-                    onClick={() => {
+                <li key={category.category_id} style={{border:"0", display:"flex", justifyContent:"center"}}>
+                 
+                  <div className={`${categoryId !== category.category_id
+? style.categoryWrapper : `${style.categoryWrapper} ${style.active} `}`} key={category.category_id} onClick={() => {
                       if (category.category_id === categoryId) {
                         setCategoryId(null);
                       } else {
                         setCategoryId(category.category_id);
                       }
                     }}
-                  >
-                    <span className="name">{category.category_name}</span>
-                    <span className="num">{category.product_count}</span>
-                  </a>
+                    
+                    >
+                      <p>{category.category_name}</p>
+                    </div>
                 </li>
               ))}
             </ul>
@@ -180,11 +173,11 @@ export default function Product() {
               >
                 {filteredProducts.slice(skip, skip + limit).map((product) => (
                   <li key={product.product_id} style={{ textAlign: "center" }}>
+                            <Link href={`/product/${product.product_id}`}>
                     <div className="mt-product1 large">
                       <div className="box">
                         <div className="b1">
                           <div className="b2">
-                            <Link href={`/product/${product.product_id}`}>
                               <Image
                                 loader={() =>
                                   `${baseURL}/${
@@ -200,42 +193,6 @@ export default function Product() {
                                 width={290}
                                 height={400}
                               />
-                            </Link>
-                            <ul className="links">
-                              <li>
-                                <a
-                                  style={{ cursor: "pointer" }}
-                                  onClick={() =>
-                                    addCart(
-                                      product.product_id as number,
-                                      product.product_price,
-                                      1,
-                                      // @ts-ignore
-                                      product.product_images[0]?.image_patch,
-                                      product.product_additional_prices as product_additional_prices[]
-                                    )
-                                  }
-                                >
-                                  <i
-                                    className="bi bi-basket"
-                                    style={{
-                                      fontSize: "15px",
-                                      color: "#fff",
-                                      fontWeight: "700",
-                                    }}
-                                  ></i>
-                                  <span>В корзину</span>
-                                </a>
-                              </li>
-                              {/* <li>
-                                <FavoriteButton
-                                  productId={product.product_id as number}
-                                  productFeaturedData={
-                                    productFeaturedData as IProductResponse
-                                  }
-                                />
-                              </li> */}
-                            </ul>
                           </div>
                         </div>
                       </div>
@@ -270,6 +227,8 @@ export default function Product() {
                         </span>
                       </div>
                     </div>
+                      </Link>
+
                   </li>
                 ))}
               </ul>

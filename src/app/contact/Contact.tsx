@@ -5,14 +5,14 @@ import email from "/public/icon/email_white_36dp.svg";
 import phone from "/public/icon/phone.svg";
 import home from "/public/icon/home_white_36dp.svg";
 import Image from "next/image";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { IContactForm } from "@/interface/user";
-import { sendTelegramMessageFromContact } from "@/helper/telegram";
 import ContactForm from "@/components/ContactForm/ContactForm";
+import BackButton from "@/components/UI/BackButton";
 
 const Contact = () => {
   return (
     <div className={style.container}>
+            <BackButton />
+      
       <div className={style.contactHeader}>
         <h1 className={style.title}>Контакты</h1>
         <div className={style.contactBlocks}>

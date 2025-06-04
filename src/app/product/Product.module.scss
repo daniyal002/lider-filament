@@ -8,3 +8,41 @@
             color: #fff;
         }
     }
+
+
+    .categoryWrapper {
+  background-color: black;
+  border: 3px solid #551a8b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+  width: 95%;
+    
+  p {
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+    font-size: 24px;
+    cursor: pointer;
+    background: linear-gradient(297deg, #9CD0FF, #A95BF3, #9CD0FF);
+    background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bolder;
+  }
+  
+  &:hover {
+    background-color: #551a8b;
+    border: 3px solid #551a8b;
+  }
+
+
+}
+
+.active{
+background-color: #551a8b;
+}
+
