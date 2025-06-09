@@ -66,7 +66,6 @@ export const useUpdateProductMutation = () => {
     mutationKey: ["updateProduct"],
     mutationFn: ({formData,product_id}:{formData:FormData,product_id:string}) => productService.updateProduct(product_id,formData),
     onSuccess: (updatedProduct,variables) => {
-      console.log(updatedProduct)
       queryClient.setQueryData(["Products"], (oldData: IProductResponse | undefined) => {
         if (!oldData?.detail) return oldData;
         return {

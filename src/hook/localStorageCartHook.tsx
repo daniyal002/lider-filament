@@ -22,7 +22,6 @@ function useLocalCart() {
   };
 
   const addLocalCart = (product: Product, isCartPage:boolean = false) => {
-    console.log(product)
     const currentCart = getLocalCart();
     const existingProductIndex = currentCart.findIndex((item) => item.product_id === product.product_id);
     if (existingProductIndex === -1) {
