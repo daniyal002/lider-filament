@@ -76,7 +76,7 @@
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.logo:hover {
+.logo:active {
   transform: scale(1.1);
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
@@ -86,8 +86,7 @@
 color: #fff !important;
 }
 
-.bi-basket:hover {
-  transform: scale(1.1);
+.bi-basket:active {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 color: #9d53e2 !important;
 }
@@ -96,9 +95,8 @@ color: #9d53e2 !important;
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.fa-whatsapp:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+.fa-whatsapp:active {
+  color: #9d53e2 !important;
 }
 
 /* ✅ ОСТАВИТЬ — стили для ссылок в боковом меню */

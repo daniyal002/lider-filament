@@ -18,6 +18,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import style from "./Product.module.scss";
 import { Toaster } from "react-hot-toast";
+import BackButton from "@/components/UI/BackButton";
 
 export default function Product() {
   const [skip, setSkip] = useState(0);
@@ -110,6 +111,10 @@ export default function Product() {
 
   return (
     <div className="container">
+      <div style={{marginBottom:"20px"}}>
+
+      <BackButton/>
+      </div>
       <Toaster toastOptions={{ duration: 3000 }} />
       <div className="row">
         <aside

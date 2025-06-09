@@ -160,23 +160,62 @@ export default function CartItem({ cartItem }: Props) {
                 id="qty"
                 placeholder="1"
                 min={1}
-                value={quantity || 1}
+                value={quantity === 0 ? "" : quantity}
                 onChange={(e) => {
                   const inputVal = e.target.value;
-                  let newQuantity = Number(inputVal);
 
-                  // Если введено пустое значение или 0, устанавливаем 1
-                  if (!inputVal || newQuantity < 1) {
-                    newQuantity = 1;
+                  if (inputVal === "") {
+                    setQuantity(0); // Пустое значение
+                    return;
                   }
 
-                  setQuantity(newQuantity);
-                  updateCart(
-                    cartItem.product_id,
-                    cartItem.product_price,
-                    newQuantity,
-                    cartItem.product_additional_prices as product_additional_prices[]
-                  );
+                  const newQuantity = Number(inputVal);
+                  if (!isNaN(newQuantity)) {
+                    setQuantity(newQuantity);
+                  }
+                }}
+                onBlur={() => {
+                  // При потере фокуса — проверяем и обновляем корзину
+                  if (!quantity || quantity < 1) {
+                    setQuantity(1);
+                    updateCart(
+                      cartItem.product_id,
+                      cartItem.product_price,
+                      1,
+                      cartItem.product_additional_prices as product_additional_prices[]
+                    );
+                  } else {
+                    updateCart(
+                      cartItem.product_id,
+                      cartItem.product_price,
+                      quantity,
+                      cartItem.product_additional_prices as product_additional_prices[]
+                    );
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    // При нажатии Enter — тоже обновляем корзину
+                    if (!quantity || quantity < 1) {
+                      setQuantity(1);
+                      updateCart(
+                        cartItem.product_id,
+                        cartItem.product_price,
+                        1,
+                        cartItem.product_additional_prices as product_additional_prices[]
+                      );
+                    } else {
+                      updateCart(
+                        cartItem.product_id,
+                        cartItem.product_price,
+                        quantity,
+                        cartItem.product_additional_prices as product_additional_prices[]
+                      );
+                    }
+
+                    // Убираем фокус (по UX это может быть удобно)
+                    inputRef.current?.blur();
+                  }
                 }}
                 onFocus={() => {
                   setTimeout(() => {

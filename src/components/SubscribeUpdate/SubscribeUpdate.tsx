@@ -7,10 +7,6 @@ import Image from "next/image";
 export default function SubscribeUpdate(){
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <Image src={logo} className={styles.image} alt="Подпишитесь"/>
-      </div>
-
       <div className={styles.textContainer}>
         <h1 className={styles.title}>
           Подпишитесь и получайте свежие новости о нитях для 3D принтеров.

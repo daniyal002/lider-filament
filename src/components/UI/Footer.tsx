@@ -58,7 +58,7 @@ export default function Footer() {
                 <h3 className="f-widget-heading">Маркетплейс</h3>
                 <ul className="list-unstyled f-widget-nav">
                   <li>
-                    <Link href="/product">Продукты</Link>
+                    <Link href="/product">Товары</Link>
                   </li>
                 </ul>
               </div>

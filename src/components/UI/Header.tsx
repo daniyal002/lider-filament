@@ -74,7 +74,7 @@ export default function Header() {
             <Link className="nav-link" href="/">ГЛАВНАЯ</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" href="/product">ПРОДУКТЫ</Link>
+            <Link className="nav-link" href="/product">ТОВАРЫ</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" href="/about-company">О КОМПАНИИ</Link>
@@ -131,7 +131,7 @@ export default function Header() {
               <Link className="nav-link" href="/" onClick={handleNavCollapse}>ГЛАВНАЯ</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="/product" onClick={handleNavCollapse}>ПРОДУКТЫ</Link>
+              <Link className="nav-link" href="/product" onClick={handleNavCollapse}>ТОВАРЫ</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" href="/about-company" onClick={handleNavCollapse}>О КОМПАНИИ</Link>

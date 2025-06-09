@@ -30,7 +30,7 @@ export default function Home() {
           </p>
           <div className={style.buttons}>
             <Link href="/product" className={`${style.button} ${style.getStarted}`}>
-              Товары
+              Все Товары
             </Link>
             <Link href="/about-company" className={`${style.button} ${style.createNtf}`}>
               О Компании

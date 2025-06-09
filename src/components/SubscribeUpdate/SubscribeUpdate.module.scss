@@ -7,19 +7,12 @@
     justify-content: space-between;
   }
 
-  .imageContainer {
-    width: 50%;
-  }
-
-  .image {
-    width: 80%;
-  }
 
   .textContainer {
     display: flex;
     flex-direction: column;
     row-gap: 15px;
-    width: 50%;
+    width: 100%;
   }
 
   .title {

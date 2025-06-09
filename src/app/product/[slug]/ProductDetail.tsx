@@ -115,7 +115,7 @@ export default function ProductDetail({ productId }: Props) {
             <div className="detial-holder">
               <ul className="list-unstyled breadcrumbs">
                 <li>
-                  <Link href="/product">Продукты</Link>
+                  <Link href="/product">Товары</Link>
                   <i className="fa fa-angle-right"></i>
                 </li>
                 <li>{productByIdData?.detail.product_name}</li>
