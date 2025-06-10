@@ -103,7 +103,9 @@ export default function Cart() {
 
   return (
     <div className="mt-side-widget" style={{ paddingTop: "0" }}>
+      <div style={{marginBottom:"15px"}}>
       <BackButton />
+      </div>
 
       <Toaster toastOptions={{ duration: 5000 }} />
 

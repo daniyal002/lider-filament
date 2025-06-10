@@ -33,7 +33,7 @@ export default function PopularProducts() {
           </div>
         ) : (
           <div className={style.popularProducts}>
-            {productData?.detail.slice(0, 3).map((product) => (
+            {productData?.detail?.slice(0, 3).map((product) => (
                       <Link href={`/product/${product.product_id}`} key={product.product_id}>
 
               <div className="mt-product1 large" >

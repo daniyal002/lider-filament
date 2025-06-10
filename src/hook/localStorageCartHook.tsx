@@ -29,7 +29,7 @@ function useLocalCart() {
       const updatedCart = [...currentCart, product];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       if(window.location.pathname !== "/cart" ) {
-        toast.success("Товар успешно добавлен в корзину!")
+        toast.success("Товар успешно добавлен в корзину!",{duration:500})
       }
       setCartLength(updatedCart.length)
     } else {
@@ -50,7 +50,7 @@ function useLocalCart() {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       window.dispatchEvent(new StorageEvent('storage', { key: "cart", newValue: JSON.stringify(updatedCart) }));
       if(window.location.pathname !== "/cart" ) {
-        toast.success("Товар успешно добавлен в корзину!")
+        toast.success("Товар успешно добавлен в корзину!",{duration:500})
       }
       setCartLength(updatedCart.length)
     }
