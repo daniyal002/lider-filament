@@ -68,8 +68,8 @@ export default function ProductDetail({ productId }: Props) {
     <section className="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
       <Toaster />
       <div className="container">
-      <BackButton/>
-      
+        <BackButton />
+
         <div className="row">
           <div
             className="col-xs-12"
@@ -128,7 +128,6 @@ export default function ProductDetail({ productId }: Props) {
                   {productByIdData?.detail.product_price} ₽/кг
                 </span>
               </div>
-              
 
               <div className="row-val product_additional_prices">
                 {productByIdData?.detail.product_additional_prices?.map(
@@ -167,10 +166,10 @@ export default function ProductDetail({ productId }: Props) {
                     flexWrap: "wrap",
                     gap: "10px",
                     alignItems: "start",
-                    flexDirection:"column",
-                    justifyContent:"center",
-                    maxWidth:"150px",
-                    width:"100%"
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    maxWidth: "150px",
+                    width: "100%",
                   }}
                 >
                   <div
@@ -194,22 +193,61 @@ export default function ProductDetail({ productId }: Props) {
                       }}
                     ></i>
                     <input
-                      type="number"
+                      type="text" // меняем type на "text" — он не позволяет вводить буквы, но сохраняем контроль
+                      inputMode="numeric"
+                      pattern="\d*"
                       id="qty"
-                      placeholder="1"
+                      placeholder="0"
                       min={1}
-                      value={quantity}
-                      onChange={(e) =>
-                        Number(e.target.value) > 0 &&
-                        setQuantity(Number(e.target.value))
-                      }
+                      value={quantity === 0 ? "" : quantity}
+                      onChange={(e) => {
+                        const inputVal = e.target.value;
+                        // Удаляем всё, кроме цифр
+                        const cleaned = inputVal.replace(/\D/g, "");
+
+                        if (cleaned === "") {
+                          setQuantity(0);
+                        } else {
+                          const newQuantity = Number(cleaned);
+                          if (!isNaN(newQuantity)) {
+                            setQuantity(newQuantity);
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        // Разрешаем только цифры, Backspace, Delete, Arrow keys
+                        const allowedKeys = [
+                          "Backspace",
+                          "Delete",
+                          "ArrowLeft",
+                          "ArrowRight",
+                          "Tab",
+                        ];
+                        if (
+                          !/^\d$/.test(e.key) &&
+                          !allowedKeys.includes(e.key)
+                        ) {
+                          e.preventDefault();
+                        }
+
+                        if (e.key === "Enter") {
+                          const qty = quantity < 1 ? 1 : quantity;
+                          setQuantity(qty);
+                        }
+                      }}
+                      onPaste={(e) => {
+                        const paste = e.clipboardData.getData("text");
+                        if (!/^\d+$/.test(paste)) {
+                          e.preventDefault();
+                        }
+                      }}
                       onFocus={() => {
                         setTimeout(() => {
                           inputRef.current?.select();
                         }, 0);
                       }}
                       ref={inputRef}
-                      style={{
+                       style={{
                         background: "rgba(134, 155, 223, 0.14)",
                         color: "#a663e3",
                         width: "70px",
@@ -235,9 +273,9 @@ export default function ProductDetail({ productId }: Props) {
                     ></i>
                   </div>
 
-                  <div className="row-val" style={{width:"100%"}}>
+                  <div className="row-val" style={{ width: "100%" }}>
                     <button
-                    style={{width:"100%"}}
+                      style={{ width: "100%" }}
                       type="button"
                       onClick={() => {
                         if (isClickCartB) {

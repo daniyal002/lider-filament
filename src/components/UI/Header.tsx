@@ -85,7 +85,7 @@ export default function Header() {
         </ul>
 
         {/* Иконки и бургер */}
-        <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: "10px" }}>
+        <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: "23px" }}>
           <a href="https://wa.me/79289772357" target="_blank">
             <i className="fa fa-whatsapp" style={{ fontSize: "32px", color: "#2cb742" }}></i>
           </a>

@@ -156,26 +156,59 @@ export default function CartItem({ cartItem }: Props) {
                 }}
               ></i>
               <input
-                type="number"
+                type="text" // меняем type на "text" — он не позволяет вводить буквы, но сохраняем контроль
+                inputMode="numeric"
+                pattern="\d*"
                 id="qty"
-                placeholder="1"
+                placeholder="0"
                 min={1}
                 value={quantity === 0 ? "" : quantity}
                 onChange={(e) => {
                   const inputVal = e.target.value;
+                  // Удаляем всё, кроме цифр
+                  const cleaned = inputVal.replace(/\D/g, "");
 
-                  if (inputVal === "") {
-                    setQuantity(0); // Пустое значение
-                    return;
+                  if (cleaned === "") {
+                    setQuantity(0);
+                  } else {
+                    const newQuantity = Number(cleaned);
+                    if (!isNaN(newQuantity)) {
+                      setQuantity(newQuantity);
+                    }
+                  }
+                }}
+                onKeyDown={(e) => {
+                  // Разрешаем только цифры, Backspace, Delete, Arrow keys
+                  const allowedKeys = [
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ];
+                  if (!/^\d$/.test(e.key) && !allowedKeys.includes(e.key)) {
+                    e.preventDefault();
                   }
 
-                  const newQuantity = Number(inputVal);
-                  if (!isNaN(newQuantity)) {
-                    setQuantity(newQuantity);
+                  if (e.key === "Enter") {
+                    const qty = quantity < 1 ? 1 : quantity;
+                    setQuantity(qty);
+                    updateCart(
+                      cartItem.product_id,
+                      cartItem.product_price,
+                      qty,
+                      cartItem.product_additional_prices as product_additional_prices[]
+                    );
+                    inputRef.current?.blur();
+                  }
+                }}
+                onPaste={(e) => {
+                  const paste = e.clipboardData.getData("text");
+                  if (!/^\d+$/.test(paste)) {
+                    e.preventDefault();
                   }
                 }}
                 onBlur={() => {
-                  // При потере фокуса — проверяем и обновляем корзину
                   if (!quantity || quantity < 1) {
                     setQuantity(1);
                     updateCart(
@@ -191,30 +224,6 @@ export default function CartItem({ cartItem }: Props) {
                       quantity,
                       cartItem.product_additional_prices as product_additional_prices[]
                     );
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    // При нажатии Enter — тоже обновляем корзину
-                    if (!quantity || quantity < 1) {
-                      setQuantity(1);
-                      updateCart(
-                        cartItem.product_id,
-                        cartItem.product_price,
-                        1,
-                        cartItem.product_additional_prices as product_additional_prices[]
-                      );
-                    } else {
-                      updateCart(
-                        cartItem.product_id,
-                        cartItem.product_price,
-                        quantity,
-                        cartItem.product_additional_prices as product_additional_prices[]
-                      );
-                    }
-
-                    // Убираем фокус (по UX это может быть удобно)
-                    inputRef.current?.blur();
                   }
                 }}
                 onFocus={() => {
@@ -234,6 +243,7 @@ export default function CartItem({ cartItem }: Props) {
                   outline: "none",
                 }}
               />
+
               <i
                 className="bi bi-plus-circle"
                 style={{

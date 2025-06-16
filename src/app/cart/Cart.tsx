@@ -117,7 +117,7 @@ export default function Cart() {
 
       <div className="cart-row-total">
         <span className="mt-total">Итого</span>
-        <span className="mt-total-txt">{total} ₽</span>
+        <span className="mt-total-txt" style={{marginLeft:"10px"}}>{total} ₽</span>
       </div>
       <div className="cart-btn-row">
         {!showPhoneInput
